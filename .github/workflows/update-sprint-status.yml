@@ -8,7 +8,7 @@ on:
 
 permissions:
   contents: write
-  pull-requests: read
+  pull-requests: write
 
 jobs:
   update-sprint-config:
@@ -41,10 +41,9 @@ jobs:
               sys.exit(0)
 
           sprint_num = sprint["number"]
-          prefix = f"S{sprint_num}-"
 
           # Get all merged PRs
-          pr_json = run(f'gh pr list --state merged --limit 100 --json number,title')
+          pr_json = run('gh pr list --state merged --limit 100 --json number,title')
           merged_prs = json.loads(pr_json)
 
           changed = False
@@ -83,23 +82,34 @@ jobs:
               print("📝 sprint-config.json updated")
           else:
               print("No changes needed.")
-
-          # Write output for next step
-          with open("/tmp/sprint-changed", "w") as f:
-              f.write("true" if changed else "false")
           SCRIPT
 
       - name: Check for changes
         id: diff
         run: |
-          CHANGED=$(cat /tmp/sprint-changed)
-          echo "changed=$CHANGED" >> "$GITHUB_OUTPUT"
+          git diff --quiet sprint-config.json && echo "changed=false" >> "$GITHUB_OUTPUT" || echo "changed=true" >> "$GITHUB_OUTPUT"
 
-      - name: Commit and push
+      - name: Create PR with updated sprint config
         if: steps.diff.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
+          BRANCH="auto/update-sprint-status"
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
+
+          git checkout -B "$BRANCH"
           git add sprint-config.json
           git commit -m "chore: auto-update sprint task statuses"
-          git push origin main
+          git push -f origin "$BRANCH"
+
+          EXISTING=$(gh pr list --head "$BRANCH" --state open --json number -q '.[0].number')
+          if [ -n "$EXISTING" ]; then
+            echo "PR #$EXISTING already open, updated branch"
+          else
+            gh pr create \
+              --head "$BRANCH" \
+              --base main \
+              --title "chore: auto-update sprint task statuses" \
+              --body "Auto-generated sprint status update from merged PRs. Created by update-sprint-status workflow."
+          fi
