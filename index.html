@@ -6,78 +6,161 @@
 <title>BattleBrotts Studio Dashboard</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#0d1117;--card:#161b22;--border:#30363d;--text:#e6edf3;--muted:#8b949e;--accent:#58a6ff;--green:#3fb950;--yellow:#d29922;--red:#f85149;--purple:#bc8cff}
-body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;line-height:1.5;padding:1rem;max-width:1400px;margin:0 auto}
-header{text-align:center;padding:1.5rem 0;border-bottom:1px solid var(--border);margin-bottom:1.5rem}
-header h1{font-size:1.8rem;font-weight:700}
-header p{color:var(--muted);font-size:.85rem;margin-top:.3rem}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+:root{
+  --bg:#0d1117;--card:#161b22;--border:#30363d;--text:#e6edf3;--muted:#8b949e;
+  --accent:#58a6ff;--green:#3fb950;--yellow:#d29922;--red:#f85149;--purple:#bc8cff;
+  --card-radius:12px;--gap:1rem;
+}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;line-height:1.6;padding:var(--gap);max-width:1400px;margin:0 auto}
+
+/* Header */
+header{text-align:center;padding:1.5rem var(--gap);border-bottom:1px solid var(--border);margin-bottom:var(--gap)}
+header h1{font-size:clamp(1.3rem,4vw,2rem);font-weight:700}
+header .subtitle{color:var(--muted);font-size:clamp(.75rem,2vw,.9rem);margin-top:.3rem}
+
+/* Grid */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
 @media(max-width:768px){.grid{grid-template-columns:1fr}}
-.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1rem;margin-bottom:1rem}
-.card h2{font-size:1rem;margin-bottom:.75rem;color:var(--accent);display:flex;align-items:center;gap:.5rem}
 .full{grid-column:1/-1}
-/* Agents */
-.agents-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.5rem}
-.agent{display:flex;align-items:center;gap:.5rem;padding:.5rem .7rem;background:var(--bg);border-radius:6px;font-size:.85rem}
-.agent .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.dot.active{background:var(--green)}.dot.working{background:var(--yellow)}.dot.idle{background:#484f58}.dot.error{background:var(--red)}
-.agent .name{font-weight:600;white-space:nowrap}.agent .task{color:var(--muted);font-size:.78rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* Cards */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--card-radius);padding:clamp(.75rem,2vw,1.25rem);margin-bottom:0}
+.card h2{font-size:clamp(.85rem,2.5vw,1.05rem);margin-bottom:.75rem;color:var(--accent);display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.card h2 .count{font-size:.75rem;color:var(--muted);font-weight:400}
+
+/* Agent Cards */
+.agents-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(260px,100%),1fr));gap:.6rem}
+.agent-card{display:flex;align-items:flex-start;gap:.6rem;padding:.7rem .85rem;background:var(--bg);border-radius:8px;border:1px solid transparent;transition:border-color .2s}
+.agent-card:hover{border-color:var(--border)}
+.agent-card .dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.dot.active,.dot.done{background:var(--green)}.dot.working{background:var(--yellow)}.dot.idle{background:#484f58}.dot.error{background:var(--red)}
+.agent-card .info{min-width:0;flex:1}
+.agent-card .name{font-weight:600;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.agent-card .role{color:var(--muted);font-size:.75rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.agent-card .task{color:var(--muted);font-size:.78rem;margin-top:.15rem;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+
 /* Sprint */
-.progress-bar{height:8px;background:var(--bg);border-radius:4px;overflow:hidden;margin:.75rem 0 .5rem}
+.sprint-header{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-bottom:.5rem}
+.sprint-num{font-size:clamp(.9rem,2.5vw,1.1rem);font-weight:700}
+.sprint-goal{color:var(--muted);font-size:clamp(.8rem,2vw,.9rem)}
+.sprint-badge{font-size:.7rem;padding:2px 10px;border-radius:10px;font-weight:600;text-transform:uppercase}
+.sprint-badge.active{background:#1f6feb;color:#fff}
+.sprint-badge.complete{background:#238636;color:#fff}
+.progress-bar{height:8px;background:var(--bg);border-radius:4px;overflow:hidden;margin:.5rem 0}
 .progress-bar .fill{height:100%;background:linear-gradient(90deg,var(--green),var(--accent));border-radius:4px;transition:width .5s}
-.task-list{list-style:none;max-height:300px;overflow-y:auto}
-.task-list li{display:flex;align-items:center;gap:.5rem;padding:.35rem 0;font-size:.85rem;border-bottom:1px solid var(--border)}
+.progress-text{font-size:.8rem;color:var(--muted);margin-bottom:.75rem}
+
+/* Task list */
+.task-list{list-style:none}
+.task-list li{display:flex;align-items:center;gap:.5rem;padding:.4rem 0;font-size:clamp(.78rem,2vw,.85rem);border-bottom:1px solid var(--border);flex-wrap:wrap}
 .task-list li:last-child{border:none}
-.badge{font-size:.7rem;padding:2px 8px;border-radius:10px;font-weight:600;text-transform:uppercase}
-.badge.done{background:#238636;color:#fff}.badge.active{background:#1f6feb;color:#fff}.badge.review{background:#8957e5;color:#fff}.badge.backlog{background:var(--border);color:var(--muted)}
-/* Activity */
-.activity-list{list-style:none;max-height:400px;overflow-y:auto}
-.activity-list li{padding:.4rem 0;font-size:.83rem;border-bottom:1px solid var(--border);display:flex;gap:.5rem}
+.task-list .assignee{margin-left:auto;color:var(--muted);font-size:.75rem;white-space:nowrap}
+.badge{font-size:.65rem;padding:2px 8px;border-radius:10px;font-weight:600;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
+.badge.done{background:#238636;color:#fff}.badge.active{background:#1f6feb;color:#fff}.badge.review{background:#8957e5;color:#fff}.badge.backlog,.badge.blocked{background:var(--border);color:var(--muted)}
+
+/* Activity Timeline */
+.activity-list{list-style:none}
+.activity-list li{padding:.45rem 0;font-size:clamp(.78rem,2vw,.85rem);border-bottom:1px solid var(--border);display:flex;gap:.5rem;align-items:flex-start;flex-wrap:wrap}
 .activity-list li:last-child{border:none}
-.activity-list .time{color:var(--muted);white-space:nowrap;font-size:.75rem;min-width:55px}
-.activity-list .ag{color:var(--purple);font-weight:600;white-space:nowrap}
-/* PRs */
-.pr-item{padding:.5rem 0;border-bottom:1px solid var(--border);font-size:.85rem}
+.activity-list .time{color:var(--muted);font-size:.72rem;min-width:55px;flex-shrink:0;padding-top:1px}
+.activity-list .ag{color:var(--purple);font-weight:600;white-space:nowrap;flex-shrink:0}
+.activity-list .act-text{flex:1;min-width:0;word-break:break-word}
+
+/* Sprint History */
+.sprint-history{list-style:none}
+.sprint-summary{border:1px solid var(--border);border-radius:8px;margin-bottom:.5rem;overflow:hidden;background:var(--bg)}
+.sprint-summary-header{display:flex;align-items:center;gap:.5rem;padding:.65rem .85rem;cursor:pointer;font-size:clamp(.8rem,2vw,.9rem);user-select:none;flex-wrap:wrap}
+.sprint-summary-header:hover{background:rgba(88,166,255,.05)}
+.sprint-summary-header .chevron{transition:transform .2s;flex-shrink:0;color:var(--muted);font-size:.8rem}
+.sprint-summary-header.open .chevron{transform:rotate(90deg)}
+.sprint-summary-header .sprint-label{font-weight:600}
+.sprint-summary-header .sprint-meta{color:var(--muted);font-size:.78rem;margin-left:auto}
+.sprint-summary-body{padding:0 .85rem .75rem;display:none;border-top:1px solid var(--border)}
+.sprint-summary-body.open{display:block;padding-top:.65rem}
+.sprint-summary-body p{font-size:.82rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5}
+.sprint-summary-body .task-list li{font-size:.8rem}
+
+/* PR & Build */
+.pr-item{padding:.5rem 0;border-bottom:1px solid var(--border);font-size:clamp(.78rem,2vw,.85rem)}
 .pr-item:last-child{border:none}
 .pr-item a{color:var(--accent);text-decoration:none}
 .pr-item a:hover{text-decoration:underline}
-.pr-item .meta{color:var(--muted);font-size:.78rem}
-/* Build */
-.build-item{display:flex;align-items:center;gap:.5rem;padding:.4rem 0;font-size:.85rem}
+.pr-item .meta{color:var(--muted);font-size:.75rem}
+.build-item{display:flex;align-items:center;gap:.5rem;padding:.4rem 0;font-size:clamp(.78rem,2vw,.85rem)}
 .build-item a{color:var(--accent);text-decoration:none}
 .none{color:var(--muted);font-size:.85rem;font-style:italic}
+
+/* Project Health */
+.health-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(140px,100%),1fr));gap:.5rem}
+.health-stat{text-align:center;padding:.6rem .4rem;background:var(--bg);border-radius:8px}
+.health-stat .value{font-size:clamp(1.2rem,3vw,1.6rem);font-weight:700;color:var(--accent)}
+.health-stat .label{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+
+/* Tabs */
+.tab-bar{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:.75rem;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tab{padding:.4rem .8rem;font-size:.8rem;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;user-select:none}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tab:hover{color:var(--text)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* Scrollable containers */
+.scrollable{max-height:500px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.scrollable::-webkit-scrollbar{width:6px}
+.scrollable::-webkit-scrollbar-track{background:transparent}
+.scrollable::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 </style>
 </head>
 <body>
 <header>
 <h1>🤖⚔️ BattleBrotts Studio</h1>
-<p>Last updated: <span id="updated">—</span> · Auto-refreshes every 60s</p>
+<p class="subtitle">Last updated: <span id="updated">—</span> · Auto-refreshes every 60s</p>
 </header>
 
+<!-- Project Health Stats -->
+<div class="card full" style="margin-bottom:var(--gap)">
+<h2>📊 Project Health</h2>
+<div class="health-grid" id="health"></div>
+</div>
+
 <div class="grid">
-  <div class="card full" id="agents-card">
-    <h2>👥 Agent Status</h2>
+  <!-- Agent Cards — Full Width -->
+  <div class="card full">
+    <h2>👥 Agents <span class="count" id="agent-count"></span></h2>
     <div class="agents-grid" id="agents"></div>
   </div>
 
+  <!-- Current Sprint -->
   <div class="card">
-    <h2>🏃 Sprint</h2>
+    <h2>🏃 Current Sprint</h2>
     <div id="sprint-header"></div>
     <div class="progress-bar"><div class="fill" id="progress"></div></div>
-    <p id="progress-text" style="font-size:.8rem;color:var(--muted)"></p>
+    <p class="progress-text" id="progress-text"></p>
     <ul class="task-list" id="tasks"></ul>
   </div>
 
+  <!-- Activity Timeline — Tabbed (All / By Agent) -->
   <div class="card">
-    <h2>📡 Recent Activity</h2>
-    <ul class="activity-list" id="activity"></ul>
+    <h2>📡 Activity Timeline <span class="count" id="activity-count"></span></h2>
+    <div class="tab-bar" id="activity-tabs">
+      <div class="tab active" data-tab="all">All</div>
+    </div>
+    <div id="activity-panels"></div>
   </div>
 
+  <!-- Sprint History -->
+  <div class="card full">
+    <h2>📜 Sprint History</h2>
+    <div id="sprint-history"></div>
+  </div>
+
+  <!-- Open PRs -->
   <div class="card">
     <h2>🔀 Open Pull Requests</h2>
     <div id="prs"></div>
   </div>
 
+  <!-- Build Status -->
   <div class="card">
     <h2>🏗️ Build Status</h2>
     <div id="builds"></div>
@@ -85,57 +168,172 @@ header p{color:var(--muted);font-size:.85rem;margin-top:.3rem}
 </div>
 
 <script>
-const REPO='blor-inc/game-dev-studio';
-const API=`https://api.github.com/repos/${REPO}`;
-const EMOJIS={eric:'🎬','the-bott':'🤖',pm:'📋','game-designer':'🎯','lead-dev':'👨‍💻','dev-01':'💻','playtest-lead':'🎮',qa:'🧪',inspector:'🕵️',devops:'🔧'};
-const LABELS={eric:'Eric','the-bott':'The Bott',pm:'Rivett — PM','game-designer':'Gizmo — Designer','lead-dev':'Boltz — Lead Dev','dev-01':'Nutts — Dev','playtest-lead':'Optic — Playtest','qa':'Glytch — QA',inspector:'Specc — Inspector',devops:'Patch — DevOps'};
+const GAME_REPO='blor-inc/battlebrotts';
+const OPS_REPO='blor-inc/game-dev-studio';
+const API_GAME=`https://api.github.com/repos/${GAME_REPO}`;
+const API_OPS=`https://api.github.com/repos/${OPS_REPO}`;
 
-function relTime(iso){const d=new Date(iso),now=new Date(),m=Math.round((now-d)/60000);if(m<1)return'just now';if(m<60)return m+'m ago';const h=Math.round(m/60);if(h<24)return h+'h ago';return Math.round(h/24)+'d ago'}
-function timeStr(iso){return new Date(iso).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}
+const AGENT_META={
+  eric:{emoji:'🎬',label:'Eric',role:'Creative Director'},
+  'the-bott':{emoji:'🤖',label:'The Bott',role:'Head of Product'},
+  pm:{emoji:'📋',label:'Rivett',role:'Head of Operations'},
+  'game-designer':{emoji:'🎯',label:'Gizmo',role:'Game Designer'},
+  'lead-dev':{emoji:'👨‍💻',label:'Boltz',role:'Lead Dev'},
+  'dev-01':{emoji:'💻',label:'Nutts',role:'Dev-01'},
+  'playtest-lead':{emoji:'🎮',label:'Optic',role:'Playtest Lead'},
+  qa:{emoji:'🧪',label:'Glytch',role:'QA'},
+  inspector:{emoji:'🕵️',label:'Specc',role:'Inspector'},
+  devops:{emoji:'🔧',label:'Patch',role:'DevOps'}
+};
+
+function relTime(iso){
+  const d=new Date(iso),now=new Date(),m=Math.round((now-d)/60000);
+  if(m<1)return'just now';if(m<60)return m+'m ago';
+  const h=Math.round(m/60);if(h<24)return h+'h ago';
+  const days=Math.round(h/24);return days+'d ago';
+}
+function fmtTime(iso){return new Date(iso).toLocaleString([],{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'})}
+function agentLabel(key){const m=AGENT_META[key];return m?`${m.emoji} ${m.label}`:key}
+function agentName(key){const m=AGENT_META[key];return m?m.label:key}
+
+let currentData=null;
 
 async function loadData(){
   try{
     const r=await fetch('data.json?t='+Date.now());
-    const d=await r.json();
+    currentData=await r.json();
+    const d=currentData;
     document.getElementById('updated').textContent=new Date(d.updated).toLocaleString();
 
+    // Project Health
+    const totalTasks=(d.sprintHistory||[]).reduce((s,sp)=>s+sp.tasks.length,0)+d.tasks.length;
+    const doneTasks=(d.sprintHistory||[]).reduce((s,sp)=>s+sp.tasks.filter(t=>t.status==='done').length,0)+d.tasks.filter(t=>t.status==='done').length;
+    const totalPRs=(d.sprintHistory||[]).reduce((s,sp)=>{const prs=new Set();sp.tasks.forEach(t=>{if(t.pr)(t.pr+'').split(',').forEach(p=>prs.add(p.trim()))});return s+prs.size},0);
+    const sprintsDone=(d.sprintHistory||[]).filter(s=>s.status==='complete').length;
+    const activeAgents=Object.values(d.agents).filter(a=>a.status==='active'||a.status==='done'||a.status==='working').length;
+    document.getElementById('health').innerHTML=`
+      <div class="health-stat"><div class="value">${sprintsDone+1}</div><div class="label">Sprints</div></div>
+      <div class="health-stat"><div class="value">${doneTasks}/${totalTasks}</div><div class="label">Tasks Done</div></div>
+      <div class="health-stat"><div class="value">${totalPRs}+</div><div class="label">PRs Merged</div></div>
+      <div class="health-stat"><div class="value">${activeAgents}/${Object.keys(d.agents).length}</div><div class="label">Agents Active</div></div>
+      <div class="health-stat"><div class="value">166+</div><div class="label">Tests</div></div>
+    `;
+
     // Agents
+    const agentKeys=Object.keys(d.agents);
+    document.getElementById('agent-count').textContent=`(${agentKeys.length})`;
     let ah='';
-    for(const[k,v]of Object.entries(d.agents)){
-      ah+=`<div class="agent"><span class="dot ${v.status}"></span><span class="name">${EMOJIS[k]||''} ${LABELS[k]||k}</span><span class="task">${v.current}</span></div>`;
+    for(const k of agentKeys){
+      const v=d.agents[k];
+      const m=AGENT_META[k]||{emoji:'',label:k,role:''};
+      const title=v.title||`${m.emoji} ${m.role}`;
+      ah+=`<div class="agent-card">
+        <span class="dot ${v.status}"></span>
+        <div class="info">
+          <div class="name">${m.emoji} ${v.name||m.label}</div>
+          <div class="role">${title}</div>
+          <div class="task">${v.current||'—'}</div>
+        </div>
+      </div>`;
     }
     document.getElementById('agents').innerHTML=ah;
 
-    // Sprint
+    // Current Sprint
     const s=d.sprint;
-    document.getElementById('sprint-header').innerHTML=`<div style="font-size:.95rem"><strong>Sprint ${s.number}</strong> — ${s.goal}</div>`;
-    const done=s.tasks.filter(t=>t.status==='done').length;
-    const pct=s.tasks.length?Math.round(done/s.tasks.length*100):0;
+    const statusClass=s.status==='complete'?'complete':'active';
+    document.getElementById('sprint-header').innerHTML=`
+      <div class="sprint-header">
+        <span class="sprint-num">Sprint ${s.number}</span>
+        <span class="sprint-badge ${statusClass}">${s.status||'active'}</span>
+      </div>
+      <div class="sprint-goal">${s.goal}</div>`;
+    const done=d.tasks.filter(t=>t.status==='done').length;
+    const pct=d.tasks.length?Math.round(done/d.tasks.length*100):0;
     document.getElementById('progress').style.width=pct+'%';
-    document.getElementById('progress-text').textContent=`${done}/${s.tasks.length} tasks done (${pct}%)`;
+    document.getElementById('progress-text').textContent=`${done}/${d.tasks.length} tasks (${pct}%)`;
     let th='';
-    for(const t of s.tasks){
-      th+=`<li><span class="badge ${t.status}">${t.status}</span><span>${t.id}: ${t.title}</span><span style="margin-left:auto;color:var(--muted);font-size:.78rem">${LABELS[t.assignee]||t.assignee}</span></li>`;
+    for(const t of d.tasks){
+      th+=`<li><span class="badge ${t.status}">${t.status}</span><span>${t.id}: ${t.title}</span><span class="assignee">${agentLabel(t.assignee)}</span></li>`;
     }
-    document.getElementById('tasks').innerHTML=th;
+    document.getElementById('tasks').innerHTML=th||'<li class="none">No tasks</li>';
 
-    // Activity
-    let ac='';
-    for(const a of d.activity.slice(0,20)){
-      ac+=`<li><span class="time">${timeStr(a.time)}</span><span class="ag">${EMOJIS[a.agent]||''} ${LABELS[a.agent]||a.agent}</span><span>${a.action}</span></li>`;
+    // Activity — ALL history (no limit)
+    const allActivity=d.activity||[];
+    document.getElementById('activity-count').textContent=`(${allActivity.length} events)`;
+
+    // Build agent tabs
+    const agentsInActivity=[...new Set(allActivity.map(a=>a.agent))];
+    let tabsHtml='<div class="tab active" data-tab="all">All</div>';
+    for(const ag of agentsInActivity){
+      tabsHtml+=`<div class="tab" data-tab="${ag}">${agentLabel(ag)}</div>`;
     }
-    document.getElementById('activity').innerHTML=ac||'<li class="none">No activity yet</li>';
+    document.getElementById('activity-tabs').innerHTML=tabsHtml;
+
+    // Build panels
+    let panelsHtml='<div class="tab-panel active" data-panel="all"><ul class="activity-list scrollable">';
+    for(const a of allActivity){
+      panelsHtml+=`<li><span class="time">${fmtTime(a.time)}</span><span class="ag">${agentLabel(a.agent)}</span><span class="act-text">${a.action}</span></li>`;
+    }
+    panelsHtml+='</ul></div>';
+    for(const ag of agentsInActivity){
+      const filtered=allActivity.filter(a=>a.agent===ag);
+      panelsHtml+=`<div class="tab-panel" data-panel="${ag}"><ul class="activity-list scrollable">`;
+      for(const a of filtered){
+        panelsHtml+=`<li><span class="time">${fmtTime(a.time)}</span><span class="ag">${agentLabel(a.agent)}</span><span class="act-text">${a.action}</span></li>`;
+      }
+      panelsHtml+='</ul></div>';
+    }
+    document.getElementById('activity-panels').innerHTML=panelsHtml;
+
+    // Re-bind tab clicks
+    document.querySelectorAll('#activity-tabs .tab').forEach(tab=>{
+      tab.addEventListener('click',()=>{
+        document.querySelectorAll('#activity-tabs .tab').forEach(t=>t.classList.remove('active'));
+        document.querySelectorAll('#activity-panels .tab-panel').forEach(p=>p.classList.remove('active'));
+        tab.classList.add('active');
+        document.querySelector(`[data-panel="${tab.dataset.tab}"]`).classList.add('active');
+      });
+    });
+
+    // Sprint History
+    const history=(d.sprintHistory||[]).slice().reverse();
+    let sh='';
+    for(const sp of history){
+      const tasksDone=sp.tasks.filter(t=>t.status==='done').length;
+      const agents=[...new Set(sp.tasks.map(t=>agentName(t.assignee)))].join(', ');
+      sh+=`<div class="sprint-summary">
+        <div class="sprint-summary-header" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">
+          <span class="chevron">▶</span>
+          <span class="sprint-label">Sprint ${sp.number}</span>
+          <span class="sprint-badge complete">✓</span>
+          <span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--muted);font-size:.8rem">${sp.goal}</span>
+          <span class="sprint-meta">${tasksDone} tasks · ${agents}</span>
+        </div>
+        <div class="sprint-summary-body">
+          <p>${sp.summary||''}</p>
+          <ul class="task-list">`;
+      for(const t of sp.tasks){
+        sh+=`<li><span class="badge done">done</span><span>${t.id}: ${t.title}</span><span class="assignee">${t.pr?'PR '+t.pr:''} · ${agentLabel(t.assignee)}</span></li>`;
+      }
+      sh+=`</ul></div></div>`;
+    }
+    document.getElementById('sprint-history').innerHTML=sh||'<p class="none">No completed sprints yet</p>';
+
   }catch(e){console.error('data.json load failed',e)}
 }
 
 async function loadPRs(){
   try{
-    const r=await fetch(`${API}/pulls?state=open&per_page=10`);
-    const prs=await r.json();
-    if(!prs.length){document.getElementById('prs').innerHTML='<p class="none">No open PRs</p>';return}
+    const [r1,r2]=await Promise.all([
+      fetch(`${API_GAME}/pulls?state=open&per_page=10`),
+      fetch(`${API_OPS}/pulls?state=open&per_page=10`)
+    ]);
+    const prs=[...(await r1.json()),...(await r2.json())];
+    if(!prs.length||prs.message){document.getElementById('prs').innerHTML='<p class="none">No open PRs 🎉</p>';return}
     let h='';
     for(const p of prs){
-      h+=`<div class="pr-item"><a href="${p.html_url}" target="_blank">#${p.number} ${p.title}</a><div class="meta">by ${p.user.login} · ${relTime(p.created_at)}</div></div>`;
+      const repo=p.html_url.includes('battlebrotts')?'game':'ops';
+      h+=`<div class="pr-item"><a href="${p.html_url}" target="_blank">#${p.number} ${p.title}</a><div class="meta">${repo} · by ${p.user.login} · ${relTime(p.created_at)}</div></div>`;
     }
     document.getElementById('prs').innerHTML=h;
   }catch(e){document.getElementById('prs').innerHTML='<p class="none">Could not load PRs</p>'}
@@ -143,13 +341,13 @@ async function loadPRs(){
 
 async function loadBuilds(){
   try{
-    const r=await fetch(`${API}/actions/runs?per_page=5`);
+    const r=await fetch(`${API_GAME}/actions/runs?per_page=5`);
     const d=await r.json();
     if(!d.workflow_runs||!d.workflow_runs.length){document.getElementById('builds').innerHTML='<p class="none">No builds yet</p>';return}
     let h='';
     for(const b of d.workflow_runs.slice(0,5)){
       const icon=b.conclusion==='success'?'✅':b.conclusion==='failure'?'❌':b.status==='in_progress'?'🔄':'⏸️';
-      h+=`<div class="build-item">${icon} <a href="${b.html_url}" target="_blank">${b.name}</a> <span style="color:var(--muted);font-size:.78rem">${relTime(b.created_at)}</span></div>`;
+      h+=`<div class="build-item">${icon} <a href="${b.html_url}" target="_blank">${b.name}</a> <span style="color:var(--muted);font-size:.75rem">${relTime(b.created_at)}</span></div>`;
     }
     document.getElementById('builds').innerHTML=h;
   }catch(e){document.getElementById('builds').innerHTML='<p class="none">Could not load builds</p>'}

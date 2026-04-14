@@ -1,26 +1,33 @@
 {
   "sprint": {
-    "number": 3,
-    "goal": "Tests & Combat Features — COMPLETE"
+    "number": 4,
+    "goal": "Playable Vertical Slice + Dashboard Overhaul",
+    "status": "active"
   },
   "tasks": [
     {
-      "id": "S3-001",
-      "title": "Comprehensive Test Suites",
-      "status": "done",
-      "assignee": "qa"
-    },
-    {
-      "id": "S3-002",
-      "title": "Match Lifecycle + Weapon Fire + Energy",
-      "status": "done",
+      "id": "S4-001",
+      "title": "Playable Vertical Slice — Wire all systems into runnable match",
+      "status": "active",
       "assignee": "dev-01"
     },
     {
-      "id": "S3-003",
-      "title": "PR Reviews (test requirement enforced)",
-      "status": "done",
+      "id": "S4-002",
+      "title": "Dashboard Overhaul — Responsive, full history, sprint summaries",
+      "status": "active",
+      "assignee": "devops"
+    },
+    {
+      "id": "S4-003",
+      "title": "PR Reviews + Architecture Alignment + Web Export Verify",
+      "status": "active",
       "assignee": "lead-dev"
+    },
+    {
+      "id": "S4-004",
+      "title": "Dashboard QA — Viewport testing, bug filing",
+      "status": "active",
+      "assignee": "qa"
     }
   ],
   "agents": {
@@ -37,10 +44,10 @@
       "title": "🤖 Head of Product"
     },
     "pm": {
-      "status": "done",
-      "current": "Sprint 3 complete",
+      "status": "active",
+      "current": "Sprint 4 orchestration — two parallel tracks",
       "name": "Rivett",
-      "title": "📋 PM"
+      "title": "📋 Head of Operations"
     },
     "game-designer": {
       "status": "idle",
@@ -49,43 +56,85 @@
       "title": "🎯 Game Designer"
     },
     "lead-dev": {
-      "status": "done",
-      "current": "Reviewed & merged PR #12, #13",
+      "status": "active",
+      "current": "Sprint 4 — PR reviews, architecture alignment",
       "name": "Boltz",
       "title": "👨‍💻 Lead Dev"
     },
     "dev-01": {
-      "status": "done",
-      "current": "S3-002 shipped — MatchManager, projectiles, energy",
+      "status": "active",
+      "current": "Sprint 4 — Playable vertical slice",
       "name": "Nutts",
       "title": "💻 Dev-01"
     },
     "playtest-lead": {
       "status": "idle",
-      "current": "Awaiting builds",
+      "current": "Awaiting playable build",
       "name": "Optic",
       "title": "🎮 Playtest Lead"
     },
     "qa": {
-      "status": "done",
-      "current": "S3-001 complete — 142 tests, PR #12",
+      "status": "active",
+      "current": "Sprint 4 — Dashboard QA",
       "name": "Glytch",
       "title": "🧪 QA"
     },
     "inspector": {
-      "status": "done",
-      "current": "Audit complete — findings addressed",
+      "status": "idle",
+      "current": "Awaiting sprint end audit",
       "name": "Specc",
       "title": "🕵️ Inspector"
     },
     "devops": {
-      "status": "done",
-      "current": "Stale branches cleaned, STATUS.md redirected",
+      "status": "active",
+      "current": "Sprint 4 — Dashboard overhaul",
       "name": "Patch",
       "title": "🔧 DevOps"
     }
   },
+  "sprintHistory": [
+    {
+      "number": 1,
+      "goal": "Foundation — Architecture, CI/CD, Core Combat",
+      "status": "complete",
+      "tasks": [
+        {"id": "S1-001", "title": "Architecture Document", "assignee": "lead-dev", "status": "done", "pr": "#8"},
+        {"id": "S1-002", "title": "CI/CD + Godot Web Export", "assignee": "devops", "status": "done", "pr": "#6, #9"},
+        {"id": "S1-003", "title": "Core Combat Simulation", "assignee": "dev-01", "status": "done", "pr": "#7"},
+        {"id": "S1-004", "title": "Dashboard Automation", "assignee": "devops", "status": "done", "pr": "#9"}
+      ],
+      "summary": "Established project architecture, CI/CD pipeline with Godot web export, core combat simulation (tick system, damage calculator, brott entity, data resources), and initial dashboard."
+    },
+    {
+      "number": 2,
+      "goal": "Arena & AI — Tile System, Pathfinding, BrottBrain, Stances",
+      "status": "complete",
+      "tasks": [
+        {"id": "S2-001", "title": "Arena Tile System + LoS", "assignee": "dev-01", "status": "done", "pr": "#10"},
+        {"id": "S2-002", "title": "A* Pathfinding", "assignee": "dev-01", "status": "done", "pr": "#10"},
+        {"id": "S2-003", "title": "BrottBrain Evaluation Engine", "assignee": "dev-01", "status": "done", "pr": "#10"},
+        {"id": "S2-004", "title": "Stance Movement Behaviors", "assignee": "dev-01", "status": "done", "pr": "#10"}
+      ],
+      "summary": "Built arena tile system with 5 tile types and 2 layouts, line-of-sight raycasting, A* pathfinding with 8-directional movement and hazard avoidance, BrottBrain card-based AI evaluation engine, and 4 stance behaviors (Aggressive, Defensive, Kiting, Ambush)."
+    },
+    {
+      "number": 3,
+      "goal": "Tests & Combat Features — Test Suites, MatchManager, Projectiles",
+      "status": "complete",
+      "tasks": [
+        {"id": "S3-001", "title": "Comprehensive Test Suites (142 tests)", "assignee": "qa", "status": "done", "pr": "#12"},
+        {"id": "S3-002", "title": "Match Lifecycle + Weapon Fire + Energy", "assignee": "dev-01", "status": "done", "pr": "#13"},
+        {"id": "S3-003", "title": "PR Reviews (test requirement enforced)", "assignee": "lead-dev", "status": "done", "pr": "#12, #13"}
+      ],
+      "summary": "Added 142 comprehensive tests covering all systems, MatchManager autoload for match lifecycle, projectile system (hitscan + missile), energy system integration, and established 'no code without tests' rule. 166 total tests."
+    }
+  ],
   "activity": [
+    {
+      "time": "2026-04-14T16:11Z",
+      "agent": "pm",
+      "action": "Sprint 4 kicked off — Track A: Vertical Slice, Track B: Dashboard Overhaul"
+    },
     {
       "time": "2026-04-14T13:45Z",
       "agent": "pm",
@@ -145,7 +194,42 @@
       "time": "2026-04-14T12:50Z",
       "agent": "dev-01",
       "action": "PR #10 opened — all Sprint 2 systems"
+    },
+    {
+      "time": "2026-04-14T03:20Z",
+      "agent": "pm",
+      "action": "Studio initialized — message log started"
+    },
+    {
+      "time": "2026-04-14T03:20Z",
+      "agent": "lead-dev",
+      "action": "PR #2 review: changes requested, PM files missing"
+    },
+    {
+      "time": "2026-04-14T03:00Z",
+      "agent": "pm",
+      "action": "Sprint 1 kicked off — Foundation sprint"
+    },
+    {
+      "time": "2026-04-14T02:30Z",
+      "agent": "lead-dev",
+      "action": "Architecture document drafted (PR #8)"
+    },
+    {
+      "time": "2026-04-14T02:00Z",
+      "agent": "devops",
+      "action": "CI/CD pipeline created with Godot web export (PR #6)"
+    },
+    {
+      "time": "2026-04-14T01:30Z",
+      "agent": "dev-01",
+      "action": "Core combat simulation implemented (PR #7)"
+    },
+    {
+      "time": "2026-04-14T01:00Z",
+      "agent": "devops",
+      "action": "Dashboard automation + CI fixes (PR #9)"
     }
   ],
-  "updated": "2026-04-14T13:45:00Z"
+  "updated": "2026-04-14T16:11:00Z"
 }
