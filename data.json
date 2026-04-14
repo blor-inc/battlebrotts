@@ -1,91 +1,105 @@
 {
   "sprint": {
-    "number": 2,
-    "goal": "AI & Arena Systems \u2014 COMPLETE"
+    "number": 3,
+    "goal": "Tests & Combat Features — IN PROGRESS"
   },
   "tasks": [
     {
-      "id": "S2-001",
-      "title": "Arena Tile System + LoS",
-      "status": "done",
+      "id": "S3-001",
+      "title": "Comprehensive Test Suites",
+      "status": "in-progress",
+      "assignee": "qa"
+    },
+    {
+      "id": "S3-002",
+      "title": "Match Lifecycle + Weapon Fire + Energy",
+      "status": "waiting",
       "assignee": "dev-01"
     },
     {
-      "id": "S2-002",
-      "title": "A* Pathfinding",
-      "status": "done",
-      "assignee": "dev-01"
-    },
-    {
-      "id": "S2-003",
-      "title": "BrottBrain Evaluation Engine",
-      "status": "done",
-      "assignee": "dev-01"
-    },
-    {
-      "id": "S2-004",
-      "title": "Stance Movement Behaviors",
-      "status": "done",
-      "assignee": "dev-01"
+      "id": "S3-003",
+      "title": "PR Reviews (test requirement enforced)",
+      "status": "waiting",
+      "assignee": "lead-dev"
     }
   ],
   "agents": {
     "eric": {
       "status": "active",
       "current": "Creative Director oversight",
-      "name": "Eric"
+      "name": "Eric",
+      "title": "🎬 Creative Director"
     },
     "the-bott": {
       "status": "active",
       "current": "Head of Product",
-      "name": "The Bott"
+      "name": "The Bott",
+      "title": "🤖 Head of Product"
     },
     "pm": {
-      "status": "done",
-      "current": "Sprint 2 complete",
-      "name": "Rivett"
+      "status": "active",
+      "current": "Managing Sprint 3",
+      "name": "Rivett",
+      "title": "📋 PM"
     },
     "game-designer": {
       "status": "idle",
       "current": "Awaiting next design task",
-      "name": "Gizmo"
+      "name": "Gizmo",
+      "title": "🎯 Game Designer"
     },
     "lead-dev": {
-      "status": "done",
-      "current": "Reviewed PR #10",
-      "name": "Boltz"
+      "status": "standby",
+      "current": "Awaiting PRs to review",
+      "name": "Boltz",
+      "title": "👨‍💻 Lead Dev"
     },
     "dev-01": {
-      "status": "done",
-      "current": "Sprint 2 code shipped",
-      "name": "Nutts"
+      "status": "standby",
+      "current": "Awaiting test completion",
+      "name": "Nutts",
+      "title": "💻 Dev-01"
     },
     "playtest-lead": {
       "status": "idle",
       "current": "Awaiting builds",
-      "name": "Optic"
+      "name": "Optic",
+      "title": "🎮 Playtest Lead"
     },
     "qa": {
-      "status": "idle",
-      "current": "Awaiting code",
-      "name": "Glytch"
+      "status": "active",
+      "current": "Writing test suites for all existing code",
+      "name": "Glytch",
+      "title": "🧪 QA"
     },
     "inspector": {
       "status": "idle",
       "current": "Awaiting audit request",
-      "name": "Specc"
+      "name": "Specc",
+      "title": "🕵️ Inspector"
     },
     "devops": {
-      "status": "done",
-      "current": "CI/CD workflows merged",
-      "name": "Patch"
+      "status": "idle",
+      "current": "Dashboard update pending",
+      "name": "Patch",
+      "title": "🔧 DevOps"
     }
   },
   "activity": [
     {
+      "time": "2026-04-14T13:18Z",
+      "agent": "pm",
+      "action": "Sprint 3 kicked off — Tests & Combat Features"
+    },
+    {
+      "time": "2026-04-14T13:18Z",
+      "agent": "qa",
+      "action": "Glytch spawned for comprehensive test suites"
+    },
+    {
       "time": "2026-04-14T12:52Z",
       "agent": "pm",
-      "action": "Sprint 2 COMPLETE \u2014 all 4 tasks shipped"
+      "action": "Sprint 2 COMPLETE — all 4 tasks shipped"
     },
     {
       "time": "2026-04-14T12:51Z",
@@ -95,23 +109,8 @@
     {
       "time": "2026-04-14T12:50Z",
       "agent": "dev-01",
-      "action": "PR #10 opened \u2014 all Sprint 2 systems"
-    },
-    {
-      "time": "2026-04-14T12:47Z",
-      "agent": "pm",
-      "action": "Sprint 2 kicked off \u2014 4 tasks planned"
-    },
-    {
-      "time": "2026-04-14T12:45Z",
-      "agent": "devops",
-      "action": "PR #9 merged \u2014 CI/CD workflows live"
-    },
-    {
-      "time": "2026-04-14T12:44Z",
-      "agent": "pm",
-      "action": "Sprint 1 fully complete, starting Sprint 2"
+      "action": "PR #10 opened — all Sprint 2 systems"
     }
   ],
-  "updated": "2026-04-14T12:52:00Z"
+  "updated": "2026-04-14T13:18:00Z"
 }
