@@ -43,10 +43,14 @@ jobs:
 
       - name: Setup export templates
         run: |
-          mkdir -p /root/.local/share/godot/export_templates/4.4.1.stable
-          mv /root/.local/share/godot/templates/web* /root/.local/share/godot/export_templates/4.4.1.stable/ 2>/dev/null || true
-          if [ ! -f /root/.local/share/godot/export_templates/4.4.1.stable/web_template.wasm32.release.wasm ]; then
-            cd /root/.local/share/godot/export_templates/4.4.1.stable
+          TEMPLATES="$HOME/.local/share/godot/export_templates/4.4.1.stable"
+          mkdir -p "$TEMPLATES"
+          # Copy bundled templates from container image (may be at /root/ if HOME differs)
+          cp /root/.local/share/godot/templates/web* "$TEMPLATES/" 2>/dev/null || true
+          cp "$HOME/.local/share/godot/templates/web*" "$TEMPLATES/" 2>/dev/null || true
+          # Download if not found
+          if [ ! -f "$TEMPLATES/web_template.wasm32.release.wasm" ]; then
+            cd "$TEMPLATES"
             wget -q https://github.com/godotengine/godot/releases/download/4.4.1-stable/Godot_v4.4.1-stable_export_templates.tpz -O templates.tpz
             unzip -o templates.tpz
             mv templates/* . 2>/dev/null || true
