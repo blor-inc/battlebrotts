@@ -21,6 +21,10 @@ var _g15 = preload("res://game/ui/game_controller.gd")
 var _g16 = preload("res://game/economy/economy_manager.gd")
 var _g17 = preload("res://game/economy/shop.gd")
 var _g18 = preload("res://game/progression/league_manager.gd")
+var _g19 = preload("res://game/ui/campaign_ui.gd")
+var _g20 = preload("res://game/ui/main_menu.gd")
+var _g21 = preload("res://game/ui/shop_screen_ui.gd")
+var _g22 = preload("res://game/ui/opponent_select_ui.gd")
 # Note: campaign_controller.gd, shop_screen.gd, opponent_select.gd use load() internally
 # and are NOT preloaded here to avoid breaking the class_name resolution chain.
 
@@ -60,6 +64,7 @@ func _run_all_tests() -> void:
 	_run_suite("League", preload("res://tests/test_league.gd"))
 	_run_suite("Campaign", load("res://tests/test_campaign.gd"))
 	_run_suite("Integration", load("res://tests/test_integration.gd"))
+	_run_suite("CampaignUI", load("res://tests/test_campaign_ui.gd"))
 
 func _run_suite(suite_name: String, script: GDScript) -> void:
 	print("── %s ──" % suite_name)
