@@ -30,6 +30,9 @@ var winner_team: int = -1    # -1 = undecided
 #               "reflect_damage": float, "is_crit": bool }
 var _damage_queue: Array = []
 
+# Active projectiles in flight
+var projectiles: Array = []
+
 # ─────────────────────────────────────────────────────────
 # Init
 # ─────────────────────────────────────────────────────────
@@ -42,6 +45,7 @@ func setup(seed_value: int, combatants: Array) -> void:
 	tick = 0
 	match_over = false
 	winner_team = -1
+	projectiles.clear()
 
 # ─────────────────────────────────────────────────────────
 # Run one tick — returns true if match continues
@@ -183,34 +187,48 @@ func _step_weapon_fire() -> void:
 			var hits := DamageCalculator.calc_weapon_shot(
 				wid, b.target.armor_id, b.target.hp_ratio(), rng)
 
-			# Spread / hit check per pellet
-			for hit in hits:
-				if _spread_hit_check(wdata, dist_tiles, rng):
-					_damage_queue.append({
-						"target": b.target,
-						"damage": hit["damage"],
-						"attacker": b,
-						"reflect_damage": hit["reflect_damage"],
-						"is_crit": hit["is_crit"],
-					})
+			# Check if this weapon uses projectiles (non-hitscan)
+			var proj_speed: float = Projectile.PROJECTILE_SPEEDS.get(wid, 0.0)
 
-			# Splash damage (Missile Pod)
-			if wdata["splash_radius"] > 0:
-				for other: Brott in brotts:
-					if other == b.target or other.is_dead() or other.team == b.team:
-						continue
-					var splash_dist := b.target.distance_to_brott(other)
-					if splash_dist <= wdata["splash_radius"]:
-						var splash := DamageCalculator.calc_splash(
-							float(wdata["damage"]), other.armor_id,
-							other.hp_ratio(), rng)
+			if proj_speed > 0.0:
+				# Create a projectile — damage resolved on arrival in phase 6
+				for hit in hits:
+					if _spread_hit_check(wdata, dist_tiles, rng):
+						var proj := Projectile.create(
+							wid, b, b.target,
+							hit["damage"], hit["is_crit"],
+							float(wdata["splash_radius"]),
+							wdata["chain_targets"])
+						projectiles.append(proj)
+			else:
+				# Hitscan — instant damage this tick
+				for hit in hits:
+					if _spread_hit_check(wdata, dist_tiles, rng):
 						_damage_queue.append({
-							"target": other,
-							"damage": splash["damage"],
+							"target": b.target,
+							"damage": hit["damage"],
 							"attacker": b,
-							"reflect_damage": splash["reflect_damage"],
-							"is_crit": splash["is_crit"],
+							"reflect_damage": hit["reflect_damage"],
+							"is_crit": hit["is_crit"],
 						})
+
+				# Splash damage for hitscan splash weapons
+				if wdata["splash_radius"] > 0:
+					for other: Brott in brotts:
+						if other == b.target or other.is_dead() or other.team == b.team:
+							continue
+						var splash_dist := b.target.distance_to_brott(other)
+						if splash_dist <= wdata["splash_radius"]:
+							var splash := DamageCalculator.calc_splash(
+								float(wdata["damage"]), other.armor_id,
+								other.hp_ratio(), rng)
+							_damage_queue.append({
+								"target": other,
+								"damage": splash["damage"],
+								"attacker": b,
+								"reflect_damage": splash["reflect_damage"],
+								"is_crit": splash["is_crit"],
+							})
 
 			# Chain damage (Arc Emitter)
 			if wdata["chain_targets"] > 0 and hits.size() > 0:
@@ -219,9 +237,49 @@ func _step_weapon_fire() -> void:
 			# Reset cooldown
 			b.weapon_cooldowns[i] = WeaponData.fire_interval_ticks(wid)
 
-# 6. Projectile update — instant-hit for now (no travel time)
+# 6. Projectile update — move projectiles, resolve arrivals
 func _step_projectile_update() -> void:
-	pass
+	var still_alive: Array = []
+	for proj: Projectile in projectiles:
+		proj.update()
+		if proj.has_arrived():
+			_resolve_projectile_hit(proj)
+		elif proj.alive:
+			still_alive.append(proj)
+		# else: expired, discard
+	projectiles = still_alive
+
+func _resolve_projectile_hit(proj: Projectile) -> void:
+	if proj.target == null or proj.target.is_dead():
+		return
+	# Apply direct damage
+	var hit := DamageCalculator.calc_hit(
+		proj.damage, proj.target.armor_id,
+		proj.target.hp_ratio(), rng)
+	_damage_queue.append({
+		"target": proj.target,
+		"damage": hit["damage"],
+		"attacker": proj.attacker,
+		"reflect_damage": hit["reflect_damage"],
+		"is_crit": hit["is_crit"],
+	})
+	# Splash damage
+	if proj.splash_radius > 0:
+		for other: Brott in brotts:
+			if other == proj.target or other.is_dead() or other.team == proj.attacker.team:
+				continue
+			var splash_dist := proj.target.distance_to_brott(other)
+			if splash_dist <= proj.splash_radius:
+				var splash := DamageCalculator.calc_splash(
+					proj.damage, other.armor_id,
+					other.hp_ratio(), rng)
+				_damage_queue.append({
+					"target": other,
+					"damage": splash["damage"],
+					"attacker": proj.attacker,
+					"reflect_damage": splash["reflect_damage"],
+					"is_crit": splash["is_crit"],
+				})
 
 # 7. Damage application — process queue, apply reflect
 func _step_damage_application() -> void:
