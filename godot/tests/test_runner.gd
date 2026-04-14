@@ -21,9 +21,8 @@ var _g15 = preload("res://game/ui/game_controller.gd")
 var _g16 = preload("res://game/economy/economy_manager.gd")
 var _g17 = preload("res://game/economy/shop.gd")
 var _g18 = preload("res://game/progression/league_manager.gd")
-var _g19 = preload("res://game/campaign/campaign_controller.gd")
-var _g20 = preload("res://game/ui/shop_screen.gd")
-var _g21 = preload("res://game/ui/opponent_select.gd")
+# Note: campaign_controller.gd, shop_screen.gd, opponent_select.gd use load() internally
+# and are NOT preloaded here to avoid breaking the class_name resolution chain.
 
 var _pass_count: int = 0
 var _fail_count: int = 0
@@ -59,7 +58,7 @@ func _run_all_tests() -> void:
 	_run_suite("Economy", preload("res://tests/test_economy.gd"))
 	_run_suite("Shop", preload("res://tests/test_shop.gd"))
 	_run_suite("League", preload("res://tests/test_league.gd"))
-	_run_suite("Campaign", preload("res://tests/test_campaign.gd"))
+	_run_suite("Campaign", load("res://tests/test_campaign.gd"))
 
 func _run_suite(suite_name: String, script: GDScript) -> void:
 	print("── %s ──" % suite_name)

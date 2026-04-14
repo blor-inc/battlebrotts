@@ -10,12 +10,12 @@ signal opponent_selected(index: int)
 signal back_pressed()
 
 # ── State ────────────────────────────────────────────────
-var campaign: CampaignController = null
+var campaign = null  # CampaignController
 
 # ─────────────────────────────────────────────────────────
 # Setup
 # ─────────────────────────────────────────────────────────
-func setup(campaign_controller: CampaignController) -> void:
+func setup(campaign_controller) -> void:
 	campaign = campaign_controller
 
 

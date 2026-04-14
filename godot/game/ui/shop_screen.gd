@@ -10,7 +10,7 @@ signal item_purchased(item_type: String, item_id: String)
 signal continue_pressed()
 
 # ── State ────────────────────────────────────────────────
-var campaign: CampaignController = null
+var campaign = null  # CampaignController
 var selected_category: String = "weapon"
 
 const CATEGORIES := ["chassis", "weapon", "armor", "module"]
@@ -18,7 +18,7 @@ const CATEGORIES := ["chassis", "weapon", "armor", "module"]
 # ─────────────────────────────────────────────────────────
 # Setup
 # ─────────────────────────────────────────────────────────
-func setup(campaign_controller: CampaignController) -> void:
+func setup(campaign_controller) -> void:
 	campaign = campaign_controller
 
 
