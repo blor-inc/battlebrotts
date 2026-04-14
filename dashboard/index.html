@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BattleBrotts Studio Dashboard</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:#161b22;--border:#30363d;--text:#e6edf3;--muted:#8b949e;--accent:#58a6ff;--green:#3fb950;--yellow:#d29922;--red:#f85149;--purple:#bc8cff}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;line-height:1.5;padding:1rem;max-width:1400px;margin:0 auto}
+header{text-align:center;padding:1.5rem 0;border-bottom:1px solid var(--border);margin-bottom:1.5rem}
+header h1{font-size:1.8rem;font-weight:700}
+header p{color:var(--muted);font-size:.85rem;margin-top:.3rem}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:768px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1rem;margin-bottom:1rem}
+.card h2{font-size:1rem;margin-bottom:.75rem;color:var(--accent);display:flex;align-items:center;gap:.5rem}
+.full{grid-column:1/-1}
+/* Agents */
+.agents-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.5rem}
+.agent{display:flex;align-items:center;gap:.5rem;padding:.5rem .7rem;background:var(--bg);border-radius:6px;font-size:.85rem}
+.agent .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.dot.active{background:var(--green)}.dot.working{background:var(--yellow)}.dot.idle{background:#484f58}.dot.error{background:var(--red)}
+.agent .name{font-weight:600;white-space:nowrap}.agent .task{color:var(--muted);font-size:.78rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* Sprint */
+.progress-bar{height:8px;background:var(--bg);border-radius:4px;overflow:hidden;margin:.75rem 0 .5rem}
+.progress-bar .fill{height:100%;background:linear-gradient(90deg,var(--green),var(--accent));border-radius:4px;transition:width .5s}
+.task-list{list-style:none;max-height:300px;overflow-y:auto}
+.task-list li{display:flex;align-items:center;gap:.5rem;padding:.35rem 0;font-size:.85rem;border-bottom:1px solid var(--border)}
+.task-list li:last-child{border:none}
+.badge{font-size:.7rem;padding:2px 8px;border-radius:10px;font-weight:600;text-transform:uppercase}
+.badge.done{background:#238636;color:#fff}.badge.active{background:#1f6feb;color:#fff}.badge.review{background:#8957e5;color:#fff}.badge.backlog{background:var(--border);color:var(--muted)}
+/* Activity */
+.activity-list{list-style:none;max-height:400px;overflow-y:auto}
+.activity-list li{padding:.4rem 0;font-size:.83rem;border-bottom:1px solid var(--border);display:flex;gap:.5rem}
+.activity-list li:last-child{border:none}
+.activity-list .time{color:var(--muted);white-space:nowrap;font-size:.75rem;min-width:55px}
+.activity-list .ag{color:var(--purple);font-weight:600;white-space:nowrap}
+/* PRs */
+.pr-item{padding:.5rem 0;border-bottom:1px solid var(--border);font-size:.85rem}
+.pr-item:last-child{border:none}
+.pr-item a{color:var(--accent);text-decoration:none}
+.pr-item a:hover{text-decoration:underline}
+.pr-item .meta{color:var(--muted);font-size:.78rem}
+/* Build */
+.build-item{display:flex;align-items:center;gap:.5rem;padding:.4rem 0;font-size:.85rem}
+.build-item a{color:var(--accent);text-decoration:none}
+.none{color:var(--muted);font-size:.85rem;font-style:italic}
+</style>
+</head>
+<body>
+<header>
+<h1>🤖⚔️ BattleBrotts Studio</h1>
+<p>Last updated: <span id="updated">—</span> · Auto-refreshes every 60s</p>
+</header>
+
+<div class="grid">
+  <div class="card full" id="agents-card">
+    <h2>👥 Agent Status</h2>
+    <div class="agents-grid" id="agents"></div>
+  </div>
+
+  <div class="card">
+    <h2>🏃 Sprint</h2>
+    <div id="sprint-header"></div>
+    <div class="progress-bar"><div class="fill" id="progress"></div></div>
+    <p id="progress-text" style="font-size:.8rem;color:var(--muted)"></p>
+    <ul class="task-list" id="tasks"></ul>
+  </div>
+
+  <div class="card">
+    <h2>📡 Recent Activity</h2>
+    <ul class="activity-list" id="activity"></ul>
+  </div>
+
+  <div class="card">
+    <h2>🔀 Open Pull Requests</h2>
+    <div id="prs"></div>
+  </div>
+
+  <div class="card">
+    <h2>🏗️ Build Status</h2>
+    <div id="builds"></div>
+  </div>
+</div>
+
+<script>
+const REPO='blor-inc/game-dev-studio';
+const API=`https://api.github.com/repos/${REPO}`;
+const EMOJIS={eric:'🎬','the-bott':'🤖',pm:'📋','game-designer':'🎯','lead-dev':'👨‍💻','dev-01':'💻','playtest-lead':'🎮',qa:'🧪',inspector:'🕵️',devops:'🔧'};
+const LABELS={eric:'Eric','the-bott':'The Bott',pm:'PM','game-designer':'Game Designer','lead-dev':'Lead Dev','dev-01':'Dev-01','playtest-lead':'Playtest Lead',qa:'QA',inspector:'Inspector',devops:'DevOps'};
+
+function relTime(iso){const d=new Date(iso),now=new Date(),m=Math.round((now-d)/60000);if(m<1)return'just now';if(m<60)return m+'m ago';const h=Math.round(m/60);if(h<24)return h+'h ago';return Math.round(h/24)+'d ago'}
+function timeStr(iso){return new Date(iso).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}
+
+async function loadData(){
+  try{
+    const r=await fetch('data.json?t='+Date.now());
+    const d=await r.json();
+    document.getElementById('updated').textContent=new Date(d.updated).toLocaleString();
+
+    // Agents
+    let ah='';
+    for(const[k,v]of Object.entries(d.agents)){
+      ah+=`<div class="agent"><span class="dot ${v.status}"></span><span class="name">${EMOJIS[k]||''} ${LABELS[k]||k}</span><span class="task">${v.current}</span></div>`;
+    }
+    document.getElementById('agents').innerHTML=ah;
+
+    // Sprint
+    const s=d.sprint;
+    document.getElementById('sprint-header').innerHTML=`<div style="font-size:.95rem"><strong>Sprint ${s.number}</strong> — ${s.goal}</div>`;
+    const done=s.tasks.filter(t=>t.status==='done').length;
+    const pct=s.tasks.length?Math.round(done/s.tasks.length*100):0;
+    document.getElementById('progress').style.width=pct+'%';
+    document.getElementById('progress-text').textContent=`${done}/${s.tasks.length} tasks done (${pct}%)`;
+    let th='';
+    for(const t of s.tasks){
+      th+=`<li><span class="badge ${t.status}">${t.status}</span><span>${t.id}: ${t.title}</span><span style="margin-left:auto;color:var(--muted);font-size:.78rem">${LABELS[t.assignee]||t.assignee}</span></li>`;
+    }
+    document.getElementById('tasks').innerHTML=th;
+
+    // Activity
+    let ac='';
+    for(const a of d.activity.slice(0,20)){
+      ac+=`<li><span class="time">${timeStr(a.time)}</span><span class="ag">${EMOJIS[a.agent]||''} ${LABELS[a.agent]||a.agent}</span><span>${a.action}</span></li>`;
+    }
+    document.getElementById('activity').innerHTML=ac||'<li class="none">No activity yet</li>';
+  }catch(e){console.error('data.json load failed',e)}
+}
+
+async function loadPRs(){
+  try{
+    const r=await fetch(`${API}/pulls?state=open&per_page=10`);
+    const prs=await r.json();
+    if(!prs.length){document.getElementById('prs').innerHTML='<p class="none">No open PRs</p>';return}
+    let h='';
+    for(const p of prs){
+      h+=`<div class="pr-item"><a href="${p.html_url}" target="_blank">#${p.number} ${p.title}</a><div class="meta">by ${p.user.login} · ${relTime(p.created_at)}</div></div>`;
+    }
+    document.getElementById('prs').innerHTML=h;
+  }catch(e){document.getElementById('prs').innerHTML='<p class="none">Could not load PRs</p>'}
+}
+
+async function loadBuilds(){
+  try{
+    const r=await fetch(`${API}/actions/runs?per_page=5`);
+    const d=await r.json();
+    if(!d.workflow_runs||!d.workflow_runs.length){document.getElementById('builds').innerHTML='<p class="none">No builds yet</p>';return}
+    let h='';
+    for(const b of d.workflow_runs.slice(0,5)){
+      const icon=b.conclusion==='success'?'✅':b.conclusion==='failure'?'❌':b.status==='in_progress'?'🔄':'⏸️';
+      h+=`<div class="build-item">${icon} <a href="${b.html_url}" target="_blank">${b.name}</a> <span style="color:var(--muted);font-size:.78rem">${relTime(b.created_at)}</span></div>`;
+    }
+    document.getElementById('builds').innerHTML=h;
+  }catch(e){document.getElementById('builds').innerHTML='<p class="none">Could not load builds</p>'}
+}
+
+function refresh(){loadData();loadPRs();loadBuilds()}
+refresh();
+setInterval(refresh,60000);
+</script>
+</body>
+</html>

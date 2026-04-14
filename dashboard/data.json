@@ -1,0 +1,31 @@
+{
+  "sprint": {
+    "number": 0,
+    "goal": "Foundation — Infrastructure Setup",
+    "tasks": [
+      {"id": "TASK-000", "title": "Install Godot", "status": "done", "assignee": "devops"},
+      {"id": "TASK-001", "title": "GDD v2", "status": "active", "assignee": "game-designer"}
+    ]
+  },
+  "agents": {
+    "eric": {"status": "active", "current": "Reviewing GDD"},
+    "the-bott": {"status": "active", "current": "Managing GDD revision"},
+    "pm": {"status": "idle", "current": "Not yet spawned"},
+    "game-designer": {"status": "working", "current": "GDD v2 revision"},
+    "lead-dev": {"status": "idle", "current": "Waiting for code"},
+    "dev-01": {"status": "idle", "current": "Waiting for tasks"},
+    "playtest-lead": {"status": "idle", "current": "Waiting for builds"},
+    "qa": {"status": "idle", "current": "Waiting for code"},
+    "inspector": {"status": "idle", "current": "Audit repo ready"},
+    "devops": {"status": "active", "current": "Building dashboard"}
+  },
+  "activity": [
+    {"time": "2026-04-14T02:55Z", "agent": "the-bott", "action": "Kicked off GDD v2 revision"},
+    {"time": "2026-04-14T02:50Z", "agent": "eric", "action": "Reviewed GDD v1, gave feedback"},
+    {"time": "2026-04-14T02:30Z", "agent": "game-designer", "action": "Completed GDD v1"},
+    {"time": "2026-04-14T02:15Z", "agent": "the-bott", "action": "Wrote all 8 agent profiles"},
+    {"time": "2026-04-14T01:50Z", "agent": "devops", "action": "Installed Godot 4.4.1"},
+    {"time": "2026-04-14T01:41Z", "agent": "the-bott", "action": "Created game-dev-studio repo"}
+  ],
+  "updated": "2026-04-14T02:55:00Z"
+}
