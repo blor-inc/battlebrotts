@@ -1,32 +1,33 @@
 {
   "sprint": {
     "number": 2,
-    "goal": "AI & Arena Systems — Arena tiles, LoS, A* pathfinding, BrottBrain engine, stance behaviors"
+    "goal": "AI & Arena Systems — COMPLETE"
   },
   "tasks": [
-    {"id": "S2-001", "title": "Arena Tile System + LoS", "status": "in-progress", "assignee": "dev-01"},
-    {"id": "S2-002", "title": "A* Pathfinding", "status": "queued", "assignee": "dev-01"},
-    {"id": "S2-003", "title": "BrottBrain Evaluation Engine", "status": "queued", "assignee": "dev-01"},
-    {"id": "S2-004", "title": "Stance Movement Behaviors", "status": "queued", "assignee": "dev-01"}
+    {"id": "S2-001", "title": "Arena Tile System + LoS", "status": "done", "assignee": "dev-01"},
+    {"id": "S2-002", "title": "A* Pathfinding", "status": "done", "assignee": "dev-01"},
+    {"id": "S2-003", "title": "BrottBrain Evaluation Engine", "status": "done", "assignee": "dev-01"},
+    {"id": "S2-004", "title": "Stance Movement Behaviors", "status": "done", "assignee": "dev-01"}
   ],
   "agents": {
     "eric": {"status": "active", "current": "Creative Director oversight"},
     "the-bott": {"status": "active", "current": "Head of Product"},
-    "pm": {"status": "active", "current": "Running Sprint 2"},
+    "pm": {"status": "done", "current": "Sprint 2 complete"},
     "game-designer": {"status": "idle", "current": "Awaiting next design task"},
-    "lead-dev": {"status": "idle", "current": "Awaiting PRs to review"},
-    "dev-01": {"status": "working", "current": "S2-001 Arena Tile System + LoS"},
+    "lead-dev": {"status": "done", "current": "Reviewed PR #10"},
+    "dev-01": {"status": "done", "current": "Sprint 2 code shipped"},
     "playtest-lead": {"status": "idle", "current": "Awaiting builds"},
     "qa": {"status": "idle", "current": "Awaiting code"},
     "inspector": {"status": "idle", "current": "Awaiting audit request"},
     "devops": {"status": "done", "current": "CI/CD workflows merged"}
   },
   "activity": [
+    {"time": "2026-04-14T12:52Z", "agent": "pm", "action": "Sprint 2 COMPLETE — all 4 tasks shipped"},
+    {"time": "2026-04-14T12:51Z", "agent": "lead-dev", "action": "Reviewed and merged PR #10 (Sprint 2)"},
+    {"time": "2026-04-14T12:50Z", "agent": "dev-01", "action": "PR #10 opened — all Sprint 2 systems"},
     {"time": "2026-04-14T12:47Z", "agent": "pm", "action": "Sprint 2 kicked off — 4 tasks planned"},
     {"time": "2026-04-14T12:45Z", "agent": "devops", "action": "PR #9 merged — CI/CD workflows live"},
-    {"time": "2026-04-14T12:45Z", "agent": "lead-dev", "action": "Reviewed and approved PR #9"},
-    {"time": "2026-04-14T12:44Z", "agent": "pm", "action": "Sprint 1 fully complete, starting Sprint 2"},
-    {"time": "2026-04-14T12:25Z", "agent": "pm", "action": "Sprint 1 PRs all merged"}
+    {"time": "2026-04-14T12:44Z", "agent": "pm", "action": "Sprint 1 fully complete, starting Sprint 2"}
   ],
-  "updated": "2026-04-14T12:47:00Z"
+  "updated": "2026-04-14T12:52:00Z"
 }
