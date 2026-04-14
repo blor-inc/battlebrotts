@@ -1,0 +1,58 @@
+name: Build & Deploy Godot Web Export
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.4.1
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup export templates
+        run: |
+          mkdir -p /root/.local/share/godot/export_templates/4.4.1.stable
+          mv /root/.local/share/godot/templates/web* /root/.local/share/godot/export_templates/4.4.1.stable/ 2>/dev/null || true
+          # If templates aren't bundled in the image, download them
+          if [ ! -f /root/.local/share/godot/export_templates/4.4.1.stable/web_template.wasm32.release.wasm ]; then
+            cd /root/.local/share/godot/export_templates/4.4.1.stable
+            wget -q https://github.com/godotengine/godot/releases/download/4.4.1-stable/Godot_v4.4.1-stable_export_templates.tpz -O templates.tpz
+            unzip -o templates.tpz
+            mv templates/* . 2>/dev/null || true
+            rm -rf templates templates.tpz
+          fi
+
+      - name: Export to Web
+        run: |
+          mkdir -p godot/build/web
+          cd godot
+          godot --headless --export-release "Web" build/web/index.html
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: godot/build/web
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

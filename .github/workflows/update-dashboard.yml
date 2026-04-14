@@ -1,0 +1,122 @@
+name: Update Dashboard Data
+
+on:
+  push:
+    branches: [main]
+    paths: [STATUS.md]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Parse STATUS.md and generate data.json
+        run: |
+          python3 << 'SCRIPT'
+          import json, re, sys
+          from datetime import datetime, timezone
+
+          with open("STATUS.md") as f:
+              content = f.read()
+
+          # Parse sprint info
+          sprint_match = re.search(r'\*\*Sprint (\d+) — (.+?)\*\*', content)
+          sprint = {
+              "number": int(sprint_match.group(1)) if sprint_match else 0,
+              "name": sprint_match.group(2).strip() if sprint_match else "Unknown"
+          }
+
+          # Parse sprint tasks table
+          tasks = []
+          task_pattern = re.compile(r'\|\s*(S\d+-\d+)\s*\|\s*(.+?)\s*\|\s*(.+?)\s*\|\s*(.+?)\s*\|')
+          in_sprint_tasks = False
+          for line in content.split('\n'):
+              if 'Sprint 1 Tasks' in line or 'Sprint Tasks' in line:
+                  in_sprint_tasks = True
+                  continue
+              if in_sprint_tasks and line.startswith('## '):
+                  break
+              m = task_pattern.match(line)
+              if m and in_sprint_tasks:
+                  status_raw = m.group(4).strip()
+                  if '✅' in status_raw:
+                      status = 'done'
+                  elif '🔄' in status_raw:
+                      status = 'in-progress'
+                  elif '❌' in status_raw:
+                      status = 'blocked'
+                  else:
+                      status = 'todo'
+                  tasks.append({
+                      "id": m.group(1).strip(),
+                      "title": m.group(2).strip(),
+                      "assignee": m.group(3).strip(),
+                      "status": status
+                  })
+
+          # Parse agent status table
+          agents = []
+          agent_pattern = re.compile(r'\|\s*(.+?)\s*\|\s*(.+?)\s*\|\s*(.+?)\s*\|')
+          in_agents = False
+          for line in content.split('\n'):
+              if 'Agent Status' in line:
+                  in_agents = True
+                  continue
+              if in_agents and line.startswith('## '):
+                  break
+              m = agent_pattern.match(line)
+              if m and in_agents and '---' not in m.group(1) and 'Agent' not in m.group(1):
+                  status_raw = m.group(2).strip()
+                  if '✅' in status_raw:
+                      status = 'active'
+                  elif '🔄' in status_raw:
+                      status = 'working'
+                  elif '⚪' in status_raw:
+                      status = 'idle'
+                  else:
+                      status = 'unknown'
+                  agents.append({
+                      "name": m.group(1).strip(),
+                      "status": status,
+                      "current": m.group(3).strip()
+                  })
+
+          # Parse flags
+          flags = []
+          in_flags = False
+          for line in content.split('\n'):
+              if line.strip().startswith('## Flags'):
+                  in_flags = True
+                  continue
+              if in_flags and line.startswith('## '):
+                  break
+              if in_flags and line.strip().startswith('- '):
+                  flags.append(line.strip()[2:])
+
+          data = {
+              "lastUpdated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+              "sprint": sprint,
+              "tasks": tasks,
+              "agents": agents,
+              "flags": flags
+          }
+
+          with open("data.json", "w") as f:
+              json.dump(data, f, indent=2)
+
+          print(f"Generated data.json: {len(tasks)} tasks, {len(agents)} agents, {len(flags)} flags")
+          SCRIPT
+
+      - name: Commit updated data.json
+        run: |
+          git config user.name 'Patch (bot)'
+          git config user.email 'patch@blor-inc.studio'
+          git add data.json
+          git diff --cached --quiet && echo "No changes" && exit 0
+          git commit -m "[S1-004] chore: auto-update data.json from STATUS.md"
+          git push
