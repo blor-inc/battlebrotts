@@ -3,35 +3,33 @@
     "number": 1,
     "goal": "Core Systems — Architecture, CI/CD, Combat, Dashboard",
     "tasks": [
-      {"id": "S1-001", "title": "Architecture Document", "status": "active", "assignee": "lead-dev"},
-      {"id": "S1-002", "title": "CI/CD + Godot Web Export", "status": "active", "assignee": "devops"},
-      {"id": "S1-003", "title": "Core Combat Simulation", "status": "active", "assignee": "dev-01"},
-      {"id": "S1-004", "title": "Dashboard Automation", "status": "active", "assignee": "devops"}
+      {"id": "S1-001", "title": "Architecture Document", "status": "in-review", "assignee": "lead-dev", "pr": 8},
+      {"id": "S1-002", "title": "CI/CD + Godot Web Export", "status": "in-review", "assignee": "devops", "pr": 6, "blocked": "PAT missing workflow scope"},
+      {"id": "S1-003", "title": "Core Combat Simulation", "status": "in-review", "assignee": "dev-01", "pr": 7},
+      {"id": "S1-004", "title": "Dashboard Automation", "status": "in-review", "assignee": "devops", "pr": 6, "blocked": "PAT missing workflow scope"}
     ]
   },
   "agents": {
     "eric": {"status": "active", "current": "Creative Director oversight"},
     "the-bott": {"status": "active", "current": "Head of Product"},
-    "pm": {"status": "active", "current": "Running Sprint 1"},
+    "pm": {"status": "active", "current": "Sprint 1 — reviewing PRs"},
     "game-designer": {"status": "idle", "current": "Awaiting next design task"},
-    "lead-dev": {"status": "working", "current": "S1-001 Architecture doc"},
-    "dev-01": {"status": "working", "current": "S1-003 Core combat simulation"},
+    "lead-dev": {"status": "in-review", "current": "PR #8 Architecture doc submitted"},
+    "dev-01": {"status": "in-review", "current": "PR #7 Core combat submitted"},
     "playtest-lead": {"status": "idle", "current": "Awaiting builds"},
     "qa": {"status": "idle", "current": "Awaiting code"},
     "inspector": {"status": "done", "current": "Sprint 0 audit complete"},
-    "devops": {"status": "working", "current": "S1-002 CI/CD + S1-004 Dashboard automation"}
+    "devops": {"status": "blocked", "current": "PR #6 submitted — PAT missing workflow scope"}
   },
   "activity": [
+    {"time": "2026-04-14T12:45Z", "agent": "pm", "action": "All Sprint 1 PRs submitted — #6 (CI/CD), #7 (combat), #8 (architecture)"},
+    {"time": "2026-04-14T12:40Z", "agent": "lead-dev", "action": "PR #8: Architecture document (355 lines)"},
+    {"time": "2026-04-14T12:35Z", "agent": "dev-01", "action": "PR #7: Core combat simulation (792 lines, 7 files)"},
+    {"time": "2026-04-14T12:30Z", "agent": "devops", "action": "PR #6: CI/CD pipeline + dashboard automation (blocked on workflow scope)"},
     {"time": "2026-04-14T12:25Z", "agent": "pm", "action": "Sprint 1 kicked off — 4 tasks assigned"},
-    {"time": "2026-04-14T12:25Z", "agent": "lead-dev", "action": "Starting architecture document"},
-    {"time": "2026-04-14T12:25Z", "agent": "dev-01", "action": "Starting core combat simulation"},
-    {"time": "2026-04-14T12:25Z", "agent": "devops", "action": "Starting CI/CD pipeline + dashboard automation"},
     {"time": "2026-04-14T03:22Z", "agent": "pm", "action": "Sprint 0 status finalized"},
     {"time": "2026-04-14T02:55Z", "agent": "the-bott", "action": "GDD v2 merged"},
-    {"time": "2026-04-14T02:50Z", "agent": "eric", "action": "Approved GDD v2"},
-    {"time": "2026-04-14T02:30Z", "agent": "game-designer", "action": "Completed GDD v2"},
-    {"time": "2026-04-14T02:15Z", "agent": "the-bott", "action": "Wrote all 8 agent profiles"},
-    {"time": "2026-04-14T01:50Z", "agent": "devops", "action": "Installed Godot 4.4.1"}
+    {"time": "2026-04-14T02:50Z", "agent": "eric", "action": "Approved GDD v2"}
   ],
-  "updated": "2026-04-14T12:25:00Z"
+  "updated": "2026-04-14T12:45:00Z"
 }
