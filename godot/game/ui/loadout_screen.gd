@@ -7,6 +7,7 @@ extends Control
 
 var game: GameController = null
 var economy: EconomyManager = null  # If set, filters items by ownership
+var campaign_ui = null  # CampaignUI reference (for campaign mode)
 
 # UI references (set via _ready or scene tree)
 @onready var chassis_list: ItemList = %ChassisList
@@ -15,7 +16,7 @@ var economy: EconomyManager = null  # If set, filters items by ownership
 @onready var module_list: ItemList = %ModuleList
 @onready var weight_label: Label = %WeightLabel
 @onready var slots_label: Label = %SlotsLabel
-@onready var stats_label: Label = %StatsLabel
+@onready var stats_label: Label = %LoadoutStatsLabel
 @onready var error_label: Label = %ErrorLabel
 @onready var fight_button: Button = %FightButton
 @onready var enemy_info: Label = %EnemyInfo
@@ -105,7 +106,7 @@ func _on_chassis_selected(index: int) -> void:
 	_update_display()
 
 
-func _on_weapon_selected(_index: int) -> void:
+func _on_weapon_selected(_index: int, _selected: bool = true) -> void:
 	game.player_weapons.clear()
 	for i in weapon_list.get_selected_items():
 		game.player_weapons.append(weapon_list.get_item_metadata(i))
@@ -117,7 +118,7 @@ func _on_armor_selected(index: int) -> void:
 	_update_display()
 
 
-func _on_module_selected(_index: int) -> void:
+func _on_module_selected(_index: int, _selected: bool = true) -> void:
 	game.player_modules.clear()
 	for i in module_list.get_selected_items():
 		game.player_modules.append(module_list.get_item_metadata(i))
@@ -152,7 +153,19 @@ func _update_display() -> void:
 
 
 func _on_fight_pressed() -> void:
-	game.start_match()
+	if campaign_ui:
+		campaign_ui.on_loadout_fight()
+	else:
+		game.start_match()
+
+
+func setup_campaign(p_campaign_ui, p_campaign) -> void:
+	"""Setup for campaign mode with economy filtering."""
+	campaign_ui = p_campaign_ui
+	game = p_campaign.game_controller
+	economy = p_campaign.economy
+	_populate_lists()
+	_update_display()
 
 
 func _is_owned(item_type: String, item_id: String) -> bool:

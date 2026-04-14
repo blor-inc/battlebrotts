@@ -5,6 +5,7 @@
 extends Control
 
 var game: GameController = null
+var campaign_ui = null  # CampaignUI reference
 
 @onready var outcome_label: Label = %OutcomeLabel
 @onready var stats_label: Label = %StatsLabel
@@ -63,10 +64,51 @@ func show_result(result: Dictionary) -> void:
 	details_label.text = details
 
 
+func show_campaign_result(result: Dictionary) -> void:
+	"""Show result from CampaignController.get_last_result()."""
+	var match_result: Dictionary = result.get("match_result", {})
+	var won: bool = result.get("won", false)
+	var bolts_earned: int = result.get("bolts_earned", 0)
+	var repair_cost: int = result.get("repair_cost", 0)
+	var net_bolts: int = result.get("net_bolts", 0)
+	var opp_name: String = result.get("opponent_name", "Unknown")
+
+	# Outcome
+	if won:
+		outcome_label.text = "🏆 VICTORY vs %s!" % opp_name
+		outcome_label.modulate = Color.GREEN
+	else:
+		outcome_label.text = "💀 DEFEAT vs %s" % opp_name
+		outcome_label.modulate = Color.RED
+
+	# Stats with economy info
+	var duration: float = match_result.get("duration_sec", 0.0)
+	var ticks: int = match_result.get("ticks", 0)
+	stats_label.text = "Duration: %d:%02d (%d ticks)" % [
+		int(duration) / 60, int(duration) % 60, ticks
+	]
+
+	details_label.text = "Earned: %d 🔩 · Repairs: %d 🔩 · Net: %s%d 🔩" % [
+		bolts_earned, repair_cost,
+		"+" if net_bolts >= 0 else "", net_bolts
+	]
+
+	# Relabel buttons for campaign mode
+	if rematch_button:
+		rematch_button.text = "🔄 Rematch"
+	if loadout_button:
+		loadout_button.text = "➡️ Continue"
+
+
 func _on_rematch_pressed() -> void:
-	# Same loadout, new match
-	game.start_match()
+	if campaign_ui:
+		campaign_ui.on_result_rematch()
+	elif game:
+		game.start_match()
 
 
 func _on_loadout_pressed() -> void:
-	game.restart()
+	if campaign_ui:
+		campaign_ui.on_result_continue()
+	elif game:
+		game.restart()
