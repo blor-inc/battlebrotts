@@ -94,6 +94,48 @@
   },
   "activity": [
     {
+      "time": "2026-04-14T20:15:30Z",
+      "agent": "unknown",
+      "action": "ci: disable PWA in export preset (S7)",
+      "sha": "5eb2bdca"
+    },
+    {
+      "time": "2026-04-14T20:10:32Z",
+      "agent": "unknown",
+      "action": "ci: fix export template path for GitHub Actions container (S7)",
+      "sha": "98beb937"
+    },
+    {
+      "time": "2026-04-14T20:02:18Z",
+      "agent": "unknown",
+      "action": "fix: rewrite test files for export compilation + fix Variant types (S7)",
+      "sha": "2f5425e1"
+    },
+    {
+      "time": "2026-04-14T19:52:37Z",
+      "agent": "unknown",
+      "action": "fix: explicit types for Variant inference in test_match_hud.gd (S7)",
+      "sha": "acbdc896"
+    },
+    {
+      "time": "2026-04-14T19:46:17Z",
+      "agent": "unknown",
+      "action": "fix: correct weight calculation in test_exactly_at_cap_valid (S7)",
+      "sha": "41dcd06b"
+    },
+    {
+      "time": "2026-04-14T19:42:13Z",
+      "agent": "unknown",
+      "action": "ci: fix CI test failures + add post-deploy verification (S7-011)",
+      "sha": "7530d1f7"
+    },
+    {
+      "time": "2026-04-14T19:42:10Z",
+      "agent": "unknown",
+      "action": "chore: auto-update dashboard data.json",
+      "sha": "bbaad1a5"
+    },
+    {
       "time": "2026-04-14T19:36:40Z",
       "agent": "unknown",
       "action": "playtest: sprint 7 balance report \u2014 1804 matches, 3 P0 issues (S7)",
@@ -230,51 +272,73 @@
       "agent": "unknown",
       "action": "[S3-001] test: comprehensive test suites (142 tests)",
       "sha": "deb24ebd"
-    },
-    {
-      "time": "2026-04-14T12:55:30Z",
-      "agent": "unknown",
-      "action": "Merge PR #11: Dashboard agent names",
-      "sha": "5329a648"
-    },
-    {
-      "time": "2026-04-14T12:54:56Z",
-      "agent": "devops",
-      "action": "[S2-005] feat: show agent names alongside roles in dashboard",
-      "sha": "2e1829b2"
-    },
-    {
-      "time": "2026-04-14T12:53:10Z",
-      "agent": "pm",
-      "action": "Sprint 2 complete \u2014 STATUS.md and data.json updated",
-      "sha": "705c637e"
-    },
-    {
-      "time": "2026-04-14T12:52:27Z",
-      "agent": "unknown",
-      "action": "Merge PR #10: Sprint 2 \u2014 Arena, LoS, Pathfinding, BrottBrain, Stances",
-      "sha": "606b4e36"
-    },
-    {
-      "time": "2026-04-14T12:51:49Z",
-      "agent": "dev-01",
-      "action": "[S2-001/002/003/004] feat: arena tile system, LoS raycasting, A* pathfinding, BrottBrain engine, stance behaviors",
-      "sha": "a723f672"
-    },
-    {
-      "time": "2026-04-14T12:49:09Z",
-      "agent": "pm",
-      "action": "Sprint 2 kickoff: 4 tasks planned, STATUS.md and data.json updated",
-      "sha": "a048e948"
-    },
-    {
-      "time": "2026-04-14T12:47:19Z",
-      "agent": "unknown",
-      "action": "Merge PR #9: CI/CD Workflow Files",
-      "sha": "283aa60a"
     }
   ],
   "pullRequests": [
+    {
+      "number": 36,
+      "title": "ci: disable PWA in export preset \u2014 no offline.html exists (S7)",
+      "state": "MERGED",
+      "author": "app/studio-lead-dev",
+      "mergedAt": "2026-04-14T20:15:30Z",
+      "createdAt": "2026-04-14T20:14:50Z"
+    },
+    {
+      "number": 35,
+      "title": "ci: fix export template path for GitHub Actions container (S7)",
+      "state": "MERGED",
+      "author": "app/studio-lead-dev",
+      "mergedAt": "2026-04-14T20:10:33Z",
+      "createdAt": "2026-04-14T20:09:51Z"
+    },
+    {
+      "number": 34,
+      "title": "fix: rewrite test files for export compilation + fix Variant types (S7)",
+      "state": "MERGED",
+      "author": "app/studio-lead-dev",
+      "mergedAt": "2026-04-14T20:02:18Z",
+      "createdAt": "2026-04-14T20:01:28Z"
+    },
+    {
+      "number": 33,
+      "title": "fix: explicit types for Variant inference in test_match_hud.gd (S7)",
+      "state": "MERGED",
+      "author": "app/studio-lead-dev",
+      "mergedAt": "2026-04-14T19:52:37Z",
+      "createdAt": "2026-04-14T19:51:54Z"
+    },
+    {
+      "number": 32,
+      "title": "fix: correct weight calculation in test_exactly_at_cap_valid (S7)",
+      "state": "MERGED",
+      "author": "app/studio-lead-dev",
+      "mergedAt": "2026-04-14T19:46:17Z",
+      "createdAt": "2026-04-14T19:45:34Z"
+    },
+    {
+      "number": 31,
+      "title": "chore: auto-update dashboard data.json",
+      "state": "OPEN",
+      "author": "app/github-actions",
+      "mergedAt": null,
+      "createdAt": "2026-04-14T19:42:23Z"
+    },
+    {
+      "number": 30,
+      "title": "ci: fix CI test failures + add post-deploy verification (S7-011)",
+      "state": "MERGED",
+      "author": "app/studio-lead-dev",
+      "mergedAt": "2026-04-14T19:42:13Z",
+      "createdAt": "2026-04-14T19:41:00Z"
+    },
+    {
+      "number": 29,
+      "title": "chore: auto-update dashboard data.json",
+      "state": "MERGED",
+      "author": "app/github-actions",
+      "mergedAt": "2026-04-14T19:42:10Z",
+      "createdAt": "2026-04-14T19:36:53Z"
+    },
     {
       "number": 28,
       "title": "playtest: sprint 7 balance report \u2014 1804 matches, 3 P0 issues (S7)",
@@ -370,70 +434,6 @@
       "author": "brotatotes",
       "mergedAt": "2026-04-14T17:39:06Z",
       "createdAt": "2026-04-14T17:36:27Z"
-    },
-    {
-      "number": 16,
-      "title": "ci: Agent log attribution check for game PRs",
-      "state": "MERGED",
-      "author": "brotatotes",
-      "mergedAt": "2026-04-14T17:26:10Z",
-      "createdAt": "2026-04-14T17:23:50Z"
-    },
-    {
-      "number": 15,
-      "title": "[S4-001] Playable Vertical Slice \u2014 Full Match Loop",
-      "state": "MERGED",
-      "author": "brotatotes",
-      "mergedAt": "2026-04-14T16:22:08Z",
-      "createdAt": "2026-04-14T16:21:48Z"
-    },
-    {
-      "number": 14,
-      "title": "[S4-002] Dashboard Overhaul \u2014 Responsive, Full History, Sprint Summaries, Agent Cards",
-      "state": "MERGED",
-      "author": "brotatotes",
-      "mergedAt": "2026-04-14T16:22:06Z",
-      "createdAt": "2026-04-14T16:15:31Z"
-    },
-    {
-      "number": 13,
-      "title": "[S3-002] feat: MatchManager, projectile system, energy integration + 24 tests",
-      "state": "MERGED",
-      "author": "brotatotes",
-      "mergedAt": "2026-04-14T13:49:07Z",
-      "createdAt": "2026-04-14T13:48:51Z"
-    },
-    {
-      "number": 12,
-      "title": "[S3-001] Comprehensive test suites for all existing code",
-      "state": "MERGED",
-      "author": "brotatotes",
-      "mergedAt": "2026-04-14T13:44:33Z",
-      "createdAt": "2026-04-14T13:39:21Z"
-    },
-    {
-      "number": 11,
-      "title": "[S2-005] Dashboard: Show agent names alongside roles",
-      "state": "MERGED",
-      "author": "brotatotes",
-      "mergedAt": "2026-04-14T12:55:30Z",
-      "createdAt": "2026-04-14T12:55:16Z"
-    },
-    {
-      "number": 10,
-      "title": "[Sprint 2] Arena Tile System, LoS, A* Pathfinding, BrottBrain, Stance Behaviors",
-      "state": "MERGED",
-      "author": "brotatotes",
-      "mergedAt": "2026-04-14T12:52:27Z",
-      "createdAt": "2026-04-14T12:52:11Z"
-    },
-    {
-      "number": 9,
-      "title": "[S1-002] CI/CD Workflow Files \u2014 Build/Deploy + Dashboard Automation",
-      "state": "MERGED",
-      "author": "brotatotes",
-      "mergedAt": "2026-04-14T12:47:19Z",
-      "createdAt": "2026-04-14T12:47:03Z"
     }
   ],
   "messageLog": [
@@ -521,8 +521,8 @@
   "stats": {
     "totalTests": 375,
     "totalPRs": 20,
-    "totalCommits": 42,
+    "totalCommits": 49,
     "gdScripts": 47
   },
-  "updated": "2026-04-14T19:36:51Z"
+  "updated": "2026-04-14T20:15:37Z"
 }
