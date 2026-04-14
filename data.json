@@ -1,31 +1,37 @@
 {
   "sprint": {
-    "number": 0,
-    "goal": "Foundation — Infrastructure Setup",
+    "number": 1,
+    "goal": "Core Systems — Architecture, CI/CD, Combat, Dashboard",
     "tasks": [
-      {"id": "TASK-000", "title": "Install Godot", "status": "done", "assignee": "devops"},
-      {"id": "TASK-001", "title": "GDD v2", "status": "active", "assignee": "game-designer"}
+      {"id": "S1-001", "title": "Architecture Document", "status": "active", "assignee": "lead-dev"},
+      {"id": "S1-002", "title": "CI/CD + Godot Web Export", "status": "active", "assignee": "devops"},
+      {"id": "S1-003", "title": "Core Combat Simulation", "status": "active", "assignee": "dev-01"},
+      {"id": "S1-004", "title": "Dashboard Automation", "status": "active", "assignee": "devops"}
     ]
   },
   "agents": {
-    "eric": {"status": "active", "current": "Reviewing GDD"},
-    "the-bott": {"status": "active", "current": "Managing GDD revision"},
-    "pm": {"status": "idle", "current": "Not yet spawned"},
-    "game-designer": {"status": "working", "current": "GDD v2 revision"},
-    "lead-dev": {"status": "idle", "current": "Waiting for code"},
-    "dev-01": {"status": "idle", "current": "Waiting for tasks"},
-    "playtest-lead": {"status": "idle", "current": "Waiting for builds"},
-    "qa": {"status": "idle", "current": "Waiting for code"},
-    "inspector": {"status": "idle", "current": "Audit repo ready"},
-    "devops": {"status": "active", "current": "Building dashboard"}
+    "eric": {"status": "active", "current": "Creative Director oversight"},
+    "the-bott": {"status": "active", "current": "Head of Product"},
+    "pm": {"status": "active", "current": "Running Sprint 1"},
+    "game-designer": {"status": "idle", "current": "Awaiting next design task"},
+    "lead-dev": {"status": "working", "current": "S1-001 Architecture doc"},
+    "dev-01": {"status": "working", "current": "S1-003 Core combat simulation"},
+    "playtest-lead": {"status": "idle", "current": "Awaiting builds"},
+    "qa": {"status": "idle", "current": "Awaiting code"},
+    "inspector": {"status": "done", "current": "Sprint 0 audit complete"},
+    "devops": {"status": "working", "current": "S1-002 CI/CD + S1-004 Dashboard automation"}
   },
   "activity": [
-    {"time": "2026-04-14T02:55Z", "agent": "the-bott", "action": "Kicked off GDD v2 revision"},
-    {"time": "2026-04-14T02:50Z", "agent": "eric", "action": "Reviewed GDD v1, gave feedback"},
-    {"time": "2026-04-14T02:30Z", "agent": "game-designer", "action": "Completed GDD v1"},
+    {"time": "2026-04-14T12:25Z", "agent": "pm", "action": "Sprint 1 kicked off — 4 tasks assigned"},
+    {"time": "2026-04-14T12:25Z", "agent": "lead-dev", "action": "Starting architecture document"},
+    {"time": "2026-04-14T12:25Z", "agent": "dev-01", "action": "Starting core combat simulation"},
+    {"time": "2026-04-14T12:25Z", "agent": "devops", "action": "Starting CI/CD pipeline + dashboard automation"},
+    {"time": "2026-04-14T03:22Z", "agent": "pm", "action": "Sprint 0 status finalized"},
+    {"time": "2026-04-14T02:55Z", "agent": "the-bott", "action": "GDD v2 merged"},
+    {"time": "2026-04-14T02:50Z", "agent": "eric", "action": "Approved GDD v2"},
+    {"time": "2026-04-14T02:30Z", "agent": "game-designer", "action": "Completed GDD v2"},
     {"time": "2026-04-14T02:15Z", "agent": "the-bott", "action": "Wrote all 8 agent profiles"},
-    {"time": "2026-04-14T01:50Z", "agent": "devops", "action": "Installed Godot 4.4.1"},
-    {"time": "2026-04-14T01:41Z", "agent": "the-bott", "action": "Created game-dev-studio repo"}
+    {"time": "2026-04-14T01:50Z", "agent": "devops", "action": "Installed Godot 4.4.1"}
   ],
-  "updated": "2026-04-14T02:55:00Z"
+  "updated": "2026-04-14T12:25:00Z"
 }
