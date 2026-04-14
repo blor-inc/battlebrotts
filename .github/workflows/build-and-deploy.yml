@@ -15,7 +15,20 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.4.1
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run headless test suite
+        run: |
+          cd godot
+          godot --headless --script res://tests/test_runner.gd
+
   build:
+    needs: test
     runs-on: ubuntu-latest
     container:
       image: barichello/godot-ci:4.4.1

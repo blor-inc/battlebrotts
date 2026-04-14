@@ -1,0 +1,180 @@
+name: Agent Role Boundary Check
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  role-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check agent file boundaries
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { execSync } = require('child_process');
+
+            // ── Agent detection ──
+            // Parse from PR title: look for agent name patterns
+            const title = context.payload.pull_request.title.toLowerCase();
+            const body = (context.payload.pull_request.body || '').toLowerCase();
+            const branch = context.payload.pull_request.head.ref.toLowerCase();
+
+            const agentPatterns = {
+              'nutts':   { match: ['nutts', 'dev-01', 'dev01'], role: 'Dev-01' },
+              'glytch':  { match: ['glytch', 'qa/'],             role: 'QA' },
+              'patch':   { match: ['patch', 'devops/'],          role: 'DevOps' },
+              'boltz':   { match: ['boltz', 'lead-dev'],         role: 'Lead Dev' },
+              'rivett':  { match: ['rivett', 'ops/', 'pm/'],     role: 'Ops/PM' },
+              'optic':   { match: ['optic', 'playtest'],         role: 'Playtest Lead' },
+              'gizmo':   { match: ['gizmo', 'game-designer'],    role: 'Game Designer' },
+              'specc':   { match: ['specc', 'inspector'],        role: 'Inspector' },
+            };
+
+            // Also check commit authors
+            const base = context.payload.pull_request.base.sha;
+            const head = context.payload.pull_request.head.sha;
+            let commitAuthors = '';
+            try {
+              commitAuthors = execSync(
+                `git log --format='%an' ${base}..${head}`, { encoding: 'utf8' }
+              ).toLowerCase();
+            } catch (e) {
+              commitAuthors = '';
+            }
+
+            let detectedAgent = null;
+            for (const [agent, info] of Object.entries(agentPatterns)) {
+              for (const pattern of info.match) {
+                if (title.includes(pattern) || branch.includes(pattern) || commitAuthors.includes(pattern)) {
+                  detectedAgent = agent;
+                  break;
+                }
+              }
+              if (detectedAgent) break;
+            }
+
+            if (!detectedAgent) {
+              console.log('⚠️ Could not detect agent from PR title, branch, or commit authors.');
+              console.log('Skipping role boundary check (advisory).');
+              return;
+            }
+
+            console.log(`🔍 Detected agent: ${detectedAgent} (${agentPatterns[detectedAgent].role})`);
+
+            // ── File scope rules ──
+            const scopeRules = {
+              'nutts': {
+                allowed: [/^godot\/game\//, /^godot\/tests\//],
+                description: 'godot/game/**/*.gd, godot/tests/**/*.gd',
+              },
+              'glytch': {
+                allowed: [/^godot\/tests\//],
+                description: 'godot/tests/**/*.gd',
+              },
+              'patch': {
+                allowed: [/^\.github\//, /\.yml$/, /\.json$/, /^index\.html$/, /^docs\//],
+                description: '.github/**, *.yml, *.json, index.html, docs/**',
+              },
+              'boltz': {
+                allowed: [/.*/],  // Can touch anything
+                description: 'all files (Lead Dev privilege)',
+              },
+              'rivett': {
+                allowed: [/^STATUS\.md$/, /^PLAN\.md$/, /^messages\//, /^tasks\//],
+                blocked: [/\.gd$/, /\.tscn$/, /\.tres$/, /\.yml$/, /\.yaml$/],
+                description: 'STATUS.md, PLAN.md, messages/**, tasks/** (NO code files)',
+              },
+              'optic': {
+                allowed: [/^docs\/playtest\//, /^godot\/tests\/playtest_sim\.gd$/],
+                description: 'docs/playtest/**, godot/tests/playtest_sim.gd',
+              },
+              'gizmo': {
+                allowed: [/^docs\//, /^godot\/game\/data\//, /^STATUS\.md$/, /^PLAN\.md$/],
+                description: 'docs/**, godot/game/data/**, STATUS.md, PLAN.md',
+              },
+              'specc': {
+                allowed: [/^studio-inspector-audits\//, /^docs\//],
+                description: 'studio-inspector-audits/**, docs/**',
+              },
+            };
+
+            // ── Get changed files ──
+            let changedFiles = [];
+            try {
+              const diff = execSync(
+                `git diff --name-only ${base}...${head}`, { encoding: 'utf8' }
+              );
+              changedFiles = diff.trim().split('\n').filter(f => f.length > 0);
+            } catch (e) {
+              console.log('⚠️ Could not get changed files. Skipping check.');
+              return;
+            }
+
+            if (changedFiles.length === 0) {
+              console.log('No files changed.');
+              return;
+            }
+
+            const rules = scopeRules[detectedAgent];
+            if (!rules) {
+              console.log(`⚠️ No scope rules defined for ${detectedAgent}. Skipping.`);
+              return;
+            }
+
+            // ── Check each file ──
+            const violations = [];
+            for (const file of changedFiles) {
+              // Check blocked patterns first (Rivett no-code rule)
+              if (rules.blocked) {
+                for (const pattern of rules.blocked) {
+                  if (pattern.test(file)) {
+                    violations.push({
+                      file,
+                      reason: `❌ BLOCKED: ${detectedAgent} (${agentPatterns[detectedAgent].role}) cannot modify code files`,
+                    });
+                    break;
+                  }
+                }
+              }
+
+              // Check allowed patterns
+              const isAllowed = rules.allowed.some(pattern => pattern.test(file));
+              if (!isAllowed && !violations.find(v => v.file === file)) {
+                violations.push({
+                  file,
+                  reason: `⚠️ Outside scope for ${detectedAgent} (${agentPatterns[detectedAgent].role})`,
+                });
+              }
+            }
+
+            // ── Report ──
+            console.log(`\nFiles changed: ${changedFiles.length}`);
+            console.log(`Agent scope: ${rules.description}`);
+
+            if (violations.length === 0) {
+              console.log(`\n✅ All ${changedFiles.length} files are within ${detectedAgent}'s scope`);
+              return;
+            }
+
+            console.log(`\n🚨 ${violations.length} file(s) outside agent scope:\n`);
+            for (const v of violations) {
+              console.log(`  ${v.reason}: ${v.file}`);
+            }
+
+            // Blocked files (Rivett code) are hard failures; others are warnings
+            const hardFails = violations.filter(v => v.reason.includes('BLOCKED'));
+            if (hardFails.length > 0) {
+              core.setFailed(
+                `❌ Role boundary violation: ${detectedAgent} (${agentPatterns[detectedAgent].role}) ` +
+                `modified ${hardFails.length} blocked file(s). ` +
+                `${agentPatterns[detectedAgent].role} cannot commit code files (.gd, .tscn, .tres, .yml).`
+              );
+            } else {
+              // Soft warning — post comment but don't fail
+              console.log('\n⚠️ Advisory: files outside normal scope detected (not blocking).');
+            }
