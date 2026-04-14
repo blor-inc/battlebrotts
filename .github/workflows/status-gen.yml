@@ -1,0 +1,110 @@
+name: Auto-generate STATUS.md
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-status:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate STATUS.md from git history
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 << 'SCRIPT'
+          import subprocess, re, json, os
+          from datetime import datetime, timezone
+
+          def run(cmd):
+              return subprocess.check_output(cmd, shell=True, text=True).strip()
+
+          now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+          # Count tests
+          test_count = 0
+          test_files = run("find godot/tests -name 'test_*.gd' -not -name 'test_runner.gd' -not -name 'test_main.gd' 2>/dev/null || true")
+          for tf in test_files.split('\n'):
+              if tf.strip() and os.path.exists(tf.strip()):
+                  with open(tf.strip()) as f:
+                      test_count += len(re.findall(r'func test_', f.read()))
+
+          # Count scripts
+          script_count = int(run("find godot/game -name '*.gd' 2>/dev/null | wc -l"))
+          test_file_count = int(run("find godot/tests -name 'test_*.gd' -not -name 'test_runner.gd' -not -name 'test_main.gd' 2>/dev/null | wc -l"))
+
+          # Recent commits
+          commits = run("git log --oneline -20").split('\n')
+
+          # Recent PRs
+          prs = []
+          try:
+              pr_json = run("gh pr list --state all --limit 10 --json number,title,state,mergedAt")
+              prs = json.loads(pr_json)
+          except:
+              pass
+
+          # Total commits
+          total_commits = int(run("git rev-list --count HEAD"))
+
+          # Read PLAN.md for sprint info
+          sprint_info = ""
+          if os.path.exists("PLAN.md"):
+              with open("PLAN.md") as f:
+                  for line in f:
+                      if line.startswith("## Sprint Goal"):
+                          sprint_info = next(f, "").strip()
+                          break
+
+          # Build STATUS.md
+          lines = [
+              "# BattleBrotts — Auto-Generated Status",
+              f"*Auto-generated on {now} from git history, PRs, and test counts.*",
+              f"*Do not edit manually — this file is overwritten on every push to main.*",
+              "",
+              "## Metrics",
+              f"- **Total commits:** {total_commits}",
+              f"- **Game scripts:** {script_count}",
+              f"- **Test files:** {test_file_count}",
+              f"- **Test functions:** {test_count}",
+              f"- **Open/merged PRs (recent 10):** {len([p for p in prs if p['state'] == 'OPEN'])} open, {len([p for p in prs if p['state'] == 'MERGED'])} merged",
+              "",
+          ]
+
+          if sprint_info:
+              lines += ["## Current Sprint Goal", sprint_info, ""]
+
+          lines += ["## Recent Commits"]
+          for c in commits[:15]:
+              lines.append(f"- `{c}`")
+          lines.append("")
+
+          if prs:
+              lines += ["## Recent Pull Requests"]
+              for pr in prs[:10]:
+                  state = "✅ merged" if pr["state"] == "MERGED" else "🔄 open" if pr["state"] == "OPEN" else "❌ closed"
+                  lines.append(f"- PR #{pr['number']}: {pr['title']} ({state})")
+              lines.append("")
+
+          with open("STATUS.md", "w") as f:
+              f.write('\n'.join(lines) + '\n')
+
+          print(f"✅ STATUS.md generated: {total_commits} commits, {test_count} tests, {len(prs)} PRs")
+          SCRIPT
+
+      - name: Commit STATUS.md
+        run: |
+          git config user.name 'Patch (bot)'
+          git config user.email 'patch@blor-inc.studio'
+          git add STATUS.md
+          git diff --cached --quiet && echo "No changes" && exit 0
+          git commit -m "chore: auto-generate STATUS.md [skip ci]"
+          git push
