@@ -1,48 +1,74 @@
 {
   "current": {
-    "number": 11,
-    "goal": "Back to Features \u2014 Playable Web Build",
+    "number": 12,
+    "goal": "Ship the Playable Build",
     "status": "active"
   },
   "tasks": [
     {
-      "id": "S11-001",
-      "title": "Verify & fix web build export",
+      "id": "S12-001",
+      "title": "CI Game Build + Deploy to GitHub Pages",
       "assignee": "devops",
       "status": "todo"
     },
     {
-      "id": "S11-002",
-      "title": "Fix Projectile class_name chain for headless sim",
-      "assignee": "dev-01",
-      "status": "todo"
-    },
-    {
-      "id": "S11-003",
-      "title": "Fix dashboard PR list and Build Status display",
-      "assignee": "devops",
-      "status": "todo"
-    },
-    {
-      "id": "S11-004",
-      "title": "Fix README dashboard link",
-      "assignee": "devops",
-      "status": "todo"
-    },
-    {
-      "id": "S11-005",
-      "title": "Headless playtest sim runner",
-      "assignee": "devops",
-      "status": "todo"
-    },
-    {
-      "id": "S11-006",
-      "title": "Run 1000-match playtest + balance report",
+      "id": "S12-002",
+      "title": "Headless playtest \u2014 1000+ simulations + balance report",
       "assignee": "playtest-lead",
       "status": "todo"
+    },
+    {
+      "id": "S12-003",
+      "title": "Sprint config + dashboard update",
+      "assignee": "pm",
+      "status": "done"
     }
   ],
   "history": [
+    {
+      "number": 11,
+      "goal": "Back to Features \u2014 Playable Web Build",
+      "status": "complete",
+      "summary": "Playable web build with full campaign UI flow merged.",
+      "tasks": [
+        {
+          "id": "S11-001",
+          "title": "Verify & fix web build export",
+          "assignee": "devops",
+          "status": "todo"
+        },
+        {
+          "id": "S11-002",
+          "title": "Fix Projectile class_name chain for headless sim",
+          "assignee": "dev-01",
+          "status": "todo"
+        },
+        {
+          "id": "S11-003",
+          "title": "Fix dashboard PR list and Build Status display",
+          "assignee": "devops",
+          "status": "todo"
+        },
+        {
+          "id": "S11-004",
+          "title": "Fix README dashboard link",
+          "assignee": "devops",
+          "status": "todo"
+        },
+        {
+          "id": "S11-005",
+          "title": "Headless playtest sim runner",
+          "assignee": "devops",
+          "status": "todo"
+        },
+        {
+          "id": "S11-006",
+          "title": "Run 1000-match playtest + balance report",
+          "assignee": "playtest-lead",
+          "status": "todo"
+        }
+      ]
+    },
     {
       "number": 10,
       "goal": "Final Process Sprint \u2014 Automated Sprint Tracking",
