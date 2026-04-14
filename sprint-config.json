@@ -1,40 +1,84 @@
 {
   "current": {
-    "number": 10,
-    "goal": "Final Process Sprint \u2014 Automated Sprint Tracking",
-    "status": "complete"
+    "number": 11,
+    "goal": "Back to Features \u2014 Playable Web Build",
+    "status": "active"
   },
   "tasks": [
     {
-      "id": "S10-001",
-      "title": "Auto-generate sprint-config task status from merged PRs",
+      "id": "S11-001",
+      "title": "Verify & fix web build export",
       "assignee": "devops",
-      "status": "done",
-      "pr": "47"
+      "status": "todo"
     },
     {
-      "id": "S10-002",
-      "title": "Verify data.json regeneration pipeline end-to-end",
-      "assignee": "devops",
-      "status": "done",
-      "pr": "48"
+      "id": "S11-002",
+      "title": "Fix Projectile class_name chain for headless sim",
+      "assignee": "dev-01",
+      "status": "todo"
     },
     {
-      "id": "S10-003",
-      "title": "Auto-close sprint when all tasks done",
+      "id": "S11-003",
+      "title": "Fix dashboard PR list and Build Status display",
       "assignee": "devops",
-      "status": "done",
-      "pr": "47"
+      "status": "todo"
     },
     {
-      "id": "S10-004",
-      "title": "Backlog review + Sprint 11 planning",
-      "assignee": "pm",
-      "status": "done",
-      "pr": "53"
+      "id": "S11-004",
+      "title": "Fix README dashboard link",
+      "assignee": "devops",
+      "status": "todo"
+    },
+    {
+      "id": "S11-005",
+      "title": "Headless playtest sim runner",
+      "assignee": "devops",
+      "status": "todo"
+    },
+    {
+      "id": "S11-006",
+      "title": "Run 1000-match playtest + balance report",
+      "assignee": "playtest-lead",
+      "status": "todo"
     }
   ],
   "history": [
+    {
+      "number": 10,
+      "goal": "Final Process Sprint \u2014 Automated Sprint Tracking",
+      "status": "complete",
+      "summary": "Auto-generate sprint task status from merged PRs, auto-close sprints, data.json pipeline verification, Sprint 11 planning.",
+      "tasks": [
+        {
+          "id": "S10-001",
+          "title": "Auto-generate sprint-config task status from merged PRs",
+          "assignee": "devops",
+          "status": "done",
+          "pr": "47"
+        },
+        {
+          "id": "S10-002",
+          "title": "Verify data.json regeneration pipeline end-to-end",
+          "assignee": "devops",
+          "status": "done",
+          "pr": "48"
+        },
+        {
+          "id": "S10-003",
+          "title": "Auto-close sprint when all tasks done",
+          "assignee": "devops",
+          "status": "done",
+          "pr": "47"
+        },
+        {
+          "id": "S10-004",
+          "title": "Backlog review + Sprint 11 planning",
+          "assignee": "pm",
+          "status": "done",
+          "pr": "53"
+        }
+      ]
+    },
     {
       "number": 10,
       "goal": "Final Process Sprint \u2014 Automated Sprint Tracking",

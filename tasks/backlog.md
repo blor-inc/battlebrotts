@@ -13,6 +13,9 @@
 | B-019 | Playable web build (browser-playable) | 🔴 High | Nutts/Patch | New | Eric should be able to play in browser |
 | B-020 | Headless playtest simulation infrastructure | 🔴 High | Patch/Optic | New | Optic needs to run real automated sims |
 | B-021 | Bot PR auto-merge pipeline | 🟢 Low | Patch | New | Currently requires manual approve+merge of bot PRs |
+| B-022 | Fix PR list on dashboard (not showing/scrolling properly) | 🟡 Medium | Patch | New | Dashboard PR section broken |
+| B-023 | Fix Build Status list on dashboard (not showing/scrolling properly) | 🟡 Medium | Patch | New | Dashboard build status section broken |
+| B-024 | Fix README dashboard link (points to /dashboard/ instead of /) | 🟢 Low | Patch | New | Wrong URL in README |
 
 ## Completed (removed from active)
 
