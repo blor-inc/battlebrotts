@@ -61,7 +61,8 @@ jobs:
                       agents[aid]["status"] = "active"
 
           # ── 3. Git commit history → activity feed ──
-          git_log = run("git log --format='%H|%aI|%an|%s' -100")
+          # Use %x00 as record separator to handle multi-line commit bodies
+          git_log = run("git log --format='%H|%aI|%an|%s%x00%b%x00' -100")
           activity = []
           author_map = {
               'patch': 'devops', 'nutts': 'dev-01', 'boltz': 'lead-dev',
@@ -72,18 +73,48 @@ jobs:
               'github-actions[bot]': 'devops', 'github-actions': 'devops',
               'patch (bot)': 'devops',
           }
-          for line in git_log.split('\n'):
-              if not line.strip():
+
+          def resolve_agent(author, body):
+              """Resolve agent from Co-authored-by trailer, Agent: line, or commit author."""
+              # Check Co-authored-by trailers (agent commits use these)
+              for line in body.split('\n'):
+                  line = line.strip()
+                  if line.lower().startswith('co-authored-by:'):
+                      coauthor = line.split(':', 1)[1].strip().lower()
+                      name_part = coauthor.split('<')[0].strip()
+                      for k, v in author_map.items():
+                          if k in name_part:
+                              return v
+              # Check for "Agent: Name" pattern in PR body
+              for line in body.split('\n'):
+                  line = line.strip()
+                  if line.lower().startswith('agent:'):
+                      agent_name = line.split(':', 1)[1].strip().lower()
+                      # Remove parenthetical like "(DevOps)" or "(Head of Operations)"
+                      agent_name = re.sub(r'\s*\(.*?\)', '', agent_name).strip()
+                      for k, v in author_map.items():
+                          if k in agent_name:
+                              return v
+              # Fall back to commit author
+              author_lower = author.lower().strip()
+              for k, v in author_map.items():
+                  if k in author_lower:
+                      return v
+              return 'unknown'
+
+          # Parse records separated by null bytes
+          records = git_log.split('\x00')
+          i = 0
+          while i < len(records) - 1:
+              header = records[i].strip()
+              body = records[i + 1].strip() if i + 1 < len(records) else ''
+              i += 2
+              if not header:
                   continue
-              parts = line.split('|', 3)
+              parts = header.split('|', 3)
               if len(parts) == 4:
                   sha, ts, author, msg = parts
-                  agent = 'unknown'
-                  author_lower = author.lower().strip()
-                  for k, v in author_map.items():
-                      if k in author_lower:
-                          agent = v
-                          break
+                  agent = resolve_agent(author, body)
                   activity.append({
                       "time": ts,
                       "agent": agent,
