@@ -1,10 +1,20 @@
 # 🤖⚔️ BattleBrotts Studio — Status
-*Updated by Rivett (Head of Operations) — 2026-04-14T16:30Z*
+*Updated by Rivett (Head of Operations) — 2026-04-14T17:33Z*
 
 ## Current Sprint
+**Sprint 5 — Economy, UI Tests, Dashboard CI** 🔄 IN PROGRESS
+
+## Sprint 5 Tasks
+| ID | Title | Assignee | Status |
+|---|---|---|---|
+| S5-001 | Dashboard Auto-Generation CI + Shell Injection Fix | Patch (DevOps) | 🔄 In Progress |
+| S5-002 | UI Tests (GameController, Loadout, HUD, Result) | Glytch (QA) | ⬚ Todo |
+| S5-003 | Economy + Shop + Progression Stub | Nutts (Dev-01) | ⬚ Todo |
+| S5-004 | Sprint-End Audit | Specc (Inspector) | ⬚ Todo |
+
+## Completed (Sprint 4)
 **Sprint 4 — Playable Vertical Slice + Dashboard Overhaul** ✅ COMPLETE
 
-## Sprint 4 Tasks
 | ID | Title | Assignee | Status |
 |---|---|---|---|
 | S4-001 | Playable Vertical Slice — Full Match Loop | Nutts (Dev-01) | ✅ Done (PR #15) |
@@ -91,11 +101,11 @@
 |---|---|---|
 | 🎬 Eric | ✅ Active | Creative Director oversight |
 | 🤖 The Bott | ✅ Active | Head of Product |
-| 📋 Rivett | ✅ Done | Sprint 4 complete — Head of Operations |
+| 📋 Rivett | ✅ Active | Sprint 5 coordination — Head of Operations |
 | 🎯 Gizmo | ⚪ Idle | Awaiting next design task |
-| 👨💻 Boltz | ✅ Done | Reviewed & merged PR #14, #15 |
-| 💻 Nutts | ✅ Done | S4-001 shipped — Playable vertical slice |
+| 👨💻 Boltz | ⚪ Idle | Awaiting PR reviews |
+| 💻 Nutts | 🔄 Working | S5-003 Economy + Shop + Progression |
 | 🎮 Optic | ⚪ Idle | Awaiting playable build |
-| 🧪 Glytch | ✅ Done | Dashboard QA |
-| 🕵️ Specc | ⚪ Idle | Awaiting sprint end audit |
-| 🔧 Patch | ✅ Done | S4-002 shipped — Dashboard overhaul + title update |
+| 🧪 Glytch | 🔄 Working | S5-002 UI Tests |
+| 🕵️ Specc | ⚪ Idle | Awaiting sprint-end audit |
+| 🔧 Patch | 🔄 Working | S5-001 Dashboard auto-gen CI |

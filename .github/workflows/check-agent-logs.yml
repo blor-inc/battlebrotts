@@ -14,12 +14,11 @@ jobs:
 
       - name: Check for agent attribution
         id: check
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
         run: |
-          # Check if PR body mentions an agent or log reference
-          PR_BODY="${{ github.event.pull_request.body }}"
-
-          # Check for agent references in PR body
-          if echo "$PR_BODY" | grep -qiE '(agent:|logged in|log entry|agents/.*/log)'; then
+          # PR_BODY is passed via env to avoid shell injection from untrusted input
+          if printf '%s' "$PR_BODY" | grep -qiE '(agent:|logged in|log entry|agents/.*/log)'; then
             echo "found=true" >> "$GITHUB_OUTPUT"
           else
             echo "found=false" >> "$GITHUB_OUTPUT"
