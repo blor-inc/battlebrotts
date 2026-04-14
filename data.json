@@ -1,32 +1,32 @@
 {
   "sprint": {
     "number": 4,
-    "goal": "Playable Vertical Slice + Dashboard Overhaul",
-    "status": "active"
+    "goal": "Playable Vertical Slice + Dashboard Overhaul — COMPLETE",
+    "status": "complete"
   },
   "tasks": [
     {
       "id": "S4-001",
       "title": "Playable Vertical Slice — Wire all systems into runnable match",
-      "status": "active",
+      "status": "done",
       "assignee": "dev-01"
     },
     {
       "id": "S4-002",
       "title": "Dashboard Overhaul — Responsive, full history, sprint summaries",
-      "status": "active",
+      "status": "done",
       "assignee": "devops"
     },
     {
       "id": "S4-003",
       "title": "PR Reviews + Architecture Alignment + Web Export Verify",
-      "status": "active",
+      "status": "done",
       "assignee": "lead-dev"
     },
     {
       "id": "S4-004",
       "title": "Dashboard QA — Viewport testing, bug filing",
-      "status": "active",
+      "status": "done",
       "assignee": "qa"
     }
   ],
@@ -44,8 +44,8 @@
       "title": "🤖 Head of Product"
     },
     "pm": {
-      "status": "active",
-      "current": "Sprint 4 orchestration — two parallel tracks",
+      "status": "done",
+      "current": "Sprint 4 complete",
       "name": "Rivett",
       "title": "📋 Head of Operations"
     },
@@ -56,14 +56,14 @@
       "title": "🎯 Game Designer"
     },
     "lead-dev": {
-      "status": "active",
-      "current": "Sprint 4 — PR reviews, architecture alignment",
+      "status": "done",
+      "current": "Reviewed & merged PR #14, #15",
       "name": "Boltz",
       "title": "👨‍💻 Lead Dev"
     },
     "dev-01": {
-      "status": "active",
-      "current": "Sprint 4 — Playable vertical slice",
+      "status": "done",
+      "current": "S4-001 shipped — Playable vertical slice",
       "name": "Nutts",
       "title": "💻 Dev-01"
     },
@@ -74,8 +74,8 @@
       "title": "🎮 Playtest Lead"
     },
     "qa": {
-      "status": "active",
-      "current": "Sprint 4 — Dashboard QA",
+      "status": "done",
+      "current": "Dashboard QA complete",
       "name": "Glytch",
       "title": "🧪 QA"
     },
@@ -86,8 +86,8 @@
       "title": "🕵️ Inspector"
     },
     "devops": {
-      "status": "active",
-      "current": "Sprint 4 — Dashboard overhaul",
+      "status": "done",
+      "current": "S4-002 shipped — Dashboard overhaul + title update",
       "name": "Patch",
       "title": "🔧 DevOps"
     }
@@ -98,10 +98,34 @@
       "goal": "Foundation — Architecture, CI/CD, Core Combat",
       "status": "complete",
       "tasks": [
-        {"id": "S1-001", "title": "Architecture Document", "assignee": "lead-dev", "status": "done", "pr": "#8"},
-        {"id": "S1-002", "title": "CI/CD + Godot Web Export", "assignee": "devops", "status": "done", "pr": "#6, #9"},
-        {"id": "S1-003", "title": "Core Combat Simulation", "assignee": "dev-01", "status": "done", "pr": "#7"},
-        {"id": "S1-004", "title": "Dashboard Automation", "assignee": "devops", "status": "done", "pr": "#9"}
+        {
+          "id": "S1-001",
+          "title": "Architecture Document",
+          "assignee": "lead-dev",
+          "status": "done",
+          "pr": "#8"
+        },
+        {
+          "id": "S1-002",
+          "title": "CI/CD + Godot Web Export",
+          "assignee": "devops",
+          "status": "done",
+          "pr": "#6, #9"
+        },
+        {
+          "id": "S1-003",
+          "title": "Core Combat Simulation",
+          "assignee": "dev-01",
+          "status": "done",
+          "pr": "#7"
+        },
+        {
+          "id": "S1-004",
+          "title": "Dashboard Automation",
+          "assignee": "devops",
+          "status": "done",
+          "pr": "#9"
+        }
       ],
       "summary": "Established project architecture, CI/CD pipeline with Godot web export, core combat simulation (tick system, damage calculator, brott entity, data resources), and initial dashboard."
     },
@@ -110,10 +134,34 @@
       "goal": "Arena & AI — Tile System, Pathfinding, BrottBrain, Stances",
       "status": "complete",
       "tasks": [
-        {"id": "S2-001", "title": "Arena Tile System + LoS", "assignee": "dev-01", "status": "done", "pr": "#10"},
-        {"id": "S2-002", "title": "A* Pathfinding", "assignee": "dev-01", "status": "done", "pr": "#10"},
-        {"id": "S2-003", "title": "BrottBrain Evaluation Engine", "assignee": "dev-01", "status": "done", "pr": "#10"},
-        {"id": "S2-004", "title": "Stance Movement Behaviors", "assignee": "dev-01", "status": "done", "pr": "#10"}
+        {
+          "id": "S2-001",
+          "title": "Arena Tile System + LoS",
+          "assignee": "dev-01",
+          "status": "done",
+          "pr": "#10"
+        },
+        {
+          "id": "S2-002",
+          "title": "A* Pathfinding",
+          "assignee": "dev-01",
+          "status": "done",
+          "pr": "#10"
+        },
+        {
+          "id": "S2-003",
+          "title": "BrottBrain Evaluation Engine",
+          "assignee": "dev-01",
+          "status": "done",
+          "pr": "#10"
+        },
+        {
+          "id": "S2-004",
+          "title": "Stance Movement Behaviors",
+          "assignee": "dev-01",
+          "status": "done",
+          "pr": "#10"
+        }
       ],
       "summary": "Built arena tile system with 5 tile types and 2 layouts, line-of-sight raycasting, A* pathfinding with 8-directional movement and hazard avoidance, BrottBrain card-based AI evaluation engine, and 4 stance behaviors (Aggressive, Defensive, Kiting, Ambush)."
     },
@@ -122,14 +170,57 @@
       "goal": "Tests & Combat Features — Test Suites, MatchManager, Projectiles",
       "status": "complete",
       "tasks": [
-        {"id": "S3-001", "title": "Comprehensive Test Suites (142 tests)", "assignee": "qa", "status": "done", "pr": "#12"},
-        {"id": "S3-002", "title": "Match Lifecycle + Weapon Fire + Energy", "assignee": "dev-01", "status": "done", "pr": "#13"},
-        {"id": "S3-003", "title": "PR Reviews (test requirement enforced)", "assignee": "lead-dev", "status": "done", "pr": "#12, #13"}
+        {
+          "id": "S3-001",
+          "title": "Comprehensive Test Suites (142 tests)",
+          "assignee": "qa",
+          "status": "done",
+          "pr": "#12"
+        },
+        {
+          "id": "S3-002",
+          "title": "Match Lifecycle + Weapon Fire + Energy",
+          "assignee": "dev-01",
+          "status": "done",
+          "pr": "#13"
+        },
+        {
+          "id": "S3-003",
+          "title": "PR Reviews (test requirement enforced)",
+          "assignee": "lead-dev",
+          "status": "done",
+          "pr": "#12, #13"
+        }
       ],
       "summary": "Added 142 comprehensive tests covering all systems, MatchManager autoload for match lifecycle, projectile system (hitscan + missile), energy system integration, and established 'no code without tests' rule. 166 total tests."
     }
   ],
   "activity": [
+    {
+      "time": "2026-04-14T16:30Z",
+      "agent": "pm",
+      "action": "Sprint 4 COMPLETE — both tracks done, all PRs merged"
+    },
+    {
+      "time": "2026-04-14T16:28Z",
+      "agent": "lead-dev",
+      "action": "Reviewed and merged PR #14 (Dashboard) and PR #15 (Vertical Slice)"
+    },
+    {
+      "time": "2026-04-14T16:25Z",
+      "agent": "dev-01",
+      "action": "PR #15 opened — Playable vertical slice with 15 tests"
+    },
+    {
+      "time": "2026-04-14T16:20Z",
+      "agent": "devops",
+      "action": "PR #14 opened — Complete dashboard overhaul"
+    },
+    {
+      "time": "2026-04-14T16:15Z",
+      "agent": "devops",
+      "action": "ops PR #6 — Rivett title updated to Head of Operations"
+    },
     {
       "time": "2026-04-14T16:11Z",
       "agent": "pm",
@@ -231,5 +322,5 @@
       "action": "Dashboard automation + CI fixes (PR #9)"
     }
   ],
-  "updated": "2026-04-14T16:11:00Z"
+  "updated": "2026-04-14T16:30:00Z"
 }

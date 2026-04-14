@@ -1,36 +1,44 @@
 # 🤖⚔️ BattleBrotts Studio — Status
-*Updated by Rivett (PM) — 2026-04-14T13:45Z*
+*Updated by Rivett (Head of Operations) — 2026-04-14T16:30Z*
 
 ## Current Sprint
-**Sprint 3 — Tests & Combat Features** ✅ COMPLETE
+**Sprint 4 — Playable Vertical Slice + Dashboard Overhaul** ✅ COMPLETE
 
-## Sprint 3 Tasks
+## Sprint 4 Tasks
 | ID | Title | Assignee | Status |
 |---|---|---|---|
-| S3-001 | Comprehensive Test Suites | Glytch (QA) | ✅ Done (PR #12) |
-| S3-002 | Match Lifecycle + Weapon Fire + Energy | Nutts (Dev-01) | ✅ Done (PR #13) |
-| S3-003 | PR Reviews (test requirement enforced) | Boltz (Lead Dev) | ✅ Done (PR #12, #13) |
+| S4-001 | Playable Vertical Slice — Full Match Loop | Nutts (Dev-01) | ✅ Done (PR #15) |
+| S4-002 | Dashboard Overhaul — Responsive, Full History | Patch (DevOps) | ✅ Done (PR #14) |
+| S4-003 | PR Reviews + Architecture Alignment | Boltz (Lead Dev) | ✅ Done (PR #14, #15) |
+| S4-004 | Rivett Title Update (PM → Head of Operations) | Patch (DevOps) | ✅ Done (ops PR #6) |
 
-## Sprint 3 Deliverables
-### Tests (Glytch — PR #12)
-- 142 tests covering combat, damage, pathfinding, BrottBrain, steering, arena, data validation
+## Sprint 4 Deliverables
 
-### Features (Nutts — PR #13)
-- MatchManager autoload (match lifecycle: setup → start → pause → end → reset)
-- Win/loss/draw detection with 120s timeout + HP% tiebreaker
-- Projectile system (hitscan instant + missile travel with homing)
-- TickSystem phases 5-6 updated for projectile creation/resolution
-- Energy system verified (100 max, 5/sec regen, cost-gated fire)
-- 24 new tests (16 MatchManager + 8 Projectile)
+### Track A: Playable Vertical Slice (Nutts — PR #15)
+- **GameController** — Full flow: Loadout → Match → Result with screen transitions
+- **Loadout Screen** — Pick chassis, weapons, armor, modules with weight/slot validation
+- **Match HUD** — HP bars, energy bars, shield bars, tick counter, timer, speed control (1x/5x/20x/100x)
+- **Arena View** — 2D tile grid renderer for The Pit with brott position indicators
+- **Result Screen** — Win/loss/draw display with duration, HP remaining, rematch/loadout buttons
+- **Enemy Brott** — Pre-built Brawler w/ Shotgun + Missile Pod, Reactive Mesh, Repair Nanites
+- **15 new tests** covering game controller, loadout validation, simulation, screen transitions
+- All systems wired: MatchManager + TickSystem + ArenaManager + BrottBrain + Steering + Projectiles + Energy
 
-### New Rule
-**No code merges without tests.** Every PR with game code must include or reference tests.
+### Track B: Dashboard Overhaul (Patch — PR #14)
+- **Responsive layout** — Works on desktop (1920x1080, 1440x900) and mobile (375x812, 390x844)
+- **Full activity timeline** — All history, no 20-item limit, filterable by agent tabs
+- **Sprint history** — Collapsible summaries for sprints 1-3 with tasks, assignees, PRs
+- **Agent cards** — Name + title + current task + status dot
+- **Project health stats** — Sprints, tasks done, PRs merged, active agents, test count
+- **No text cutoff** — Proper overflow handling at all viewports
 
-## Specc Audit Remediation (2026-04-14)
-- ✅ Merged 3 stale branches in game-dev-studio (patch/agent-logs, patch/agent-names, patch/spawn-protocol)
-- ✅ Message log updated with all inter-agent communications
-- ✅ Dashboard data.json refreshed with current agent/activity data
-- ✅ game-dev-studio STATUS.md redirected to battlebrotts as single source of truth
+### Title Update (ops PR #6)
+- Rivett: PM → Head of Operations (profile + FRAMEWORK.md)
+
+## Completed (Sprint 3)
+- ✅ S3-001: Comprehensive Test Suites — 142 tests (Glytch) — PR #12
+- ✅ S3-002: Match Lifecycle + Weapon Fire + Energy (Nutts) — PR #13
+- ✅ S3-003: PR Reviews (Boltz) — PR #12, #13
 
 ## Completed (Sprint 2)
 - ✅ S2-001: Arena Tile System + LoS (Nutts) — PR #10
@@ -45,6 +53,13 @@
 - ✅ S1-004: Dashboard Automation (Patch) — PR #9
 
 ## Codebase Summary
+### game/ui/ (Sprint 4 — NEW)
+- `game_controller.gd` — Main game flow (Loadout → Match → Result)
+- `loadout_screen.gd` — Equipment selection UI with validation
+- `match_hud.gd` — Combat HUD (HP, energy, shield bars, speed control)
+- `result_screen.gd` — Match outcome display
+- `arena_view.gd` — 2D arena grid renderer
+
 ### game/autoloads/ (Sprint 3)
 - `match_manager.gd` — Match lifecycle controller (autoload singleton)
 
@@ -60,7 +75,7 @@
 - `brott.gd` — Brott entity with stats, weapons, armor, modules
 
 ### game/arena/ (Sprint 2)
-- `arena_manager.gd` — tile grid, LoS raycasting, 5 tile types, 2 layouts
+- `arena_manager.gd` — tile grid, LoS raycasting, 5 tile types, 2 layouts (The Pit, Junkyard)
 - `pathfinder.gd` — A* with 8-dir movement, caching, hazard avoidance
 
 ### game/ai/ (Sprint 2)
@@ -68,19 +83,19 @@
 - `brottbrain.gd` — priority card evaluation engine (max 8 cards)
 - `steering.gd` — 4 stance behaviors (Aggressive, Defensive, Kiting, Ambush)
 
-### tests/ (Sprint 3)
-- 166 total tests (142 existing + 24 new)
+### tests/ (Sprint 1-4)
+- 181+ total tests (142 existing + 24 match/projectile + 15 game controller)
 
 ## Agent Status
 | Agent | Status | Current |
 |---|---|---|
 | 🎬 Eric | ✅ Active | Creative Director oversight |
 | 🤖 The Bott | ✅ Active | Head of Product |
-| 📋 Rivett | ✅ Done | Sprint 3 complete |
+| 📋 Rivett | ✅ Done | Sprint 4 complete — Head of Operations |
 | 🎯 Gizmo | ⚪ Idle | Awaiting next design task |
-| 👨‍💻 Boltz | ✅ Done | Reviewed & merged PR #12, #13 |
-| 💻 Nutts | ✅ Done | S3-002 shipped — MatchManager, projectiles, energy |
-| 🎮 Optic | ⚪ Idle | Awaiting builds |
-| 🧪 Glytch | ✅ Done | S3-001 shipped — 142 tests |
-| 🕵️ Specc | ✅ Done | Audit complete, findings addressed |
-| 🔧 Patch | ✅ Done | Stale branches cleaned, STATUS.md redirected |
+| 👨💻 Boltz | ✅ Done | Reviewed & merged PR #14, #15 |
+| 💻 Nutts | ✅ Done | S4-001 shipped — Playable vertical slice |
+| 🎮 Optic | ⚪ Idle | Awaiting playable build |
+| 🧪 Glytch | ✅ Done | Dashboard QA |
+| 🕵️ Specc | ⚪ Idle | Awaiting sprint end audit |
+| 🔧 Patch | ✅ Done | S4-002 shipped — Dashboard overhaul + title update |
