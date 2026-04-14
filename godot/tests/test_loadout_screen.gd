@@ -55,8 +55,8 @@ func test_overweight_rejected() -> bool:
 	return not v["valid"] and v["errors"].size() > 0
 
 func test_exactly_at_cap_valid() -> bool:
-	# Brawler cap 55: minigun(10) + shotgun(12) + plating(15) + overclock(5) + shield_projector(13) = 55
-	var gc := _make_gc("brawler", ["minigun", "shotgun"], "plating", ["overclock", "shield_projector"])
+	# Brawler cap 55: minigun(10) + flak_cannon(13) + plating(15) + repair_nanites(7) + shield_projector(10) = 55
+	var gc := _make_gc("brawler", ["minigun", "flak_cannon"], "plating", ["repair_nanites", "shield_projector"])
 	return gc.get_weight_used() == 55.0 and gc.validate_loadout()["valid"]
 
 # ── Slot validation tests ──
