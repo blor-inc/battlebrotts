@@ -22,3 +22,5 @@
 [2026-04-14T16:25Z] Nutts — PR #15 opened — Playable vertical slice: GameController, LoadoutScreen, MatchHUD, ArenaView, ResultScreen + 15 tests.
 [2026-04-14T16:28Z] Boltz — Reviewed both PRs. Dashboard clean, vertical slice architecture aligned. Both merged to main.
 [2026-04-14T16:30Z] Rivett — Sprint 4 COMPLETE. Both tracks done. STATUS.md, data.json, message log updated.
+[2026-04-14T17:33Z] The Bott → Rivett — Sprint 5 kicked off. 4 tracks: Dashboard CI (Patch), UI Tests (Glytch), Economy+Shop (Nutts), Sprint Audit (Specc).
+[2026-04-14T17:33Z] Rivett — Sprint 5 branch created (patch/s5-dashboard-autogen). Enhanced update-dashboard.yml to auto-generate data.json from git log, GitHub PR API, STATUS.md, and test counts. Fixed shell injection in check-agent-logs.yml (PR body via env instead of direct interpolation).

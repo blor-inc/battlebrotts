@@ -3,7 +3,6 @@ name: Update Dashboard Data
 on:
   push:
     branches: [main]
-    paths: [STATUS.md]
   workflow_dispatch:
 
 permissions:
@@ -14,102 +13,190 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for git log
 
-      - name: Parse STATUS.md and generate data.json
+      - name: Generate data.json from real sources
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           python3 << 'SCRIPT'
-          import json, re, sys
+          import json, re, subprocess, os
           from datetime import datetime, timezone
 
+          def run(cmd):
+              return subprocess.check_output(cmd, shell=True, text=True).strip()
+
+          # ── 1. Parse STATUS.md for sprint info, tasks, agents ──
           with open("STATUS.md") as f:
               content = f.read()
 
-          # Parse sprint info
-          sprint_match = re.search(r'\*\*Sprint (\d+) — (.+?)\*\*', content)
+          sprint_match = re.search(r'\*\*Sprint (\d+) — (.+?)\*\*\s*(.*)', content)
           sprint = {
               "number": int(sprint_match.group(1)) if sprint_match else 0,
-              "name": sprint_match.group(2).strip() if sprint_match else "Unknown"
+              "goal": sprint_match.group(2).strip() if sprint_match else "Unknown",
+              "status": "complete" if sprint_match and "COMPLETE" in (sprint_match.group(2) + sprint_match.group(3)) else "active"
           }
 
-          # Parse sprint tasks table
+          # Parse current sprint tasks
           tasks = []
-          task_pattern = re.compile(r'\|\s*(S\d+-\d+)\s*\|\s*(.+?)\s*\|\s*(.+?)\s*\|\s*(.+?)\s*\|')
-          in_sprint_tasks = False
+          task_re = re.compile(r'\|\s*(S\d+-\d+)\s*\|\s*(.+?)\s*\|\s*(.+?)\s*\|\s*(.+?)\s*\|')
+          in_tasks = False
           for line in content.split('\n'):
-              if 'Sprint 1 Tasks' in line or 'Sprint Tasks' in line:
-                  in_sprint_tasks = True
+              if re.match(r'##\s+Sprint \d+ Tasks', line):
+                  in_tasks = True
                   continue
-              if in_sprint_tasks and line.startswith('## '):
+              if in_tasks and line.startswith('## '):
                   break
-              m = task_pattern.match(line)
-              if m and in_sprint_tasks:
-                  status_raw = m.group(4).strip()
-                  if '✅' in status_raw:
-                      status = 'done'
-                  elif '🔄' in status_raw:
-                      status = 'in-progress'
-                  elif '❌' in status_raw:
-                      status = 'blocked'
-                  else:
-                      status = 'todo'
+              m = task_re.match(line)
+              if m and in_tasks:
+                  raw = m.group(4).strip()
+                  status = 'done' if '✅' in raw else 'in-progress' if '🔄' in raw else 'blocked' if '❌' in raw else 'todo'
+                  # Map agent names to role IDs
+                  assignee_raw = m.group(3).strip()
+                  role_map = {
+                      'nutts': 'dev-01', 'patch': 'devops', 'boltz': 'lead-dev',
+                      'glytch': 'qa', 'gizmo': 'game-designer', 'rivett': 'pm',
+                      'specc': 'inspector', 'optic': 'playtest-lead'
+                  }
+                  assignee = assignee_raw
+                  for name, role in role_map.items():
+                      if name.lower() in assignee_raw.lower():
+                          assignee = role
+                          break
                   tasks.append({
                       "id": m.group(1).strip(),
                       "title": m.group(2).strip(),
-                      "assignee": m.group(3).strip(),
+                      "assignee": assignee,
                       "status": status
                   })
 
-          # Parse agent status table
-          agents = []
-          agent_pattern = re.compile(r'\|\s*(.+?)\s*\|\s*(.+?)\s*\|\s*(.+?)\s*\|')
+          # Parse agent status
+          agents = {}
+          agent_re = re.compile(r'\|\s*(.+?)\s*\|\s*(.+?)\s*\|\s*(.+?)\s*\|')
           in_agents = False
+          agent_info = {
+              'Eric': ('eric', '🎬 Creative Director'),
+              'The Bott': ('the-bott', '🤖 Head of Product'),
+              'Rivett': ('pm', '📋 Head of Operations'),
+              'Gizmo': ('game-designer', '🎯 Game Designer'),
+              'Boltz': ('lead-dev', '👨💻 Lead Dev'),
+              'Nutts': ('dev-01', '💻 Dev-01'),
+              'Optic': ('playtest-lead', '🎮 Playtest Lead'),
+              'Glytch': ('qa', '🧪 QA'),
+              'Specc': ('inspector', '🕵️ Inspector'),
+              'Patch': ('devops', '🔧 DevOps'),
+          }
           for line in content.split('\n'):
               if 'Agent Status' in line:
                   in_agents = True
                   continue
               if in_agents and line.startswith('## '):
                   break
-              m = agent_pattern.match(line)
+              m = agent_re.match(line)
               if m and in_agents and '---' not in m.group(1) and 'Agent' not in m.group(1):
+                  raw_name = re.sub(r'[^\w\s]', '', m.group(1)).strip()
                   status_raw = m.group(2).strip()
-                  if '✅' in status_raw:
-                      status = 'active'
-                  elif '🔄' in status_raw:
-                      status = 'working'
-                  elif '⚪' in status_raw:
-                      status = 'idle'
-                  else:
-                      status = 'unknown'
-                  agents.append({
-                      "name": m.group(1).strip(),
-                      "status": status,
-                      "current": m.group(3).strip()
+                  status = 'active' if '✅' in status_raw else 'working' if '🔄' in status_raw else 'idle' if '⚪' in status_raw else 'unknown'
+                  for name, (role_id, title) in agent_info.items():
+                      if name.lower() in raw_name.lower():
+                          agents[role_id] = {
+                              "name": name, "title": title,
+                              "status": status, "current": m.group(3).strip()
+                          }
+                          break
+
+          # ── 2. Git commit history → activity feed ──
+          git_log = run("git log --format='%H|%aI|%an|%s' -50")
+          activity = []
+          for line in git_log.split('\n'):
+              if not line.strip():
+                  continue
+              parts = line.split('|', 3)
+              if len(parts) == 4:
+                  sha, ts, author, msg = parts
+                  # Map known authors to agent roles
+                  author_map = {
+                      'patch': 'devops', 'nutts': 'dev-01', 'boltz': 'lead-dev',
+                      'glytch': 'qa', 'rivett': 'pm', 'gizmo': 'game-designer',
+                      'specc': 'inspector', 'optic': 'playtest-lead'
+                  }
+                  agent = 'unknown'
+                  author_lower = author.lower()
+                  for k, v in author_map.items():
+                      if k in author_lower:
+                          agent = v
+                          break
+                  # Also detect agent from commit message prefix
+                  prefix_match = re.match(r'\[([A-Z][A-Za-z0-9-]+)\]', msg)
+                  activity.append({
+                      "time": ts,
+                      "agent": agent,
+                      "action": msg[:200],
+                      "sha": sha[:8]
                   })
 
-          # Parse flags
-          flags = []
-          in_flags = False
-          for line in content.split('\n'):
-              if line.strip().startswith('## Flags'):
-                  in_flags = True
-                  continue
-              if in_flags and line.startswith('## '):
-                  break
-              if in_flags and line.strip().startswith('- '):
-                  flags.append(line.strip()[2:])
+          # ── 3. PR status from GitHub API ──
+          prs = []
+          try:
+              pr_json = run("gh pr list --state all --limit 20 --json number,title,state,author,mergedAt,createdAt,url")
+              for pr in json.loads(pr_json):
+                  prs.append({
+                      "number": pr["number"],
+                      "title": pr["title"],
+                      "state": pr["state"],
+                      "author": pr.get("author", {}).get("login", "unknown"),
+                      "mergedAt": pr.get("mergedAt"),
+                      "createdAt": pr.get("createdAt"),
+                  })
+          except Exception as e:
+              print(f"Warning: Could not fetch PRs: {e}")
 
+          # ── 4. Count tests ──
+          test_count = 0
+          try:
+              test_files = run("find godot/tests -name 'test_*.gd' -not -name 'test_runner.gd' -not -name 'test_main.gd' 2>/dev/null")
+              for tf in test_files.split('\n'):
+                  if tf.strip():
+                      with open(tf.strip()) as f:
+                          tc = f.read()
+                      test_count += len(re.findall(r'func test_', tc))
+          except Exception:
+              pass
+
+          # ── 5. Message log activity (if exists) ──
+          msg_activity = []
+          if os.path.exists("messages/log.md"):
+              with open("messages/log.md") as f:
+                  for line in f:
+                      m = re.match(r'\[(.+?)\]\s+(.+)', line.strip())
+                      if m and m.group(1).startswith('20'):
+                          msg_activity.append({
+                              "time": m.group(1),
+                              "entry": m.group(2)[:200]
+                          })
+
+          # ── Build final data.json ──
           data = {
-              "lastUpdated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
               "sprint": sprint,
               "tasks": tasks,
               "agents": agents,
-              "flags": flags
+              "activity": activity[:30],
+              "pullRequests": prs,
+              "messageLog": msg_activity[-20:],
+              "stats": {
+                  "totalTests": test_count,
+                  "totalPRs": len(prs),
+                  "totalCommits": int(run("git rev-list --count HEAD")),
+                  "gdScripts": int(run("find godot -name '*.gd' | wc -l")),
+              },
+              "updated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
           }
 
           with open("data.json", "w") as f:
               json.dump(data, f, indent=2)
 
-          print(f"Generated data.json: {len(tasks)} tasks, {len(agents)} agents, {len(flags)} flags")
+          print(f"✅ data.json generated: {len(tasks)} tasks, {len(agents)} agents, {len(activity)} commits, {len(prs)} PRs, {test_count} tests")
           SCRIPT
 
       - name: Commit updated data.json
@@ -118,5 +205,5 @@ jobs:
           git config user.email 'patch@blor-inc.studio'
           git add data.json
           git diff --cached --quiet && echo "No changes" && exit 0
-          git commit -m "[S1-004] chore: auto-update data.json from STATUS.md"
+          git commit -m "[S5-001] chore: auto-generate data.json from git, PRs, STATUS.md"
           git push
