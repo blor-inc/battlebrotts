@@ -1,10 +1,395 @@
-[gd_scene format=3 uid="uid://placeholder"]
+[gd_scene load_steps=6 format=3 uid="uid://battlebrotts_main"]
 
-[node name="Main" type="Node2D"]
+[ext_resource type="Script" path="res://game/ui/game_controller.gd" id="1"]
+[ext_resource type="Script" path="res://game/ui/loadout_screen.gd" id="2"]
+[ext_resource type="Script" path="res://game/ui/match_hud.gd" id="3"]
+[ext_resource type="Script" path="res://game/ui/result_screen.gd" id="4"]
+[ext_resource type="Script" path="res://game/ui/arena_view.gd" id="5"]
 
-[node name="Label" type="Label" parent="."]
-offset_right = 1280.0
-offset_bottom = 720.0
-text = "BattleBrotts — Coming Soon"
+[node name="Main" type="Node"]
+script = ExtResource("1")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="LoadoutScreen" type="Control" parent="CanvasLayer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("2")
+
+[node name="Title" type="Label" parent="CanvasLayer/LoadoutScreen"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 1260.0
+offset_bottom = 60.0
+text = "🤖⚔️ BUILD YOUR BROTT"
 horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_font_sizes/font_size = 28
+
+[node name="ChassisList" type="ItemList" parent="CanvasLayer/LoadoutScreen"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 20.0
+offset_top = 80.0
+offset_right = 420.0
+offset_bottom = 200.0
+
+[node name="ChassisLabel" type="Label" parent="CanvasLayer/LoadoutScreen"]
+layout_mode = 1
+offset_left = 20.0
+offset_top = 65.0
+offset_right = 420.0
+offset_bottom = 80.0
+text = "CHASSIS"
+
+[node name="WeaponList" type="ItemList" parent="CanvasLayer/LoadoutScreen"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 440.0
+offset_top = 80.0
+offset_right = 860.0
+offset_bottom = 280.0
+
+[node name="WeaponLabel" type="Label" parent="CanvasLayer/LoadoutScreen"]
+layout_mode = 1
+offset_left = 440.0
+offset_top = 65.0
+offset_right = 860.0
+offset_bottom = 80.0
+text = "WEAPONS (multi-select)"
+
+[node name="ArmorList" type="ItemList" parent="CanvasLayer/LoadoutScreen"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 20.0
+offset_top = 230.0
+offset_right = 420.0
+offset_bottom = 380.0
+
+[node name="ArmorLabel" type="Label" parent="CanvasLayer/LoadoutScreen"]
+layout_mode = 1
+offset_left = 20.0
+offset_top = 215.0
+offset_right = 420.0
+offset_bottom = 230.0
+text = "ARMOR"
+
+[node name="ModuleList" type="ItemList" parent="CanvasLayer/LoadoutScreen"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 440.0
+offset_top = 310.0
+offset_right = 860.0
+offset_bottom = 480.0
+
+[node name="ModuleLabel" type="Label" parent="CanvasLayer/LoadoutScreen"]
+layout_mode = 1
+offset_left = 440.0
+offset_top = 295.0
+offset_right = 860.0
+offset_bottom = 310.0
+text = "MODULES (multi-select)"
+
+[node name="WeightLabel" type="Label" parent="CanvasLayer/LoadoutScreen"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 880.0
+offset_top = 80.0
+offset_right = 1260.0
+offset_bottom = 100.0
+text = "Weight: 0 / 55"
+
+[node name="SlotsLabel" type="Label" parent="CanvasLayer/LoadoutScreen"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 880.0
+offset_top = 110.0
+offset_right = 1260.0
+offset_bottom = 130.0
+text = "Weapons: 0/2 · Modules: 0/2"
+
+[node name="StatsLabel" type="Label" parent="CanvasLayer/LoadoutScreen"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 880.0
+offset_top = 140.0
+offset_right = 1260.0
+offset_bottom = 160.0
+text = "HP: 150 · Speed: 120"
+
+[node name="ErrorLabel" type="Label" parent="CanvasLayer/LoadoutScreen"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 880.0
+offset_top = 180.0
+offset_right = 1260.0
+offset_bottom = 240.0
+theme_override_colors/font_color = Color(1, 0.3, 0.2, 1)
+
+[node name="EnemyInfo" type="Label" parent="CanvasLayer/LoadoutScreen"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 880.0
+offset_top = 260.0
+offset_right = 1260.0
+offset_bottom = 320.0
+text = "Enemy: Brawler w/ Shotgun + Missile Pod"
+autowrap_mode = 2
+
+[node name="FightButton" type="Button" parent="CanvasLayer/LoadoutScreen"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 880.0
+offset_top = 380.0
+offset_right = 1160.0
+offset_bottom = 440.0
+text = "⚔️ FIGHT!"
+theme_override_font_sizes/font_size = 24
+
+[node name="MatchScreen" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ArenaView" type="Control" parent="CanvasLayer/MatchScreen"]
+layout_mode = 1
+offset_left = 128.0
+offset_top = 80.0
+offset_right = 640.0
+offset_bottom = 592.0
+script = ExtResource("5")
+
+[node name="HUD" type="Control" parent="CanvasLayer/MatchScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("3")
+
+[node name="PlayerName" type="Label" parent="CanvasLayer/MatchScreen/HUD"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 20.0
+offset_top = 10.0
+offset_right = 500.0
+offset_bottom = 30.0
+text = "🤖 YOUR BROTT"
+theme_override_font_sizes/font_size = 14
+
+[node name="PlayerHPBar" type="ProgressBar" parent="CanvasLayer/MatchScreen/HUD"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 20.0
+offset_top = 32.0
+offset_right = 320.0
+offset_bottom = 50.0
+max_value = 150.0
+
+[node name="PlayerHPLabel" type="Label" parent="CanvasLayer/MatchScreen/HUD"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 330.0
+offset_top = 32.0
+offset_right = 500.0
+offset_bottom = 50.0
+text = "150 / 150"
+
+[node name="PlayerEnergyBar" type="ProgressBar" parent="CanvasLayer/MatchScreen/HUD"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 20.0
+offset_top = 54.0
+offset_right = 320.0
+offset_bottom = 68.0
+max_value = 100.0
+
+[node name="PlayerEnergyLabel" type="Label" parent="CanvasLayer/MatchScreen/HUD"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 330.0
+offset_top = 54.0
+offset_right = 500.0
+offset_bottom = 68.0
+text = "100"
+
+[node name="PlayerShieldBar" type="ProgressBar" parent="CanvasLayer/MatchScreen/HUD"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 20.0
+offset_top = 70.0
+offset_right = 320.0
+offset_bottom = 78.0
+max_value = 40.0
+value = 0.0
+
+[node name="EnemyName" type="Label" parent="CanvasLayer/MatchScreen/HUD"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 780.0
+offset_top = 10.0
+offset_right = 1260.0
+offset_bottom = 30.0
+text = "💀 ENEMY"
+horizontal_alignment = 2
+theme_override_font_sizes/font_size = 14
+
+[node name="EnemyHPBar" type="ProgressBar" parent="CanvasLayer/MatchScreen/HUD"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 960.0
+offset_top = 32.0
+offset_right = 1260.0
+offset_bottom = 50.0
+max_value = 150.0
+
+[node name="EnemyHPLabel" type="Label" parent="CanvasLayer/MatchScreen/HUD"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 780.0
+offset_top = 32.0
+offset_right = 950.0
+offset_bottom = 50.0
+text = "150 / 150"
+horizontal_alignment = 2
+
+[node name="EnemyEnergyBar" type="ProgressBar" parent="CanvasLayer/MatchScreen/HUD"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 960.0
+offset_top = 54.0
+offset_right = 1260.0
+offset_bottom = 68.0
+max_value = 100.0
+
+[node name="EnemyEnergyLabel" type="Label" parent="CanvasLayer/MatchScreen/HUD"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 780.0
+offset_top = 54.0
+offset_right = 950.0
+offset_bottom = 68.0
+text = "100"
+horizontal_alignment = 2
+
+[node name="EnemyShieldBar" type="ProgressBar" parent="CanvasLayer/MatchScreen/HUD"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 960.0
+offset_top = 70.0
+offset_right = 1260.0
+offset_bottom = 78.0
+max_value = 40.0
+value = 0.0
+
+[node name="TickLabel" type="Label" parent="CanvasLayer/MatchScreen/HUD"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 520.0
+offset_top = 690.0
+offset_right = 760.0
+offset_bottom = 710.0
+text = "Tick: 0 / 2400"
+horizontal_alignment = 1
+
+[node name="TimerLabel" type="Label" parent="CanvasLayer/MatchScreen/HUD"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 520.0
+offset_top = 670.0
+offset_right = 760.0
+offset_bottom = 690.0
+text = "0:00 / 2:00"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 18
+
+[node name="StatusLabel" type="Label" parent="CanvasLayer/MatchScreen/HUD"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 480.0
+offset_top = 640.0
+offset_right = 800.0
+offset_bottom = 670.0
+text = "FIGHTING..."
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 20
+
+[node name="SpeedButton" type="Button" parent="CanvasLayer/MatchScreen/HUD"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 1160.0
+offset_top = 670.0
+offset_right = 1260.0
+offset_bottom = 710.0
+text = "1x"
+
+[node name="ResultScreen" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("4")
+
+[node name="OutcomeLabel" type="Label" parent="CanvasLayer/ResultScreen"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 20.0
+offset_top = 180.0
+offset_right = 1260.0
+offset_bottom = 280.0
+text = "VICTORY!"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 48
+
+[node name="StatsLabel" type="Label" parent="CanvasLayer/ResultScreen"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 200.0
+offset_top = 300.0
+offset_right = 1080.0
+offset_bottom = 340.0
+horizontal_alignment = 1
+
+[node name="DetailsLabel" type="Label" parent="CanvasLayer/ResultScreen"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 200.0
+offset_top = 360.0
+offset_right = 1080.0
+offset_bottom = 440.0
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="RematchButton" type="Button" parent="CanvasLayer/ResultScreen"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 380.0
+offset_top = 480.0
+offset_right = 620.0
+offset_bottom = 530.0
+text = "🔄 Rematch"
+theme_override_font_sizes/font_size = 20
+
+[node name="LoadoutButton" type="Button" parent="CanvasLayer/ResultScreen"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 660.0
+offset_top = 480.0
+offset_right = 900.0
+offset_bottom = 530.0
+text = "🔧 Change Loadout"
+theme_override_font_sizes/font_size = 20
+
+[connection signal="item_selected" from="CanvasLayer/LoadoutScreen/ChassisList" to="CanvasLayer/LoadoutScreen" method="_on_chassis_selected"]
+[connection signal="multi_selected" from="CanvasLayer/LoadoutScreen/WeaponList" to="CanvasLayer/LoadoutScreen" method="_on_weapon_selected"]
+[connection signal="item_selected" from="CanvasLayer/LoadoutScreen/ArmorList" to="CanvasLayer/LoadoutScreen" method="_on_armor_selected"]
+[connection signal="multi_selected" from="CanvasLayer/LoadoutScreen/ModuleList" to="CanvasLayer/LoadoutScreen" method="_on_module_selected"]
+[connection signal="pressed" from="CanvasLayer/LoadoutScreen/FightButton" to="CanvasLayer/LoadoutScreen" method="_on_fight_pressed"]
+[connection signal="pressed" from="CanvasLayer/MatchScreen/HUD/SpeedButton" to="CanvasLayer/MatchScreen/HUD" method="_on_speed_pressed"]
+[connection signal="pressed" from="CanvasLayer/ResultScreen/RematchButton" to="CanvasLayer/ResultScreen" method="_on_rematch_pressed"]
+[connection signal="pressed" from="CanvasLayer/ResultScreen/LoadoutButton" to="CanvasLayer/ResultScreen" method="_on_loadout_pressed"]
