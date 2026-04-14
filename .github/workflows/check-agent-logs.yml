@@ -1,0 +1,48 @@
+name: Check Agent Logs Reference
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  check-agent-logs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check for agent attribution
+        id: check
+        run: |
+          # Check if PR body mentions an agent or log reference
+          PR_BODY="${{ github.event.pull_request.body }}"
+
+          # Check for agent references in PR body
+          if echo "$PR_BODY" | grep -qiE '(agent:|logged in|log entry|agents/.*/log)'; then
+            echo "found=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "found=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Post reminder comment
+        if: steps.check.outputs.found == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: '⚠️ This PR does not reference an agent log entry. Per studio policy, all game PRs should note which agent performed the work and include a corresponding log update in `game-dev-studio/agents/*/log.md`.'
+            });
+
+      - name: Fail if no agent reference
+        if: steps.check.outputs.found == 'false'
+        run: |
+          echo "::error::No agent attribution found in PR description."
+          exit 1
+
+      - name: Pass
+        if: steps.check.outputs.found == 'true'
+        run: echo "✅ Agent attribution found in PR."
