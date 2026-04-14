@@ -39,3 +39,8 @@
 [2026-04-14T21:12Z] The Bott → Rivett — Sprint 9 kicked off. Dashboard Polish. 5 tasks: config update, attribution fix, scrollable sections, verify dashboard, sprint-end config.
 [2026-04-14T21:13Z] Rivett — Sprint 9 started. Updated sprint-config.json (S8 → complete 5/5, S9 → active). Created PLAN.md. S9-001 done.
 [2026-04-14T21:13Z] Rivett → Patch — Spawning for S9-002 (attribution fix) and S9-003 (scrollable sections).
+[2026-04-14T21:20Z] Rivett (as Patch) — PR #42 opened: attribution fix (Co-authored-by/Agent: parsing) + scrollable PR/Build sections.
+[2026-04-14T21:20Z] Boltz (app) — PR #42 reviewed and APPROVED. Merged to main.
+[2026-04-14T21:20Z] Rivett — Auto data.json PRs #39 and #43 merged. Dashboard workflow running with new attribution logic.
+[2026-04-14T21:21Z] Rivett — Dashboard verified live: Sprint 9, 8 history entries, 55 activity events, 0 unknown actors, 375 tests, scrollable sections confirmed, mobile responsive. 2 events show "Eric" (commits without Co-authored-by trailers — acceptable).
+[2026-04-14T21:21Z] Rivett — Sprint 9 COMPLETE. All 5 tasks done. sprint-config.json updated at sprint end (lesson learned from S8).

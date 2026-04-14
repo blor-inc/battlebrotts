@@ -6,10 +6,10 @@
   },
   "tasks": [
     {"id": "S9-001", "title": "Update sprint-config.json for Sprint 9", "assignee": "pm", "status": "done"},
-    {"id": "S9-002", "title": "Dashboard Attribution Fix", "assignee": "devops", "status": "todo"},
-    {"id": "S9-003", "title": "Scrollable PR/Build Sections", "assignee": "devops", "status": "todo"},
-    {"id": "S9-004", "title": "Verify Dashboard Live", "assignee": "pm", "status": "todo"},
-    {"id": "S9-005", "title": "Sprint-End Config Update", "assignee": "pm", "status": "todo"}
+    {"id": "S9-002", "title": "Dashboard Attribution Fix", "assignee": "devops", "status": "done", "pr": "42"},
+    {"id": "S9-003", "title": "Scrollable PR/Build Sections", "assignee": "devops", "status": "done", "pr": "42"},
+    {"id": "S9-004", "title": "Verify Dashboard Live", "assignee": "pm", "status": "done"},
+    {"id": "S9-005", "title": "Sprint-End Config Update", "assignee": "pm", "status": "done"}
   ],
   "history": [
     {
