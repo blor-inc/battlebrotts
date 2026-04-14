@@ -1,17 +1,28 @@
 {
   "current": {
-    "number": 8,
-    "goal": "Operations Health Sprint",
+    "number": 9,
+    "goal": "Dashboard Polish",
     "status": "active"
   },
   "tasks": [
-    {"id": "S8-001", "title": "Dashboard Architecture Redesign", "assignee": "devops", "status": "in-progress"},
-    {"id": "S8-002", "title": "Squash Merge Attribution", "assignee": "devops", "status": "todo"},
-    {"id": "S8-003", "title": "STATUS.md Auto-Gen Fix", "assignee": "devops", "status": "todo"},
-    {"id": "S8-004", "title": "KB Entries", "assignee": "inspector", "status": "todo"},
-    {"id": "S8-005", "title": "Backlog Cleanup", "assignee": "pm", "status": "done"}
+    {"id": "S9-001", "title": "Update sprint-config.json for Sprint 9", "assignee": "pm", "status": "done"},
+    {"id": "S9-002", "title": "Dashboard Attribution Fix", "assignee": "devops", "status": "todo"},
+    {"id": "S9-003", "title": "Scrollable PR/Build Sections", "assignee": "devops", "status": "todo"},
+    {"id": "S9-004", "title": "Verify Dashboard Live", "assignee": "pm", "status": "todo"},
+    {"id": "S9-005", "title": "Sprint-End Config Update", "assignee": "pm", "status": "todo"}
   ],
   "history": [
+    {
+      "number": 8, "goal": "Operations Health Sprint", "status": "complete",
+      "summary": "Dashboard architecture redesign (sprint-config.json as source of truth), squash merge attribution, STATUS.md auto-gen removed, KB entries, backlog cleanup.",
+      "tasks": [
+        {"id": "S8-001", "title": "Dashboard Architecture Redesign", "assignee": "devops", "status": "done", "pr": "37"},
+        {"id": "S8-002", "title": "Squash Merge Attribution", "assignee": "devops", "status": "done"},
+        {"id": "S8-003", "title": "STATUS.md Auto-Gen Fix", "assignee": "devops", "status": "done", "pr": "37"},
+        {"id": "S8-004", "title": "KB Entries", "assignee": "inspector", "status": "done", "pr": "40"},
+        {"id": "S8-005", "title": "Backlog Cleanup", "assignee": "pm", "status": "done"}
+      ]
+    },
     {
       "number": 7, "goal": "CI/CD & Export Pipeline", "status": "complete",
       "summary": "Fixed Godot export pipeline, CI test failures, PWA issues. 1804-match playtest.",

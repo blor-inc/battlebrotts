@@ -1,45 +1,40 @@
-# Sprint 8 Plan — Operations Health
+# Sprint 9 Plan — Dashboard Polish
 *Created by Rivett (Head of Operations) — 2026-04-14*
 
 ## Sprint Goal
-Fix the dashboard architecture once and for all. Clean up CI conflicts. Healthy process = healthy product.
+Fix remaining dashboard issues from Eric's feedback. Small polish sprint.
 
-**Priority: Process quality → Product quality → Speed**
+**Priority: Accuracy → Usability → Speed**
 
 ## Track Assignments
 
 | Track | Agent | Priority | Description |
 |---|---|---|---|
-| A: Dashboard Redesign | Patch (DevOps) | 🔴 P0 | Decouple dashboard from STATUS.md. Query git/PR API directly. |
-| B: Squash Merge Attribution | Patch (DevOps) | 🟡 P1 | GitHub API: attribute squash merges to PR author, not bot. |
-| C: STATUS.md Auto-Gen Fix | Patch (DevOps) | 🟡 P1 | PR-based flow (branch protection blocks direct push). Reconcile with dashboard workflow. |
-| D: KB Entries | Specc (Inspector) | 🟢 P2 | Write KB entries for structural decisions. Handled by The Bott. |
-| E: Backlog Cleanup | Rivett (Ops) | 🟢 P2 | Clean stale items, update backlog. |
+| A: Sprint Config Update | Rivett (Ops) | 🔴 P0 | Mark S8 complete, set S9 as current in sprint-config.json |
+| B: Attribution Fix | Patch (DevOps) | 🔴 P0 | Activity shows "Eric" for agent commits (PAT maps to brotatotes). Parse Co-authored-by or PR author. |
+| C: Scrollable Sections | Patch (DevOps) | 🟡 P1 | Add scrollable CSS to Open PRs and Build Status sections |
+| D: Dashboard Verify | Rivett (Ops) | 🟡 P1 | Verify live dashboard after fixes merge |
+| E: Sprint-End Config | Rivett (Ops) | 🟢 P2 | Update sprint-config.json at sprint end |
 
-## Track A: Dashboard Architecture Redesign (Patch)
-**This is the THIRD attempt. It must work.**
-- Root cause: status-gen.yml and update-dashboard.yml fight over STATUS.md format
-- Fix: Dashboard workflow queries git log + GitHub PR API directly. No STATUS.md dependency.
-- Add studio-lead-dev[bot] to author map
-- Must pass Eric's checklist:
-  - Current sprint number
-  - Non-empty sprint history
-  - Open PRs visible
-  - Real activity with named actors (no "unknown")
-  - Scrollable full history
-  - Responsive on mobile
+## Track A: Sprint Config Update (Rivett) ✅
+- Update sprint-config.json: S8 → complete (5/5), S9 → active
+- DONE
 
-## Track B: Squash Merge Attribution (Patch)
-- GitHub API call to set `squash_merge_commit_title` and `squash_merge_commit_message` so PR author gets credit
+## Track B: Attribution Fix (Patch)
+- Root cause: shared PAT maps all commits to brotatotes (Eric's GitHub)
+- Dashboard workflow uses `git log --format='%an'` which shows "brotatotes" for PAT-authenticated pushes
+- Fix: In update-dashboard.yml Python script, check for `Co-authored-by:` trailers in commit body, or cross-reference with PR author via GitHub API
+- Agent commits should show actual agent name (Patch, Nutts, etc.), not Eric
 
-## Track C: STATUS.md Auto-Gen Fix (Patch)
-- status-gen.yml can't push to main (branch protection)
-- Options: PR-based flow OR merge into dashboard workflow
-- Recommend: merge into dashboard workflow to eliminate the conflict entirely
+## Track C: Scrollable PR/Build Sections (Patch)
+- Add `scrollable` class to PR and Build Status `<div>` containers in index.html
+- CSS `.scrollable` already exists (max-height:500px, overflow-y:auto)
+- Simple HTML change
 
-## Track D: KB Entries (Specc — via The Bott)
-- Structural decision entries needed in game-dev-studio KB
+## Track D: Dashboard Verify (Rivett)
+- After B+C merge, check live dashboard at https://blor-inc.github.io/battlebrotts/
+- Checklist: sprint number, task completion, agent names, scrollable sections, mobile
 
-## Track E: Backlog Cleanup (Rivett)
-- Remove completed items from tasks/backlog.md
-- Add Sprint 7/8 findings
+## Track E: Sprint-End Config (Rivett)
+- Mark all S9 tasks as done in sprint-config.json
+- Don't repeat Sprint 8's mistake of leaving it stale
