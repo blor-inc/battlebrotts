@@ -1,0 +1,105 @@
+name: Auto-Update Sprint Status
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  update-sprint-config:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Update sprint-config from merged PRs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 << 'SCRIPT'
+          import json, re, subprocess, sys
+
+          def run(cmd):
+              return subprocess.check_output(cmd, shell=True, text=True).strip()
+
+          with open("sprint-config.json") as f:
+              config = json.load(f)
+
+          sprint = config["current"]
+          tasks = config.get("tasks", [])
+
+          if sprint.get("status") == "complete":
+              print("Sprint already complete, nothing to do.")
+              sys.exit(0)
+
+          sprint_num = sprint["number"]
+          prefix = f"S{sprint_num}-"
+
+          # Get all merged PRs
+          pr_json = run(f'gh pr list --state merged --limit 100 --json number,title')
+          merged_prs = json.loads(pr_json)
+
+          changed = False
+          for task in tasks:
+              if task["status"] == "done":
+                  continue
+              tid = task["id"]  # e.g. S10-001
+              for pr in merged_prs:
+                  if f"[{tid}]" in pr["title"]:
+                      task["status"] = "done"
+                      task["pr"] = str(pr["number"])
+                      changed = True
+                      print(f"✅ {tid} → done (PR #{pr['number']})")
+                      break
+
+          # Check if all tasks are done → auto-close sprint
+          all_done = all(t["status"] == "done" for t in tasks)
+          if all_done and tasks:
+              print("🎉 All tasks done! Auto-closing sprint.")
+              summary_parts = [t["title"] for t in tasks]
+              history_entry = {
+                  "number": sprint["number"],
+                  "goal": sprint["goal"],
+                  "status": "complete",
+                  "summary": "; ".join(summary_parts[:5]),
+                  "tasks": tasks
+              }
+              config["history"].insert(0, history_entry)
+              sprint["status"] = "complete"
+              changed = True
+
+          if changed:
+              with open("sprint-config.json", "w") as f:
+                  json.dump(config, f, indent=2)
+                  f.write("\n")
+              print("📝 sprint-config.json updated")
+          else:
+              print("No changes needed.")
+
+          # Write output for next step
+          with open("/tmp/sprint-changed", "w") as f:
+              f.write("true" if changed else "false")
+          SCRIPT
+
+      - name: Check for changes
+        id: diff
+        run: |
+          CHANGED=$(cat /tmp/sprint-changed)
+          echo "changed=$CHANGED" >> "$GITHUB_OUTPUT"
+
+      - name: Commit and push
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add sprint-config.json
+          git commit -m "chore: auto-update sprint task statuses"
+          git push origin main
