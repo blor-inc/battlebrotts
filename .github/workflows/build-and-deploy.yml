@@ -1,4 +1,4 @@
-name: Build & Deploy Godot Web Export
+name: Build & Deploy to GitHub Pages
 
 on:
   push:
@@ -26,7 +26,6 @@ jobs:
         run: |
           mkdir -p /root/.local/share/godot/export_templates/4.4.1.stable
           mv /root/.local/share/godot/templates/web* /root/.local/share/godot/export_templates/4.4.1.stable/ 2>/dev/null || true
-          # If templates aren't bundled in the image, download them
           if [ ! -f /root/.local/share/godot/export_templates/4.4.1.stable/web_template.wasm32.release.wasm ]; then
             cd /root/.local/share/godot/export_templates/4.4.1.stable
             wget -q https://github.com/godotengine/godot/releases/download/4.4.1-stable/Godot_v4.4.1-stable_export_templates.tpz -O templates.tpz
@@ -35,16 +34,27 @@ jobs:
             rm -rf templates templates.tpz
           fi
 
-      - name: Export to Web
+      - name: Export Godot to Web
         run: |
           mkdir -p godot/build/web
           cd godot
           godot --headless --export-release "Web" build/web/index.html
 
-      - name: Upload artifact
+      - name: Assemble Pages site
+        run: |
+          mkdir -p _site/game
+          
+          # Dashboard at root — index.html + data.json + any dashboard assets
+          cp index.html _site/
+          cp data.json _site/ 2>/dev/null || echo '{}' > _site/data.json
+          
+          # Godot web export under /game/
+          cp -r godot/build/web/* _site/game/
+
+      - name: Upload combined artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: godot/build/web
+          path: _site
 
   deploy:
     needs: build

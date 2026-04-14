@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   update-data:
@@ -52,7 +53,6 @@ jobs:
               if m and in_tasks:
                   raw = m.group(4).strip()
                   status = 'done' if '✅' in raw else 'in-progress' if '🔄' in raw else 'blocked' if '❌' in raw else 'todo'
-                  # Map agent names to role IDs
                   assignee_raw = m.group(3).strip()
                   role_map = {
                       'nutts': 'dev-01', 'patch': 'devops', 'boltz': 'lead-dev',
@@ -80,7 +80,7 @@ jobs:
               'The Bott': ('the-bott', '🤖 Head of Product'),
               'Rivett': ('pm', '📋 Head of Operations'),
               'Gizmo': ('game-designer', '🎯 Game Designer'),
-              'Boltz': ('lead-dev', '👨💻 Lead Dev'),
+              'Boltz': ('lead-dev', '👨‍💻 Lead Dev'),
               'Nutts': ('dev-01', '💻 Dev-01'),
               'Optic': ('playtest-lead', '🎮 Playtest Lead'),
               'Glytch': ('qa', '🧪 QA'),
@@ -115,7 +115,6 @@ jobs:
               parts = line.split('|', 3)
               if len(parts) == 4:
                   sha, ts, author, msg = parts
-                  # Map known authors to agent roles
                   author_map = {
                       'patch': 'devops', 'nutts': 'dev-01', 'boltz': 'lead-dev',
                       'glytch': 'qa', 'rivett': 'pm', 'gizmo': 'game-designer',
@@ -127,8 +126,6 @@ jobs:
                       if k in author_lower:
                           agent = v
                           break
-                  # Also detect agent from commit message prefix
-                  prefix_match = re.match(r'\[([A-Z][A-Za-z0-9-]+)\]', msg)
                   activity.append({
                       "time": ts,
                       "agent": agent,
@@ -199,11 +196,34 @@ jobs:
           print(f"✅ data.json generated: {len(tasks)} tasks, {len(agents)} agents, {len(activity)} commits, {len(prs)} PRs, {test_count} tests")
           SCRIPT
 
-      - name: Commit updated data.json
+      - name: Check for changes
+        id: diff
         run: |
+          git diff --quiet data.json && echo "changed=false" >> "$GITHUB_OUTPUT" || echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Create PR with updated data
+        if: steps.diff.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          BRANCH="auto/update-dashboard-data"
           git config user.name 'Patch (bot)'
           git config user.email 'patch@blor-inc.studio'
+          
+          # Force-update the auto branch
+          git checkout -B "$BRANCH"
           git add data.json
-          git diff --cached --quiet && echo "No changes" && exit 0
-          git commit -m "[S5-001] chore: auto-generate data.json from git, PRs, STATUS.md"
-          git push
+          git commit -m "chore: auto-update dashboard data.json"
+          git push -f origin "$BRANCH"
+          
+          # Create or update PR
+          EXISTING=$(gh pr list --head "$BRANCH" --state open --json number -q '.[0].number')
+          if [ -n "$EXISTING" ]; then
+            echo "PR #$EXISTING already open, updated branch"
+          else
+            gh pr create \
+              --head "$BRANCH" \
+              --base main \
+              --title "chore: auto-update dashboard data.json" \
+              --body "Auto-generated dashboard data from STATUS.md, git history, and GitHub API. Created by update-dashboard workflow."
+          fi

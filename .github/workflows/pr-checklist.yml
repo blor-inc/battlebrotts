@@ -1,0 +1,44 @@
+name: PR Checklist Verification
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+jobs:
+  verify-checklist:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check author checklist items
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.pull_request.body || '';
+            
+            // Extract the Author checklist section
+            const authorMatch = body.match(/### Author\s*\n([\s\S]*?)(?=### Reviewer|$)/);
+            if (!authorMatch) {
+              console.log('⚠️ No Author checklist section found in PR body');
+              console.log('This is advisory — PR template may not have been used.');
+              return;
+            }
+            
+            const authorSection = authorMatch[1];
+            const unchecked = (authorSection.match(/- \[ \]/g) || []).length;
+            const checked = (authorSection.match(/- \[x\]/gi) || []).length;
+            const total = unchecked + checked;
+            
+            if (total === 0) {
+              console.log('⚠️ No checklist items found in Author section');
+              return;
+            }
+            
+            console.log(`Author checklist: ${checked}/${total} items checked`);
+            
+            if (unchecked > 0) {
+              core.setFailed(
+                `❌ ${unchecked} author checklist item(s) not checked. ` +
+                `Please complete all items in the Author section before merging.`
+              );
+            } else {
+              console.log('✅ All author checklist items are checked');
+            }
