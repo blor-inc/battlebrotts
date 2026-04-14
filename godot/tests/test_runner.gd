@@ -47,6 +47,9 @@ func _run_all_tests() -> void:
 	_run_suite("MatchManager", preload("res://tests/test_match_manager.gd"))
 	_run_suite("Projectile", preload("res://tests/test_projectile.gd"))
 	_run_suite("GameController", preload("res://tests/test_game_controller.gd"))
+	_run_suite("LoadoutScreen", preload("res://tests/test_loadout_screen.gd"))
+	_run_suite("MatchHUD", preload("res://tests/test_match_hud.gd"))
+	_run_suite("ResultScreen", preload("res://tests/test_result_screen.gd"))
 
 func _run_suite(suite_name: String, script: GDScript) -> void:
 	print("── %s ──" % suite_name)
