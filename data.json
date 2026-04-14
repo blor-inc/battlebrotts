@@ -97,6 +97,18 @@
   },
   "activity": [
     {
+      "time": "2026-04-14T18:00:57-04:00",
+      "agent": "pm",
+      "action": "[S10-004] Backlog review + Sprint 11 planning",
+      "sha": "9a956598"
+    },
+    {
+      "time": "2026-04-14T17:59:08-04:00",
+      "agent": "devops",
+      "action": "chore: auto-update dashboard data.json (#51)",
+      "sha": "3d2f2ca4"
+    },
+    {
       "time": "2026-04-14T17:57:04-04:00",
       "agent": "devops",
       "action": "chore: auto-update dashboard data.json (#46)",
@@ -477,6 +489,30 @@
   ],
   "pullRequests": [
     {
+      "number": 53,
+      "title": "[S10-004] Backlog review + Sprint 11 planning",
+      "state": "MERGED",
+      "author": "brotatotes",
+      "mergedAt": "2026-04-14T22:00:57Z",
+      "createdAt": "2026-04-14T22:00:45Z"
+    },
+    {
+      "number": 52,
+      "title": "chore: auto-update dashboard data.json",
+      "state": "OPEN",
+      "author": "app/github-actions",
+      "mergedAt": null,
+      "createdAt": "2026-04-14T21:59:18Z"
+    },
+    {
+      "number": 51,
+      "title": "chore: auto-update dashboard data.json",
+      "state": "MERGED",
+      "author": "app/github-actions",
+      "mergedAt": "2026-04-14T21:59:08Z",
+      "createdAt": "2026-04-14T21:58:33Z"
+    },
+    {
       "number": 50,
       "title": "chore: auto-update dashboard data.json",
       "state": "CLOSED",
@@ -691,30 +727,6 @@
       "author": "app/studio-lead-dev",
       "mergedAt": "2026-04-14T19:17:53Z",
       "createdAt": "2026-04-14T19:14:10Z"
-    },
-    {
-      "number": 23,
-      "title": "fix: resolve class_name cascade failure in headless tests (S7-P0)",
-      "state": "MERGED",
-      "author": "app/studio-lead-dev",
-      "mergedAt": "2026-04-14T19:17:50Z",
-      "createdAt": "2026-04-14T19:10:41Z"
-    },
-    {
-      "number": 22,
-      "title": "[S6-001] Headless compatibility fixes for campaign controller",
-      "state": "MERGED",
-      "author": "brotatotes",
-      "mergedAt": "2026-04-14T18:34:22Z",
-      "createdAt": "2026-04-14T18:34:05Z"
-    },
-    {
-      "number": 21,
-      "title": "[S6-002] Compliance CI + Process Gaps",
-      "state": "MERGED",
-      "author": "brotatotes",
-      "mergedAt": "2026-04-14T18:21:20Z",
-      "createdAt": "2026-04-14T18:19:20Z"
     }
   ],
   "sprintHistory": [
@@ -998,8 +1010,8 @@
   "stats": {
     "totalTests": 375,
     "totalPRs": 30,
-    "totalCommits": 63,
+    "totalCommits": 65,
     "gdScripts": 47
   },
-  "updated": "2026-04-14T21:58:31Z"
+  "updated": "2026-04-14T22:01:05Z"
 }
