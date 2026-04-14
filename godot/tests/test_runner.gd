@@ -18,6 +18,9 @@ var _g12 = preload("res://game/ai/steering.gd")
 var _g13 = preload("res://game/autoloads/match_manager.gd")
 var _g14 = preload("res://game/combat/projectile.gd")
 var _g15 = preload("res://game/ui/game_controller.gd")
+var _g16 = preload("res://game/economy/economy_manager.gd")
+var _g17 = preload("res://game/economy/shop.gd")
+var _g18 = preload("res://game/progression/league_manager.gd")
 
 var _pass_count: int = 0
 var _fail_count: int = 0
@@ -50,6 +53,9 @@ func _run_all_tests() -> void:
 	_run_suite("LoadoutScreen", preload("res://tests/test_loadout_screen.gd"))
 	_run_suite("MatchHUD", preload("res://tests/test_match_hud.gd"))
 	_run_suite("ResultScreen", preload("res://tests/test_result_screen.gd"))
+	_run_suite("Economy", preload("res://tests/test_economy.gd"))
+	_run_suite("Shop", preload("res://tests/test_shop.gd"))
+	_run_suite("League", preload("res://tests/test_league.gd"))
 
 func _run_suite(suite_name: String, script: GDScript) -> void:
 	print("── %s ──" % suite_name)
