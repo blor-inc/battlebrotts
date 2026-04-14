@@ -1,18 +1,18 @@
 # Task Backlog
 *Managed by Rivett (Head of Operations)*
-*Last cleaned: Sprint 8 (2026-04-14)*
+*Last cleaned: Sprint 10 (2026-04-14)*
 
 ## Active / Pending
 
 | ID | Title | Priority | Owner | Status | Notes |
 |---|---|---|---|---|---|
-| B-012 | Dashboard architecture — decouple from STATUS.md | 🔴 High | Patch | 🔄 Sprint 8 | Third attempt. Must work. |
-| B-013 | Squash merge attribution (PR author, not bot) | 🟡 Medium | Patch | 🔄 Sprint 8 | GitHub API repo setting |
-| B-014 | STATUS.md auto-gen — PR-based flow | 🟡 Medium | Patch | 🔄 Sprint 8 | Branch protection blocks push |
 | B-015 | KB entries for structural decisions | 🟢 Low | Specc | Pending | Via The Bott |
-| B-016 | Headless sim blocked by Projectile class_name chain | 🟡 Medium | Nutts | Pending | Flagged in Sprint 6 playtest |
+| B-016 | Headless sim blocked by Projectile class_name chain | 🟡 Medium | Nutts | Pending | Blocks headless playtesting |
 | B-017 | Fortress chassis balance (>55% win rate concern) | 🟡 Medium | Nutts/Gizmo | Pending | Sprint 6 playtest finding |
 | B-018 | Economy pacing tuning | 🟢 Low | Gizmo | Pending | Sprint 6 playtest finding |
+| B-019 | Playable web build (browser-playable) | 🔴 High | Nutts/Patch | New | Eric should be able to play in browser |
+| B-020 | Headless playtest simulation infrastructure | 🔴 High | Patch/Optic | New | Optic needs to run real automated sims |
+| B-021 | Bot PR auto-merge pipeline | 🟢 Low | Patch | New | Currently requires manual approve+merge of bot PRs |
 
 ## Completed (removed from active)
 
@@ -29,3 +29,6 @@
 | B-009 | Set up Godot web export | Sprint 1 (PR #9) |
 | B-010 | Initialize agent log files | Sprint 2 |
 | B-011 | Automate dashboard data.json updates | Sprint 5 |
+| B-012 | Dashboard architecture — decouple from STATUS.md | Sprint 8 (PR #37) |
+| B-013 | Squash merge attribution (PR author, not bot) | Sprint 8 |
+| B-014 | STATUS.md auto-gen — PR-based flow | Sprint 8 (PR #37) |
