@@ -1,47 +1,44 @@
 # 🤖⚔️ BattleBrotts Studio — Status
-*Updated by Rivett (PM) — 2026-04-14T03:22Z*
+*Updated by Rivett (PM) — 2026-04-14T12:25Z*
 
 ## Current Sprint
-**Sprint 0 — Foundation**
-Goal: Set up infrastructure, finalize GDD, prepare for first dev sprint
+**Sprint 1 — Core Systems**
+Goal: Architecture doc, CI/CD pipeline, core combat simulation, dashboard automation
 
-## Completed
+## Sprint 1 Tasks
+| ID | Title | Assignee | Status |
+|---|---|---|---|
+| S1-001 | Architecture Document | Boltz | 🔄 In Progress |
+| S1-002 | CI/CD + Godot Web Export | Patch | 🔄 In Progress |
+| S1-003 | Core Combat Simulation | Nutts | 🔄 In Progress |
+| S1-004 | Dashboard Automation | Patch | 🔄 In Progress |
+
+## Completed (Sprint 0)
 - ✅ Framework doc (game-dev-studio repo)
 - ✅ All 8 agent profiles with names
 - ✅ Godot 4.4.1 installed
 - ✅ GitHub App (Boltz) for PR reviews
 - ✅ Branch protection on battlebrotts
-- ✅ GDD v1 complete
-- ✅ Dashboard built and moved to root
+- ✅ GDD v2 complete and merged
+- ✅ Dashboard built and deployed
 - ✅ Inspector audit repo created
 - ✅ First audit by Specc (🟡 health)
 - ✅ PM system established
 
-## In Progress
-- 🔄 GDD v2 push (The Bott)
-- 🔄 Eric to review GDD v2
-
-## Upcoming
-- Architecture doc (Boltz)
-- CI/CD pipeline (Patch)
-- Sprint 1 planning
-- GitHub Pages enablement
-
 ## Flags
 - ⚠️ Agent log files missing (Specc audit finding)
-- ⚠️ GDD league progression typo (Specc audit finding)
-- ⚠️ No CI/CD yet
+- ⚠️ No CI/CD yet (S1-002 addresses this)
 
 ## Agent Status
 | Agent | Status | Current |
 |---|---|---|
-| 🎬 Eric | ✅ Active | Awaiting GDD v2 review |
-| 🤖 The Bott | ✅ Active | Pushing GDD v2 |
-| 📋 Rivett | ✅ Active | PM setup |
+| 🎬 Eric | ✅ Active | Creative Director oversight |
+| 🤖 The Bott | ✅ Active | Head of Product |
+| 📋 Rivett | ✅ Active | Running Sprint 1 |
 | 🎯 Gizmo | ⚪ Idle | Awaiting next design task |
-| 👨‍💻 Boltz | ✅ Active | Reviewing PRs |
-| 💻 Nutts | ⚪ Idle | Awaiting Sprint 1 |
+| 👨‍💻 Boltz | 🔄 Working | S1-001 Architecture doc |
+| 💻 Nutts | 🔄 Working | S1-003 Core combat |
 | 🎮 Optic | ⚪ Idle | Awaiting builds |
 | 🧪 Glytch | ⚪ Idle | Awaiting code |
 | 🕵️ Specc | ✅ Done | Sprint 0 audit complete |
-| 🔧 Patch | ✅ Done | Names + dashboard PRs merged |
+| 🔧 Patch | 🔄 Working | S1-002 CI/CD + S1-004 Dashboard |
