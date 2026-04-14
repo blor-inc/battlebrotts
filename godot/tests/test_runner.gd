@@ -15,6 +15,9 @@ var _g09 = preload("res://game/arena/pathfinder.gd")
 var _g10 = preload("res://game/ai/behavior_card.gd")
 var _g11 = preload("res://game/ai/brottbrain.gd")
 var _g12 = preload("res://game/ai/steering.gd")
+var _g13 = preload("res://game/autoloads/match_manager.gd")
+var _g14 = preload("res://game/combat/projectile.gd")
+var _g15 = preload("res://game/ui/game_controller.gd")
 
 var _pass_count: int = 0
 var _fail_count: int = 0
@@ -41,6 +44,9 @@ func _run_all_tests() -> void:
 	_run_suite("BrottBrain", preload("res://tests/test_brottbrain.gd"))
 	_run_suite("Steering", preload("res://tests/test_steering.gd"))
 	_run_suite("TickSystem", preload("res://tests/test_tick_system.gd"))
+	_run_suite("MatchManager", preload("res://tests/test_match_manager.gd"))
+	_run_suite("Projectile", preload("res://tests/test_projectile.gd"))
+	_run_suite("GameController", preload("res://tests/test_game_controller.gd"))
 
 func _run_suite(suite_name: String, script: GDScript) -> void:
 	print("── %s ──" % suite_name)
