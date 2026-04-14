@@ -1,326 +1,528 @@
 {
   "sprint": {
-    "number": 4,
-    "goal": "Playable Vertical Slice + Dashboard Overhaul — COMPLETE",
-    "status": "complete"
+    "number": 5,
+    "goal": "Economy, UI Tests, Dashboard CI",
+    "status": "active"
   },
   "tasks": [
     {
-      "id": "S4-001",
-      "title": "Playable Vertical Slice — Wire all systems into runnable match",
-      "status": "done",
-      "assignee": "dev-01"
+      "id": "S5-001",
+      "title": "Dashboard Auto-Generation CI + Shell Injection Fix",
+      "assignee": "devops",
+      "status": "in-progress"
     },
     {
-      "id": "S4-002",
-      "title": "Dashboard Overhaul — Responsive, full history, sprint summaries",
-      "status": "done",
-      "assignee": "devops"
+      "id": "S5-002",
+      "title": "UI Tests (GameController, Loadout, HUD, Result)",
+      "assignee": "qa",
+      "status": "todo"
     },
     {
-      "id": "S4-003",
-      "title": "PR Reviews + Architecture Alignment + Web Export Verify",
-      "status": "done",
-      "assignee": "lead-dev"
+      "id": "S5-003",
+      "title": "Economy + Shop + Progression Stub",
+      "assignee": "dev-01",
+      "status": "todo"
     },
     {
-      "id": "S4-004",
-      "title": "Dashboard QA — Viewport testing, bug filing",
-      "status": "done",
-      "assignee": "qa"
+      "id": "S5-004",
+      "title": "Sprint-End Audit",
+      "assignee": "inspector",
+      "status": "todo"
     }
   ],
   "agents": {
     "eric": {
-      "status": "active",
-      "current": "Creative Director oversight",
       "name": "Eric",
-      "title": "🎬 Creative Director"
+      "title": "\ud83c\udfac Creative Director",
+      "status": "active",
+      "current": "Creative Director oversight"
     },
     "the-bott": {
-      "status": "active",
-      "current": "Head of Product",
       "name": "The Bott",
-      "title": "🤖 Head of Product"
+      "title": "\ud83e\udd16 Head of Product",
+      "status": "active",
+      "current": "Head of Product"
     },
     "pm": {
-      "status": "done",
-      "current": "Sprint 4 complete",
       "name": "Rivett",
-      "title": "📋 Head of Operations"
+      "title": "\ud83d\udccb Head of Operations",
+      "status": "active",
+      "current": "Sprint 5 coordination \u2014 Head of Operations"
     },
     "game-designer": {
-      "status": "idle",
-      "current": "Awaiting next design task",
       "name": "Gizmo",
-      "title": "🎯 Game Designer"
+      "title": "\ud83c\udfaf Game Designer",
+      "status": "idle",
+      "current": "Awaiting next design task"
     },
     "lead-dev": {
-      "status": "done",
-      "current": "Reviewed & merged PR #14, #15",
       "name": "Boltz",
-      "title": "👨‍💻 Lead Dev"
+      "title": "\ud83d\udc68\u200d\ud83d\udcbb Lead Dev",
+      "status": "idle",
+      "current": "Awaiting PR reviews"
     },
     "dev-01": {
-      "status": "done",
-      "current": "S4-001 shipped — Playable vertical slice",
       "name": "Nutts",
-      "title": "💻 Dev-01"
+      "title": "\ud83d\udcbb Dev-01",
+      "status": "working",
+      "current": "S5-003 Economy + Shop + Progression"
     },
     "playtest-lead": {
-      "status": "idle",
-      "current": "Awaiting playable build",
       "name": "Optic",
-      "title": "🎮 Playtest Lead"
+      "title": "\ud83c\udfae Playtest Lead",
+      "status": "idle",
+      "current": "Awaiting playable build"
     },
     "qa": {
-      "status": "done",
-      "current": "Dashboard QA complete",
       "name": "Glytch",
-      "title": "🧪 QA"
+      "title": "\ud83e\uddea QA",
+      "status": "working",
+      "current": "S5-002 UI Tests"
     },
     "inspector": {
-      "status": "idle",
-      "current": "Awaiting sprint end audit",
       "name": "Specc",
-      "title": "🕵️ Inspector"
+      "title": "\ud83d\udd75\ufe0f Inspector",
+      "status": "idle",
+      "current": "Awaiting sprint-end audit"
     },
     "devops": {
-      "status": "done",
-      "current": "S4-002 shipped — Dashboard overhaul + title update",
       "name": "Patch",
-      "title": "🔧 DevOps"
+      "title": "\ud83d\udd27 DevOps",
+      "status": "working",
+      "current": "S5-001 Dashboard auto-gen CI"
     }
   },
-  "sprintHistory": [
-    {
-      "number": 1,
-      "goal": "Foundation — Architecture, CI/CD, Core Combat",
-      "status": "complete",
-      "tasks": [
-        {
-          "id": "S1-001",
-          "title": "Architecture Document",
-          "assignee": "lead-dev",
-          "status": "done",
-          "pr": "#8"
-        },
-        {
-          "id": "S1-002",
-          "title": "CI/CD + Godot Web Export",
-          "assignee": "devops",
-          "status": "done",
-          "pr": "#6, #9"
-        },
-        {
-          "id": "S1-003",
-          "title": "Core Combat Simulation",
-          "assignee": "dev-01",
-          "status": "done",
-          "pr": "#7"
-        },
-        {
-          "id": "S1-004",
-          "title": "Dashboard Automation",
-          "assignee": "devops",
-          "status": "done",
-          "pr": "#9"
-        }
-      ],
-      "summary": "Established project architecture, CI/CD pipeline with Godot web export, core combat simulation (tick system, damage calculator, brott entity, data resources), and initial dashboard."
-    },
-    {
-      "number": 2,
-      "goal": "Arena & AI — Tile System, Pathfinding, BrottBrain, Stances",
-      "status": "complete",
-      "tasks": [
-        {
-          "id": "S2-001",
-          "title": "Arena Tile System + LoS",
-          "assignee": "dev-01",
-          "status": "done",
-          "pr": "#10"
-        },
-        {
-          "id": "S2-002",
-          "title": "A* Pathfinding",
-          "assignee": "dev-01",
-          "status": "done",
-          "pr": "#10"
-        },
-        {
-          "id": "S2-003",
-          "title": "BrottBrain Evaluation Engine",
-          "assignee": "dev-01",
-          "status": "done",
-          "pr": "#10"
-        },
-        {
-          "id": "S2-004",
-          "title": "Stance Movement Behaviors",
-          "assignee": "dev-01",
-          "status": "done",
-          "pr": "#10"
-        }
-      ],
-      "summary": "Built arena tile system with 5 tile types and 2 layouts, line-of-sight raycasting, A* pathfinding with 8-directional movement and hazard avoidance, BrottBrain card-based AI evaluation engine, and 4 stance behaviors (Aggressive, Defensive, Kiting, Ambush)."
-    },
-    {
-      "number": 3,
-      "goal": "Tests & Combat Features — Test Suites, MatchManager, Projectiles",
-      "status": "complete",
-      "tasks": [
-        {
-          "id": "S3-001",
-          "title": "Comprehensive Test Suites (142 tests)",
-          "assignee": "qa",
-          "status": "done",
-          "pr": "#12"
-        },
-        {
-          "id": "S3-002",
-          "title": "Match Lifecycle + Weapon Fire + Energy",
-          "assignee": "dev-01",
-          "status": "done",
-          "pr": "#13"
-        },
-        {
-          "id": "S3-003",
-          "title": "PR Reviews (test requirement enforced)",
-          "assignee": "lead-dev",
-          "status": "done",
-          "pr": "#12, #13"
-        }
-      ],
-      "summary": "Added 142 comprehensive tests covering all systems, MatchManager autoload for match lifecycle, projectile system (hitscan + missile), energy system integration, and established 'no code without tests' rule. 166 total tests."
-    }
-  ],
   "activity": [
     {
-      "time": "2026-04-14T16:30Z",
+      "time": "2026-04-14T19:29:24Z",
+      "agent": "unknown",
+      "action": "ci: agent role boundary enforcement + export verification + test gate (S7)",
+      "sha": "7f878901"
+    },
+    {
+      "time": "2026-04-14T19:29:21Z",
+      "agent": "unknown",
+      "action": "test: add 41 integration tests for cross-system verification (S7-QA)",
+      "sha": "4167e5ed"
+    },
+    {
+      "time": "2026-04-14T19:17:53Z",
+      "agent": "unknown",
+      "action": "ci: fix dashboard deployment, add branch cleanup & PR checklist (S7)",
+      "sha": "7629235a"
+    },
+    {
+      "time": "2026-04-14T19:17:50Z",
+      "agent": "unknown",
+      "action": "fix: resolve class_name cascade failure in headless tests (S7-P0)",
+      "sha": "5d32b942"
+    },
+    {
+      "time": "2026-04-14T18:36:16Z",
       "agent": "pm",
-      "action": "Sprint 4 COMPLETE — both tracks done, all PRs merged"
+      "action": "[OPS] Sprint 6 tracks A-D complete \u2014 playtest report, message log, PLAN.md",
+      "sha": "8378e9cd"
     },
     {
-      "time": "2026-04-14T16:28Z",
-      "agent": "lead-dev",
-      "action": "Reviewed and merged PR #14 (Dashboard) and PR #15 (Vertical Slice)"
+      "time": "2026-04-14T18:34:21Z",
+      "agent": "unknown",
+      "action": "Merge pull request #22 from blor-inc/dev-01/S6-001-fixes",
+      "sha": "8d2e52b5"
     },
     {
-      "time": "2026-04-14T16:25Z",
+      "time": "2026-04-14T18:33:47Z",
       "agent": "dev-01",
-      "action": "PR #15 opened — Playable vertical slice with 15 tests"
+      "action": "[S6-001] fix: headless compatibility for campaign controller and tests",
+      "sha": "f0e1dbbf"
     },
     {
-      "time": "2026-04-14T16:20Z",
+      "time": "2026-04-14T18:21:20Z",
+      "agent": "unknown",
+      "action": "Merge pull request #21 from blor-inc/devops/S6-002-compliance-process",
+      "sha": "ec7f4be2"
+    },
+    {
+      "time": "2026-04-14T18:21:04Z",
+      "agent": "unknown",
+      "action": "Merge pull request #20 from blor-inc/dev-01/S6-001-playable-web-build",
+      "sha": "4d5face2"
+    },
+    {
+      "time": "2026-04-14T18:16:17Z",
+      "agent": "dev-01",
+      "action": "[S6-001] feat: campaign controller, shop screen, opponent select, integration tests",
+      "sha": "68005b60"
+    },
+    {
+      "time": "2026-04-14T18:18:36Z",
       "agent": "devops",
-      "action": "PR #14 opened — Complete dashboard overhaul"
+      "action": "[S6-002] feat: compliance CI + process gaps \u2014 status-gen, test-gate, review-check",
+      "sha": "f88aa268"
+    },
+    {
+      "time": "2026-04-14T13:48:09-04:00",
+      "agent": "unknown",
+      "action": "[S5-003] Economy, Shop & Progression Systems (#19)",
+      "sha": "81787919"
+    },
+    {
+      "time": "2026-04-14T13:44:42-04:00",
+      "agent": "unknown",
+      "action": "[S5-002] UI test suites for LoadoutScreen, MatchHUD, ResultScreen (#18)",
+      "sha": "fe8917e6"
+    },
+    {
+      "time": "2026-04-14T13:39:05-04:00",
+      "agent": "unknown",
+      "action": "[S5-001] Dashboard auto-generation CI + shell injection fix (#17)",
+      "sha": "beac24f7"
+    },
+    {
+      "time": "2026-04-14T13:26:10-04:00",
+      "agent": "unknown",
+      "action": "ci: add agent log attribution check for PRs (#16)",
+      "sha": "2e0f0913"
+    },
+    {
+      "time": "2026-04-14T16:23:19Z",
+      "agent": "pm",
+      "action": "[OPS] Sprint 4 complete \u2014 status, dashboard data, message log updated",
+      "sha": "1bebdb8a"
+    },
+    {
+      "time": "2026-04-14T12:22:08-04:00",
+      "agent": "unknown",
+      "action": "[S4-001] Playable Vertical Slice (#15)",
+      "sha": "e0952e07"
+    },
+    {
+      "time": "2026-04-14T12:22:06-04:00",
+      "agent": "unknown",
+      "action": "[S4-002] Dashboard Overhaul (#14)",
+      "sha": "c2e94438"
+    },
+    {
+      "time": "2026-04-14T13:50:45Z",
+      "agent": "pm",
+      "action": "[OPS] Sprint 3 complete \u2014 status, dashboard, message log updated",
+      "sha": "ca8e7742"
+    },
+    {
+      "time": "2026-04-14T09:49:07-04:00",
+      "agent": "unknown",
+      "action": "[S3-002] feat: MatchManager, projectile system, energy integration + 24 tests",
+      "sha": "24a7bbb7"
+    },
+    {
+      "time": "2026-04-14T09:44:33-04:00",
+      "agent": "unknown",
+      "action": "[S3-001] test: comprehensive test suites (142 tests)",
+      "sha": "deb24ebd"
+    },
+    {
+      "time": "2026-04-14T12:55:30Z",
+      "agent": "unknown",
+      "action": "Merge PR #11: Dashboard agent names",
+      "sha": "5329a648"
+    },
+    {
+      "time": "2026-04-14T12:54:56Z",
+      "agent": "devops",
+      "action": "[S2-005] feat: show agent names alongside roles in dashboard",
+      "sha": "2e1829b2"
+    },
+    {
+      "time": "2026-04-14T12:53:10Z",
+      "agent": "pm",
+      "action": "Sprint 2 complete \u2014 STATUS.md and data.json updated",
+      "sha": "705c637e"
+    },
+    {
+      "time": "2026-04-14T12:52:27Z",
+      "agent": "unknown",
+      "action": "Merge PR #10: Sprint 2 \u2014 Arena, LoS, Pathfinding, BrottBrain, Stances",
+      "sha": "606b4e36"
+    },
+    {
+      "time": "2026-04-14T12:51:49Z",
+      "agent": "dev-01",
+      "action": "[S2-001/002/003/004] feat: arena tile system, LoS raycasting, A* pathfinding, BrottBrain engine, stance behaviors",
+      "sha": "a723f672"
+    },
+    {
+      "time": "2026-04-14T12:49:09Z",
+      "agent": "pm",
+      "action": "Sprint 2 kickoff: 4 tasks planned, STATUS.md and data.json updated",
+      "sha": "a048e948"
+    },
+    {
+      "time": "2026-04-14T12:47:19Z",
+      "agent": "unknown",
+      "action": "Merge PR #9: CI/CD Workflow Files",
+      "sha": "283aa60a"
+    },
+    {
+      "time": "2026-04-14T12:46:51Z",
+      "agent": "devops",
+      "action": "[S1-002] feat: add CI/CD workflow files for build/deploy and dashboard automation",
+      "sha": "8061bfde"
+    },
+    {
+      "time": "2026-04-14T12:37:52Z",
+      "agent": "pm",
+      "action": "Sprint 1 complete \u2014 STATUS.md and data.json updated",
+      "sha": "b145608c"
+    }
+  ],
+  "pullRequests": [
+    {
+      "number": 27,
+      "title": "ci: agent role boundary enforcement + export verification + test gate (S7)",
+      "state": "MERGED",
+      "author": "app/studio-lead-dev",
+      "mergedAt": "2026-04-14T19:29:24Z",
+      "createdAt": "2026-04-14T19:27:39Z"
+    },
+    {
+      "number": 26,
+      "title": "test: add 41 integration tests for cross-system verification (S7-QA)",
+      "state": "MERGED",
+      "author": "app/studio-lead-dev",
+      "mergedAt": "2026-04-14T19:29:21Z",
+      "createdAt": "2026-04-14T19:25:03Z"
+    },
+    {
+      "number": 25,
+      "title": "chore: auto-update dashboard data.json",
+      "state": "OPEN",
+      "author": "app/github-actions",
+      "mergedAt": null,
+      "createdAt": "2026-04-14T19:18:04Z"
+    },
+    {
+      "number": 24,
+      "title": "ci: fix dashboard deployment, add branch cleanup & PR checklist (S7)",
+      "state": "MERGED",
+      "author": "app/studio-lead-dev",
+      "mergedAt": "2026-04-14T19:17:53Z",
+      "createdAt": "2026-04-14T19:14:10Z"
+    },
+    {
+      "number": 23,
+      "title": "fix: resolve class_name cascade failure in headless tests (S7-P0)",
+      "state": "MERGED",
+      "author": "app/studio-lead-dev",
+      "mergedAt": "2026-04-14T19:17:50Z",
+      "createdAt": "2026-04-14T19:10:41Z"
+    },
+    {
+      "number": 22,
+      "title": "[S6-001] Headless compatibility fixes for campaign controller",
+      "state": "MERGED",
+      "author": "brotatotes",
+      "mergedAt": "2026-04-14T18:34:22Z",
+      "createdAt": "2026-04-14T18:34:05Z"
+    },
+    {
+      "number": 21,
+      "title": "[S6-002] Compliance CI + Process Gaps",
+      "state": "MERGED",
+      "author": "brotatotes",
+      "mergedAt": "2026-04-14T18:21:20Z",
+      "createdAt": "2026-04-14T18:19:20Z"
+    },
+    {
+      "number": 20,
+      "title": "[S6-001] Playable Web Build \u2014 Campaign Loop Integration",
+      "state": "MERGED",
+      "author": "brotatotes",
+      "mergedAt": "2026-04-14T18:21:05Z",
+      "createdAt": "2026-04-14T18:16:55Z"
+    },
+    {
+      "number": 19,
+      "title": "[S5-003] Economy, Shop & Progression Systems",
+      "state": "MERGED",
+      "author": "brotatotes",
+      "mergedAt": "2026-04-14T17:48:09Z",
+      "createdAt": "2026-04-14T17:44:06Z"
+    },
+    {
+      "number": 18,
+      "title": "[S5-002] UI test suites for LoadoutScreen, MatchHUD, ResultScreen",
+      "state": "MERGED",
+      "author": "brotatotes",
+      "mergedAt": "2026-04-14T17:44:42Z",
+      "createdAt": "2026-04-14T17:42:42Z"
+    },
+    {
+      "number": 17,
+      "title": "[S5-001] Dashboard auto-generation CI + shell injection fix",
+      "state": "MERGED",
+      "author": "brotatotes",
+      "mergedAt": "2026-04-14T17:39:06Z",
+      "createdAt": "2026-04-14T17:36:27Z"
+    },
+    {
+      "number": 16,
+      "title": "ci: Agent log attribution check for game PRs",
+      "state": "MERGED",
+      "author": "brotatotes",
+      "mergedAt": "2026-04-14T17:26:10Z",
+      "createdAt": "2026-04-14T17:23:50Z"
+    },
+    {
+      "number": 15,
+      "title": "[S4-001] Playable Vertical Slice \u2014 Full Match Loop",
+      "state": "MERGED",
+      "author": "brotatotes",
+      "mergedAt": "2026-04-14T16:22:08Z",
+      "createdAt": "2026-04-14T16:21:48Z"
+    },
+    {
+      "number": 14,
+      "title": "[S4-002] Dashboard Overhaul \u2014 Responsive, Full History, Sprint Summaries, Agent Cards",
+      "state": "MERGED",
+      "author": "brotatotes",
+      "mergedAt": "2026-04-14T16:22:06Z",
+      "createdAt": "2026-04-14T16:15:31Z"
+    },
+    {
+      "number": 13,
+      "title": "[S3-002] feat: MatchManager, projectile system, energy integration + 24 tests",
+      "state": "MERGED",
+      "author": "brotatotes",
+      "mergedAt": "2026-04-14T13:49:07Z",
+      "createdAt": "2026-04-14T13:48:51Z"
+    },
+    {
+      "number": 12,
+      "title": "[S3-001] Comprehensive test suites for all existing code",
+      "state": "MERGED",
+      "author": "brotatotes",
+      "mergedAt": "2026-04-14T13:44:33Z",
+      "createdAt": "2026-04-14T13:39:21Z"
+    },
+    {
+      "number": 11,
+      "title": "[S2-005] Dashboard: Show agent names alongside roles",
+      "state": "MERGED",
+      "author": "brotatotes",
+      "mergedAt": "2026-04-14T12:55:30Z",
+      "createdAt": "2026-04-14T12:55:16Z"
+    },
+    {
+      "number": 10,
+      "title": "[Sprint 2] Arena Tile System, LoS, A* Pathfinding, BrottBrain, Stance Behaviors",
+      "state": "MERGED",
+      "author": "brotatotes",
+      "mergedAt": "2026-04-14T12:52:27Z",
+      "createdAt": "2026-04-14T12:52:11Z"
+    },
+    {
+      "number": 9,
+      "title": "[S1-002] CI/CD Workflow Files \u2014 Build/Deploy + Dashboard Automation",
+      "state": "MERGED",
+      "author": "brotatotes",
+      "mergedAt": "2026-04-14T12:47:19Z",
+      "createdAt": "2026-04-14T12:47:03Z"
+    },
+    {
+      "number": 8,
+      "title": "[S1-001] docs: Technical Architecture Document",
+      "state": "MERGED",
+      "author": "brotatotes",
+      "mergedAt": "2026-04-14T12:37:12Z",
+      "createdAt": "2026-04-14T12:35:16Z"
+    }
+  ],
+  "messageLog": [
+    {
+      "time": "2026-04-14T16:12Z",
+      "entry": "Rivett \u2192 Nutts \u2014 Vertical slice: wire all systems, loadout UI, match HUD, result screen, The Pit arena, enemy brott, tests."
     },
     {
       "time": "2026-04-14T16:15Z",
-      "agent": "devops",
-      "action": "ops PR #6 — Rivett title updated to Head of Operations"
+      "entry": "Patch \u2014 ops PR #6 opened \u2014 Rivett title updated (PM \u2192 Head of Operations) in profile.md and FRAMEWORK.md. Merged."
     },
     {
-      "time": "2026-04-14T16:11Z",
-      "agent": "pm",
-      "action": "Sprint 4 kicked off — Track A: Vertical Slice, Track B: Dashboard Overhaul"
+      "time": "2026-04-14T16:20Z",
+      "entry": "Patch \u2014 PR #14 opened \u2014 Complete dashboard overhaul with responsive layout, full activity timeline, collapsible sprint history, agent cards, project health stats."
     },
     {
-      "time": "2026-04-14T13:45Z",
-      "agent": "pm",
-      "action": "Sprint 3 COMPLETE — all tasks done, audit remediation complete"
+      "time": "2026-04-14T16:25Z",
+      "entry": "Nutts \u2014 PR #15 opened \u2014 Playable vertical slice: GameController, LoadoutScreen, MatchHUD, ArenaView, ResultScreen + 15 tests."
     },
     {
-      "time": "2026-04-14T13:44Z",
-      "agent": "lead-dev",
-      "action": "Reviewed and merged PR #13 (S3-002 combat features + 24 tests)"
+      "time": "2026-04-14T16:28Z",
+      "entry": "Boltz \u2014 Reviewed both PRs. Dashboard clean, vertical slice architecture aligned. Both merged to main."
     },
     {
-      "time": "2026-04-14T13:43Z",
-      "agent": "dev-01",
-      "action": "PR #13 opened — MatchManager, projectile system, energy integration + 24 tests"
+      "time": "2026-04-14T16:30Z",
+      "entry": "Rivett \u2014 Sprint 4 COMPLETE. Both tracks done. STATUS.md, data.json, message log updated."
     },
     {
-      "time": "2026-04-14T13:43Z",
-      "agent": "lead-dev",
-      "action": "Reviewed and merged PR #12 (S3-001 test suites)"
+      "time": "2026-04-14T17:33Z",
+      "entry": "The Bott \u2192 Rivett \u2014 Sprint 5 kicked off. 4 tracks: Dashboard CI (Patch), UI Tests (Glytch), Economy+Shop (Nutts), Sprint Audit (Specc)."
     },
     {
-      "time": "2026-04-14T13:42Z",
-      "agent": "devops",
-      "action": "Deleted 3 stale branches, redirected game-dev-studio STATUS.md"
+      "time": "2026-04-14T17:33Z",
+      "entry": "Rivett \u2014 Sprint 5 branch created (patch/s5-dashboard-autogen). Enhanced update-dashboard.yml to auto-generate data.json from git log, GitHub PR API, STATUS.md, and test counts. Fixed shell injection i"
     },
     {
-      "time": "2026-04-14T13:41Z",
-      "agent": "inspector",
-      "action": "Specc audit — 4 findings: stale branches, sparse log, stale data, stale STATUS.md"
+      "time": "2026-04-14T18:10Z",
+      "entry": "The Bott \u2192 Rivett \u2014 Sprint 6 kicked off. \"The Big One.\" 5 tracks: Playable Web Build (Nutts), Compliance CI (Patch), Process Gaps (Patch), Playtest (Optic), Audit (Specc)."
     },
     {
-      "time": "2026-04-14T13:41Z",
-      "agent": "pm",
-      "action": "Specc audit remediation started"
+      "time": "2026-04-14T18:15Z",
+      "entry": "Rivett \u2014 Created PLAN.md with sprint goals and track assignments."
     },
     {
-      "time": "2026-04-14T13:45Z",
-      "agent": "qa",
-      "action": "S3-001 complete — 142 tests all passing, PR #12 opened"
+      "time": "2026-04-14T18:20Z",
+      "entry": "Nutts \u2014 PR #20 opened \u2014 Campaign controller, shop screen, opponent select, 28 integration tests. Full game loop: Shop \u2192 Loadout \u2192 Opponent Select \u2192 Match \u2192 Result \u2192 repeat."
     },
     {
-      "time": "2026-04-14T13:18Z",
-      "agent": "pm",
-      "action": "Sprint 3 kicked off — Tests & Combat Features"
+      "time": "2026-04-14T18:22Z",
+      "entry": "Boltz \u2014 Reviewed PR #20. Architecture aligned, good delegation pattern, thorough tests. Approved and merged."
     },
     {
-      "time": "2026-04-14T12:52Z",
-      "agent": "pm",
-      "action": "Sprint 2 COMPLETE — all 4 tasks shipped"
+      "time": "2026-04-14T18:25Z",
+      "entry": "Patch \u2014 PR #21 opened \u2014 3 new CI workflows: status-gen.yml, test-gate.yml, review-check.yml."
     },
     {
-      "time": "2026-04-14T12:51Z",
-      "agent": "lead-dev",
-      "action": "Reviewed and merged PR #10 (Sprint 2)"
+      "time": "2026-04-14T18:27Z",
+      "entry": "Boltz \u2014 Reviewed PR #21. Solid CI workflows, advisory review check is right approach. Approved and merged."
     },
     {
-      "time": "2026-04-14T12:50Z",
-      "agent": "dev-01",
-      "action": "PR #10 opened — all Sprint 2 systems"
+      "time": "2026-04-14T18:28Z",
+      "entry": "Patch \u2014 PR #9 opened (game-dev-studio) \u2014 3 KB decision entries + cross-repo logging how-to."
     },
     {
-      "time": "2026-04-14T03:20Z",
-      "agent": "pm",
-      "action": "Studio initialized — message log started"
+      "time": "2026-04-14T18:30Z",
+      "entry": "Boltz \u2014 Reviewed and merged game-dev-studio PR #9."
     },
     {
-      "time": "2026-04-14T03:20Z",
-      "agent": "lead-dev",
-      "action": "PR #2 review: changes requested, PM files missing"
+      "time": "2026-04-14T18:35Z",
+      "entry": "Nutts \u2014 PR #22 opened \u2014 Headless compatibility fixes for campaign controller (load() pattern)."
     },
     {
-      "time": "2026-04-14T03:00Z",
-      "agent": "pm",
-      "action": "Sprint 1 kicked off — Foundation sprint"
+      "time": "2026-04-14T18:37Z",
+      "entry": "Boltz \u2014 Reviewed PR #22. Good fix for headless mode. Approved and merged."
     },
     {
-      "time": "2026-04-14T02:30Z",
-      "agent": "lead-dev",
-      "action": "Architecture document drafted (PR #8)"
+      "time": "2026-04-14T18:40Z",
+      "entry": "Optic \u2014 Sprint 6 playtest report written. Analytical review only \u2014 headless sim blocked by pre-existing Projectile class_name chain. Flagged fortress balance concern and economy pacing."
     },
     {
-      "time": "2026-04-14T02:00Z",
-      "agent": "devops",
-      "action": "CI/CD pipeline created with Godot web export (PR #6)"
-    },
-    {
-      "time": "2026-04-14T01:30Z",
-      "agent": "dev-01",
-      "action": "Core combat simulation implemented (PR #7)"
-    },
-    {
-      "time": "2026-04-14T01:00Z",
-      "agent": "devops",
-      "action": "Dashboard automation + CI fixes (PR #9)"
+      "time": "2026-04-14T18:45Z",
+      "entry": "Rivett \u2014 Sprint 6 Tracks A-D complete. Track E (Specc audit) pending \u2014 to be spawned by The Bott."
     }
   ],
-  "updated": "2026-04-14T16:30:00Z"
+  "stats": {
+    "totalTests": 375,
+    "totalPRs": 20,
+    "totalCommits": 40,
+    "gdScripts": 47
+  },
+  "updated": "2026-04-14T19:29:32Z"
 }
