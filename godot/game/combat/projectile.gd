@@ -44,8 +44,9 @@ const PROJECTILE_SPEEDS := {
 # Factory
 # ─────────────────────────────────────────────────────────
 static func create(wid: String, from: Brott, to: Brott,
-		dmg: float, crit: bool, splash: float, chain: int) -> Projectile:
-	var p := Projectile.new()
+		dmg: float, crit: bool, splash: float, chain: int):
+	var script := preload("res://game/combat/projectile.gd")
+	var p = script.new()
 	p.weapon_id = wid
 	p.attacker = from
 	p.target = to

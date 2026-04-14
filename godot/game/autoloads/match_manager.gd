@@ -5,6 +5,8 @@
 # Wraps TickSystem and provides high-level match control.
 class_name MatchManager
 
+const _TickSystem = preload("res://game/combat/tick_system.gd")
+
 # ── Signals ──────────────────────────────────────────────
 signal match_started(seed_value: int)
 signal match_ended(result: Dictionary)
@@ -20,7 +22,7 @@ const MAX_MATCH_TICKS: int = int(MATCH_DURATION_SECONDS * TICKS_PER_SECOND)
 
 # ── State ────────────────────────────────────────────────
 var state: State = State.IDLE
-var tick_system: TickSystem = null
+var tick_system = null
 var match_seed: int = 0
 var match_result: Dictionary = {}
 # { "winner_team": int, "outcome": String, "ticks": int, "duration_sec": float,
@@ -33,7 +35,7 @@ var _brotts_team_b: Array = []
 # Init
 # ─────────────────────────────────────────────────────────
 func _init() -> void:
-	tick_system = TickSystem.new()
+	tick_system = _TickSystem.new()
 
 # ─────────────────────────────────────────────────────────
 # Setup and start a match
@@ -79,7 +81,7 @@ func step() -> bool:
 	if state != State.RUNNING:
 		return false
 
-	var continues := tick_system.run_tick()
+	var continues: bool = tick_system.run_tick()
 	tick_completed.emit(tick_system.tick)
 
 	if not continues:
@@ -106,8 +108,8 @@ func run_to_completion() -> Dictionary:
 func _finalize_match() -> void:
 	state = State.ENDED
 
-	var ticks := tick_system.tick
-	var winner := tick_system.winner_team
+	var ticks: int = tick_system.tick
+	var winner: int = tick_system.winner_team
 	var outcome := "draw"
 	if winner == 0:
 		outcome = "team_a_wins"
@@ -166,4 +168,4 @@ func reset() -> void:
 	match_result = {}
 	_brotts_team_a = []
 	_brotts_team_b = []
-	tick_system = TickSystem.new()
+	tick_system = _TickSystem.new()

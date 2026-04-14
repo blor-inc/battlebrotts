@@ -134,7 +134,7 @@ func record_match(league_id: String, opponent_index: int, won: bool) -> Dictiona
 	var advanced_to := ""
 	var league_beaten := is_league_beaten(league_id)
 	if league_beaten and LEAGUES.has(league_id):
-		var next := LEAGUES[league_id].get("advance_to", "")
+		var next: String = LEAGUES[league_id].get("advance_to", "")
 		if next != "" and not next in unlocked_leagues:
 			unlocked_leagues.append(next)
 			advanced_to = next
@@ -153,14 +153,14 @@ func record_match(league_id: String, opponent_index: int, won: bool) -> Dictiona
 func is_league_beaten(league_id: String) -> bool:
 	if not LEAGUES.has(league_id):
 		return false
-	var league := LEAGUES[league_id]
+	var league: Dictionary = LEAGUES[league_id]
 	var wins := count_unique_wins(league_id)
 	return wins >= league["wins_to_advance"]
 
 
 func count_unique_wins(league_id: String) -> int:
 	var count := 0
-	var opponents := get_opponents(league_id)
+	var opponents: Array = get_opponents(league_id)
 	for i in range(opponents.size()):
 		var opp_id := get_opponent_id(league_id, i)
 		if opponent_wins.has(opp_id):
@@ -180,8 +180,8 @@ func get_league_progress(league_id: String) -> Dictionary:
 	"""Returns { wins, total, beaten, opponents: [{ index, name, beaten }] }."""
 	if not LEAGUES.has(league_id):
 		return {}
-	var league := LEAGUES[league_id]
-	var opponents := league["opponents"]
+	var league: Dictionary = LEAGUES[league_id]
+	var opponents: Array = league["opponents"]
 	var opp_progress := []
 	for i in range(opponents.size()):
 		opp_progress.append({
