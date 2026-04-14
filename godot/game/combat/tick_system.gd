@@ -13,6 +13,8 @@
 # Combat is fully deterministic given the same RNG seed.
 class_name TickSystem
 
+const _Projectile = preload("res://game/combat/projectile.gd")
+
 const TICKS_PER_SECOND: int = 20
 const TICK_DELTA: float = 1.0 / TICKS_PER_SECOND  # 0.05s
 const PIXELS_PER_TILE: float = 32.0
@@ -188,13 +190,13 @@ func _step_weapon_fire() -> void:
 				wid, b.target.armor_id, b.target.hp_ratio(), rng)
 
 			# Check if this weapon uses projectiles (non-hitscan)
-			var proj_speed: float = Projectile.PROJECTILE_SPEEDS.get(wid, 0.0)
+			var proj_speed: float = _Projectile.PROJECTILE_SPEEDS.get(wid, 0.0)
 
 			if proj_speed > 0.0:
 				# Create a projectile — damage resolved on arrival in phase 6
 				for hit in hits:
 					if _spread_hit_check(wdata, dist_tiles, rng):
-						var proj := Projectile.create(
+						var proj = _Projectile.create(
 							wid, b, b.target,
 							hit["damage"], hit["is_crit"],
 							float(wdata["splash_radius"]),
@@ -240,7 +242,7 @@ func _step_weapon_fire() -> void:
 # 6. Projectile update — move projectiles, resolve arrivals
 func _step_projectile_update() -> void:
 	var still_alive: Array = []
-	for proj: Projectile in projectiles:
+	for proj in projectiles:
 		proj.update()
 		if proj.has_arrived():
 			_resolve_projectile_hit(proj)
@@ -249,7 +251,7 @@ func _step_projectile_update() -> void:
 		# else: expired, discard
 	projectiles = still_alive
 
-func _resolve_projectile_hit(proj: Projectile) -> void:
+func _resolve_projectile_hit(proj) -> void:
 	if proj.target == null or proj.target.is_dead():
 		return
 	# Apply direct damage
@@ -268,7 +270,7 @@ func _resolve_projectile_hit(proj: Projectile) -> void:
 		for other: Brott in brotts:
 			if other == proj.target or other.is_dead() or other.team == proj.attacker.team:
 				continue
-			var splash_dist := proj.target.distance_to_brott(other)
+			var splash_dist: float = proj.target.distance_to_brott(other)
 			if splash_dist <= proj.splash_radius:
 				var splash := DamageCalculator.calc_splash(
 					proj.damage, other.armor_id,

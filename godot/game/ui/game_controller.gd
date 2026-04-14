@@ -6,6 +6,8 @@
 class_name GameController
 extends Node
 
+const _MatchManager = preload("res://game/autoloads/match_manager.gd")
+
 enum Screen { LOADOUT, MATCH, RESULT }
 
 var current_screen: Screen = Screen.LOADOUT
@@ -23,7 +25,7 @@ const ENEMY_ARMOR: String = "reactive_mesh"
 const ENEMY_MODULES: Array = ["repair_nanites"]
 
 # Match state
-var match_manager: MatchManager = null
+var match_manager = null
 var arena: ArenaManager = null
 var player_brott: Brott = null
 var enemy_brott: Brott = null
@@ -46,7 +48,7 @@ var match_hud = null
 
 
 func _ready() -> void:
-	match_manager = MatchManager.new()
+	match_manager = _MatchManager.new()
 	match_manager.match_ended.connect(_on_match_ended)
 
 	# Get screen references (only if in scene tree with UI)
@@ -118,7 +120,7 @@ func step_simulation() -> bool:
 	if not match_manager.is_running():
 		return false
 
-	var continues := match_manager.step()
+	var continues: bool = match_manager.step()
 
 	# Capture snapshot for this tick
 	var snapshot := {

@@ -21,11 +21,11 @@ func setup(campaign_controller) -> void:
 
 func get_display_data() -> Dictionary:
 	"""Returns data for rendering opponent list."""
-	var progress := campaign.get_league_progress()
+	var progress: Dictionary = campaign.get_league_progress()
 	var opponents := []
 
 	for opp in progress["opponents"]:
-		var info := campaign.get_opponent_info(opp["index"])
+		var info: Dictionary = campaign.get_opponent_info(opp["index"])
 		opponents.append({
 			"index": opp["index"],
 			"name": opp["name"],

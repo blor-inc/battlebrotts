@@ -5,24 +5,26 @@
 # Wraps EconomyManager purchase logic with catalog browsing.
 class_name Shop
 
+const _EconomyManager = preload("res://game/economy/economy_manager.gd")
+
 # ── Signals ──────────────────────────────────────────────
 signal purchase_completed(item_type: String, item_id: String, cost: int)
 signal purchase_failed(item_type: String, item_id: String, reason: String)
 
 # ── State ────────────────────────────────────────────────
-var economy: EconomyManager = null
+var economy = null
 
 # ─────────────────────────────────────────────────────────
 # Init
 # ─────────────────────────────────────────────────────────
-func _init(economy_manager: EconomyManager = null) -> void:
+func _init(economy_manager = null) -> void:
 	if economy_manager:
 		economy = economy_manager
 	else:
-		economy = EconomyManager.new()
+		economy = _EconomyManager.new()
 
 
-func set_economy(economy_manager: EconomyManager) -> void:
+func set_economy(economy_manager) -> void:
 	economy = economy_manager
 
 # ─────────────────────────────────────────────────────────
@@ -31,7 +33,7 @@ func set_economy(economy_manager: EconomyManager) -> void:
 func get_catalog(item_type: String) -> Array:
 	"""Returns array of { id, name, cost, owned, data } for all items of type."""
 	var items := []
-	var all_ids := economy.get_all_items(item_type)
+	var all_ids: Array = economy.get_all_items(item_type)
 	for id in all_ids:
 		var entry := {
 			"id": id,
@@ -63,8 +65,8 @@ func get_purchasable(item_type: String) -> Array:
 # ─────────────────────────────────────────────────────────
 func buy(item_type: String, item_id: String) -> Dictionary:
 	"""Buy an item. Returns { success, reason, cost }."""
-	var cost := economy.get_item_cost(item_type, item_id)
-	var result := economy.purchase_item(item_type, item_id)
+	var cost: int = economy.get_item_cost(item_type, item_id)
+	var result: Dictionary = economy.purchase_item(item_type, item_id)
 	if result["success"]:
 		purchase_completed.emit(item_type, item_id, maxi(cost, 0))
 	else:
@@ -78,7 +80,7 @@ func buy(item_type: String, item_id: String) -> Dictionary:
 func can_buy(item_type: String, item_id: String) -> bool:
 	if economy.owns_item(item_type, item_id):
 		return false
-	var cost := economy.get_item_cost(item_type, item_id)
+	var cost: int = economy.get_item_cost(item_type, item_id)
 	if cost < 0:
 		return false
 	if cost == 0:
