@@ -6,6 +6,7 @@
 extends Control
 
 var game: GameController = null
+var economy: EconomyManager = null  # If set, filters items by ownership
 
 # UI references (set via _ready or scene tree)
 @onready var chassis_list: ItemList = %ChassisList
@@ -20,52 +21,69 @@ var game: GameController = null
 @onready var enemy_info: Label = %EnemyInfo
 
 
-func setup(controller: GameController) -> void:
+func setup(controller: GameController, economy_manager: EconomyManager = null) -> void:
 	game = controller
+	economy = economy_manager
 	_populate_lists()
 	_update_display()
 
 
 func _populate_lists() -> void:
-	# Chassis
+	# Chassis — show all, mark locked ones
 	chassis_list.clear()
 	for id in game.get_available_chassis():
 		var c := game.get_chassis_info(id)
-		chassis_list.add_item("%s — HP:%d SPD:%d CAP:%d W:%d M:%d" % [
-			c["name"], c["hp"], c["speed"], c["weight_cap"],
+		var owned := _is_owned("chassis", id)
+		var prefix := "" if owned else "🔒 "
+		chassis_list.add_item("%s%s — HP:%d SPD:%d CAP:%d W:%d M:%d" % [
+			prefix, c["name"], c["hp"], c["speed"], c["weight_cap"],
 			c["weapon_slots"], c["module_slots"]
 		])
 		chassis_list.set_item_metadata(chassis_list.item_count - 1, id)
+		if not owned:
+			chassis_list.set_item_disabled(chassis_list.item_count - 1, true)
 
-	# Weapons
+	# Weapons — show all, mark locked ones
 	weapon_list.clear()
 	weapon_list.select_mode = ItemList.SELECT_MULTI
 	for id in game.get_available_weapons():
 		var w := game.get_weapon_info(id)
-		weapon_list.add_item("%s — DMG:%d RNG:%d WT:%d E:%d" % [
-			w["name"], w["damage"], w["range"], w["weight"], w["energy_cost"]
+		var owned := _is_owned("weapon", id)
+		var prefix := "" if owned else "🔒 "
+		weapon_list.add_item("%s%s — DMG:%d RNG:%d WT:%d E:%d" % [
+			prefix, w["name"], w["damage"], w["range"], w["weight"], w["energy_cost"]
 		])
 		weapon_list.set_item_metadata(weapon_list.item_count - 1, id)
+		if not owned:
+			weapon_list.set_item_disabled(weapon_list.item_count - 1, true)
 
-	# Armor
+	# Armor — show all, mark locked ones
 	armor_list.clear()
 	armor_list.add_item("None")
 	armor_list.set_item_metadata(0, "")
 	for id in game.get_available_armor():
 		var a := game.get_armor_info(id)
-		armor_list.add_item("%s — DR:%.0f%% WT:%d" % [
-			a["name"], a["damage_reduction"] * 100, a["weight"]
+		var owned := _is_owned("armor", id)
+		var prefix := "" if owned else "🔒 "
+		armor_list.add_item("%s%s — DR:%.0f%% WT:%d" % [
+			prefix, a["name"], a["damage_reduction"] * 100, a["weight"]
 		])
 		armor_list.set_item_metadata(armor_list.item_count - 1, id)
+		if not owned:
+			armor_list.set_item_disabled(armor_list.item_count - 1, true)
 
-	# Modules
+	# Modules — show all, mark locked ones
 	module_list.clear()
 	module_list.select_mode = ItemList.SELECT_MULTI
 	for id in game.get_available_modules():
 		var m := game.get_module_info(id)
+		var owned := _is_owned("module", id)
+		var prefix := "" if owned else "🔒 "
 		var type_str := "Passive" if m["passive"] else "Active"
-		module_list.add_item("%s — %s WT:%d" % [m["name"], type_str, m["weight"]])
+		module_list.add_item("%s%s — %s WT:%d" % [prefix, m["name"], type_str, m["weight"]])
 		module_list.set_item_metadata(module_list.item_count - 1, id)
+		if not owned:
+			module_list.set_item_disabled(module_list.item_count - 1, true)
 
 	# Show enemy loadout
 	var ec := ChassisData.get_chassis(GameController.ENEMY_CHASSIS)
@@ -135,3 +153,10 @@ func _update_display() -> void:
 
 func _on_fight_pressed() -> void:
 	game.start_match()
+
+
+func _is_owned(item_type: String, item_id: String) -> bool:
+	"""Check if player owns this item. If no economy set, all items available."""
+	if economy == null:
+		return true
+	return economy.owns_item(item_type, item_id)
