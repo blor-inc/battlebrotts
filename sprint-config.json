@@ -2,7 +2,7 @@
   "current": {
     "number": 10,
     "goal": "Final Process Sprint \u2014 Automated Sprint Tracking",
-    "status": "active"
+    "status": "complete"
   },
   "tasks": [
     {
@@ -30,10 +30,47 @@
       "id": "S10-004",
       "title": "Backlog review + Sprint 11 planning",
       "assignee": "pm",
-      "status": "in-progress"
+      "status": "done",
+      "pr": "53"
     }
   ],
   "history": [
+    {
+      "number": 10,
+      "goal": "Final Process Sprint \u2014 Automated Sprint Tracking",
+      "status": "complete",
+      "summary": "Auto-generate sprint-config task status from merged PRs; Verify data.json regeneration pipeline end-to-end; Auto-close sprint when all tasks done; Backlog review + Sprint 11 planning",
+      "tasks": [
+        {
+          "id": "S10-001",
+          "title": "Auto-generate sprint-config task status from merged PRs",
+          "assignee": "devops",
+          "status": "done",
+          "pr": "47"
+        },
+        {
+          "id": "S10-002",
+          "title": "Verify data.json regeneration pipeline end-to-end",
+          "assignee": "devops",
+          "status": "done",
+          "pr": "48"
+        },
+        {
+          "id": "S10-003",
+          "title": "Auto-close sprint when all tasks done",
+          "assignee": "devops",
+          "status": "done",
+          "pr": "47"
+        },
+        {
+          "id": "S10-004",
+          "title": "Backlog review + Sprint 11 planning",
+          "assignee": "pm",
+          "status": "done",
+          "pr": "53"
+        }
+      ]
+    },
     {
       "number": 9,
       "goal": "Dashboard Polish",
