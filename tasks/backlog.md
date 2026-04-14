@@ -13,3 +13,4 @@
 | B-008 | Enable GitHub Pages | 🟡 Medium | Patch | Pending |
 | B-009 | Set up Godot web export | 🟡 Medium | Patch | Pending |
 | B-010 | Initialize agent log files | 🟢 Low | Patch | Pending |
+| B-011 | Automate dashboard data.json updates | 🟡 Medium | Patch | Pending |
