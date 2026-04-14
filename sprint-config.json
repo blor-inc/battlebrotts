@@ -9,19 +9,22 @@
       "id": "S10-001",
       "title": "Auto-generate sprint-config task status from merged PRs",
       "assignee": "devops",
-      "status": "todo"
+      "status": "done",
+      "pr": "47"
     },
     {
       "id": "S10-002",
       "title": "Verify data.json regeneration pipeline end-to-end",
       "assignee": "devops",
-      "status": "todo"
+      "status": "done",
+      "pr": "48"
     },
     {
       "id": "S10-003",
       "title": "Auto-close sprint when all tasks done",
       "assignee": "devops",
-      "status": "todo"
+      "status": "done",
+      "pr": "47"
     },
     {
       "id": "S10-004",
