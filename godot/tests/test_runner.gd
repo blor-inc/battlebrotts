@@ -59,6 +59,7 @@ func _run_all_tests() -> void:
 	_run_suite("Shop", preload("res://tests/test_shop.gd"))
 	_run_suite("League", preload("res://tests/test_league.gd"))
 	_run_suite("Campaign", load("res://tests/test_campaign.gd"))
+	_run_suite("Integration", load("res://tests/test_integration.gd"))
 
 func _run_suite(suite_name: String, script: GDScript) -> void:
 	print("── %s ──" % suite_name)
