@@ -1,0 +1,65 @@
+name: Test Gate — Require tests for game scripts
+
+on:
+  pull_request:
+    paths:
+      - 'godot/game/**/*.gd'
+      - 'godot/tests/**/*.gd'
+
+jobs:
+  test-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check test coverage for new/modified game scripts
+        run: |
+          echo "Checking that game scripts have corresponding tests..."
+
+          # Get changed .gd files in godot/game/
+          CHANGED=$(git diff --name-only --diff-filter=ACMR origin/main...HEAD -- 'godot/game/**/*.gd' || true)
+
+          if [ -z "$CHANGED" ]; then
+            echo "✅ No game scripts changed."
+            exit 0
+          fi
+
+          MISSING=""
+          for f in $CHANGED; do
+            # Extract script name without path and extension
+            basename=$(basename "$f" .gd)
+
+            # Skip data files (they're static constants, not logic)
+            if echo "$f" | grep -q "godot/game/data/"; then
+              echo "  ℹ️  $f (data file, skipped)"
+              continue
+            fi
+
+            # Look for a corresponding test file
+            test_file="godot/tests/test_${basename}.gd"
+            if [ ! -f "$test_file" ]; then
+              # Also check if any test file references this script
+              if grep -rl "\"res://$(echo $f | sed 's|godot/||')\"" godot/tests/ >/dev/null 2>&1; then
+                echo "  ✅ $f (tested via import)"
+              else
+                echo "  ❌ $f — no test file found (expected $test_file)"
+                MISSING="$MISSING\n  - $f"
+              fi
+            else
+              echo "  ✅ $f → $test_file"
+            fi
+          done
+
+          if [ -n "$MISSING" ]; then
+            echo ""
+            echo "⚠️  The following game scripts lack corresponding test files:"
+            echo -e "$MISSING"
+            echo ""
+            echo "Please add tests in godot/tests/test_<scriptname>.gd"
+            exit 1
+          fi
+
+          echo ""
+          echo "✅ All changed game scripts have tests."

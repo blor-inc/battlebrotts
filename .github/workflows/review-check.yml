@@ -1,0 +1,44 @@
+name: PR Review Quality Check
+
+on:
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  review-check:
+    runs-on: ubuntu-latest
+    if: github.event.review.state == 'approved' || github.event.review.state == 'changes_requested'
+    steps:
+      - name: Check review body quality
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const review = context.payload.review;
+            const body = (review.body || '').trim();
+
+            const LOW_EFFORT = [
+              /^lgtm$/i,
+              /^looks good$/i,
+              /^approved$/i,
+              /^👍$/,
+              /^ok$/i,
+              /^nice$/i,
+              /^ship it$/i,
+            ];
+
+            if (body.length < 20) {
+              const isLowEffort = body.length === 0 || LOW_EFFORT.some(re => re.test(body));
+              if (isLowEffort) {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: context.payload.pull_request.number,
+                  body: `⚠️ **Review quality note:** @${review.user.login}'s review has minimal feedback (${body.length} chars). ` +
+                    `Our studio standard is substantive reviews with at least 20 characters of feedback explaining what was checked and why it's approved. ` +
+                    `This is advisory — the review still counts.`
+                });
+                console.log('Advisory comment posted for low-effort review');
+              }
+            } else {
+              console.log(`✅ Review has substantive feedback (${body.length} chars)`);
+            }
