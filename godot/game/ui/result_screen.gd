@@ -51,12 +51,12 @@ func show_result(result: Dictionary) -> void:
 	var team_stats: Dictionary = result.get("team_stats", {})
 	var details := ""
 	if team_stats.has(0):
-		var t := team_stats[0]
+		var t: Dictionary = team_stats[0]
 		details += "Your Brott: %.0f HP remaining, %d alive\n" % [
 			t["hp_remaining"], t["brotts_alive"]
 		]
 	if team_stats.has(1):
-		var t := team_stats[1]
+		var t: Dictionary = team_stats[1]
 		details += "Enemy Brott: %.0f HP remaining, %d alive" % [
 			t["hp_remaining"], t["brotts_alive"]
 		]
