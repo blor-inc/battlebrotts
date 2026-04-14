@@ -1,43 +1,37 @@
 # 🤖⚔️ BattleBrotts Studio — Status
-*Updated by Rivett (PM) — 2026-04-14T12:50Z*
+*Updated by Rivett (PM) — 2026-04-14T12:47Z*
 
 ## Current Sprint
-**Sprint 1 — Core Systems** ✅ COMPLETE
+**Sprint 2 — AI & Arena Systems**
+Goal: Arena tiles, LoS, A* pathfinding, BrottBrain engine, stance behaviors
 
-## Sprint 1 Results
-| ID | Title | Assignee | Status | PR |
-|---|---|---|---|---|
-| S1-001 | Architecture Document | Boltz | ✅ Merged | #8 |
-| S1-002 | CI/CD + Godot Web Export | Patch | ✅ Merged (⚠️ workflows pending) | #6 |
-| S1-003 | Core Combat Simulation | Nutts | ✅ Merged | #7 |
-| S1-004 | Dashboard Automation | Patch | ⚠️ Blocked | PAT needs workflow scope |
+## Sprint 2 Tasks
+| ID | Title | Assignee | Status |
+|---|---|---|---|
+| S2-001 | Arena Tile System + LoS | Nutts | 🔄 In Progress |
+| S2-002 | A* Pathfinding | Nutts | ⏳ Queued (depends S2-001) |
+| S2-003 | BrottBrain Evaluation Engine | Nutts | ⏳ Queued |
+| S2-004 | Stance Movement Behaviors | Nutts | ⏳ Queued (depends S2-001, S2-002) |
 
-## Sprint 1 Deliverables
-- **Architecture doc** (355 lines) — project structure, scene tree, 7 core systems, data flow, conventions
-- **Core combat** (792 lines, 7 files) — tick system, damage formula, all data definitions, Brott entity
-- **Godot project** — minimal project.godot, main scene, export presets for HTML5
-- **CI/CD workflow** — written but can't be pushed (PAT missing `workflow` scope)
+## Completed (Sprint 1)
+- ✅ S1-001: Architecture Document (Boltz) — PR #8
+- ✅ S1-002: CI/CD + Godot Web Export (Patch) — PR #6, #9
+- ✅ S1-003: Core Combat Simulation (Nutts) — PR #7
+- ✅ S1-004: Dashboard Automation (Patch) — PR #9
 
-## Blockers
-- ⚠️ **PAT missing `workflow` scope** — Need updated PAT or manual workflow file upload to enable CI/CD and dashboard automation
-
-## Next: Sprint 2 Planning
-- A* pathfinding implementation
-- BrottBrain evaluation engine
-- Stance movement behaviors
-- Arena tile system
-- LoS raycasting
+## Flags
+- ⚠️ Single developer bottleneck — all Sprint 2 tasks assigned to Nutts
 
 ## Agent Status
 | Agent | Status | Current |
 |---|---|---|
 | 🎬 Eric | ✅ Active | Creative Director oversight |
 | 🤖 The Bott | ✅ Active | Head of Product |
-| 📋 Rivett | ✅ Active | Sprint 1 complete, planning Sprint 2 |
+| 📋 Rivett | ✅ Active | Running Sprint 2 |
 | 🎯 Gizmo | ⚪ Idle | Awaiting next design task |
-| 👨‍💻 Boltz | ✅ Done | S1-001 merged |
-| 💻 Nutts | ✅ Done | S1-003 merged |
+| 👨‍💻 Boltz | ⚪ Idle | Awaiting PRs to review |
+| 💻 Nutts | 🔄 Working | S2-001 Arena + LoS |
 | 🎮 Optic | ⚪ Idle | Awaiting builds |
 | 🧪 Glytch | ⚪ Idle | Awaiting code |
-| 🕵️ Specc | ✅ Done | Sprint 0 audit complete |
-| 🔧 Patch | ⚠️ Blocked | S1-002 merged (partial), workflows need workflow scope |
+| 🕵️ Specc | ⚪ Idle | Awaiting audit request |
+| 🔧 Patch | ✅ Done | CI/CD workflows merged |

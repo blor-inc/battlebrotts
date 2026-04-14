@@ -1,35 +1,32 @@
 {
   "sprint": {
-    "number": 1,
-    "goal": "Core Systems — Architecture, CI/CD, Combat, Dashboard",
-    "tasks": [
-      {"id": "S1-001", "title": "Architecture Document", "status": "done", "assignee": "lead-dev", "pr": 8},
-      {"id": "S1-002", "title": "CI/CD + Godot Web Export", "status": "done", "assignee": "devops", "pr": 6, "note": "Godot project merged, workflow files pending PAT scope"},
-      {"id": "S1-003", "title": "Core Combat Simulation", "status": "done", "assignee": "dev-01", "pr": 7},
-      {"id": "S1-004", "title": "Dashboard Automation", "status": "blocked", "assignee": "devops", "blocked": "PAT missing workflow scope"}
-    ]
+    "number": 2,
+    "goal": "AI & Arena Systems — Arena tiles, LoS, A* pathfinding, BrottBrain engine, stance behaviors"
   },
+  "tasks": [
+    {"id": "S2-001", "title": "Arena Tile System + LoS", "status": "in-progress", "assignee": "dev-01"},
+    {"id": "S2-002", "title": "A* Pathfinding", "status": "queued", "assignee": "dev-01"},
+    {"id": "S2-003", "title": "BrottBrain Evaluation Engine", "status": "queued", "assignee": "dev-01"},
+    {"id": "S2-004", "title": "Stance Movement Behaviors", "status": "queued", "assignee": "dev-01"}
+  ],
   "agents": {
     "eric": {"status": "active", "current": "Creative Director oversight"},
     "the-bott": {"status": "active", "current": "Head of Product"},
-    "pm": {"status": "active", "current": "Sprint 1 complete, planning Sprint 2"},
+    "pm": {"status": "active", "current": "Running Sprint 2"},
     "game-designer": {"status": "idle", "current": "Awaiting next design task"},
-    "lead-dev": {"status": "done", "current": "S1-001 Architecture doc merged (PR #8)"},
-    "dev-01": {"status": "done", "current": "S1-003 Core combat merged (PR #7)"},
+    "lead-dev": {"status": "idle", "current": "Awaiting PRs to review"},
+    "dev-01": {"status": "working", "current": "S2-001 Arena Tile System + LoS"},
     "playtest-lead": {"status": "idle", "current": "Awaiting builds"},
     "qa": {"status": "idle", "current": "Awaiting code"},
-    "inspector": {"status": "done", "current": "Sprint 0 audit complete"},
-    "devops": {"status": "blocked", "current": "Workflow files need PAT with workflow scope"}
+    "inspector": {"status": "idle", "current": "Awaiting audit request"},
+    "devops": {"status": "done", "current": "CI/CD workflows merged"}
   },
   "activity": [
-    {"time": "2026-04-14T12:50Z", "agent": "pm", "action": "Sprint 1 complete — PRs #6, #7, #8 all merged"},
-    {"time": "2026-04-14T12:48Z", "agent": "lead-dev", "action": "Reviewed and merged PRs #6, #7, #8 via GitHub App"},
-    {"time": "2026-04-14T12:40Z", "agent": "lead-dev", "action": "PR #8: Architecture document (355 lines)"},
-    {"time": "2026-04-14T12:35Z", "agent": "dev-01", "action": "PR #7: Core combat simulation (792 lines, 7 files)"},
-    {"time": "2026-04-14T12:30Z", "agent": "devops", "action": "PR #6: Godot project structure + CI/CD (workflow scope blocker)"},
-    {"time": "2026-04-14T12:25Z", "agent": "pm", "action": "Sprint 1 kicked off — 4 tasks assigned"},
-    {"time": "2026-04-14T02:55Z", "agent": "the-bott", "action": "GDD v2 merged"},
-    {"time": "2026-04-14T02:50Z", "agent": "eric", "action": "Approved GDD v2"}
+    {"time": "2026-04-14T12:47Z", "agent": "pm", "action": "Sprint 2 kicked off — 4 tasks planned"},
+    {"time": "2026-04-14T12:45Z", "agent": "devops", "action": "PR #9 merged — CI/CD workflows live"},
+    {"time": "2026-04-14T12:45Z", "agent": "lead-dev", "action": "Reviewed and approved PR #9"},
+    {"time": "2026-04-14T12:44Z", "agent": "pm", "action": "Sprint 1 fully complete, starting Sprint 2"},
+    {"time": "2026-04-14T12:25Z", "agent": "pm", "action": "Sprint 1 PRs all merged"}
   ],
-  "updated": "2026-04-14T12:50:00Z"
+  "updated": "2026-04-14T12:47:00Z"
 }
