@@ -216,7 +216,7 @@ async function loadData(){
       <div class="health-stat"><div class="value">${doneTasks}/${totalTasks}</div><div class="label">Tasks Done</div></div>
       <div class="health-stat"><div class="value">${totalPRs}+</div><div class="label">PRs Merged</div></div>
       <div class="health-stat"><div class="value">${activeAgents}/${Object.keys(d.agents).length}</div><div class="label">Agents Active</div></div>
-      <div class="health-stat"><div class="value">166+</div><div class="label">Tests</div></div>
+      <div class="health-stat"><div class="value">${d.stats?.totalTests||'?'}</div><div class="label">Tests</div></div>
     `;
 
     // Agents

@@ -1,41 +1,45 @@
-# Sprint 6 Plan — The Big One
+# Sprint 8 Plan — Operations Health
 *Created by Rivett (Head of Operations) — 2026-04-14*
 
 ## Sprint Goal
-Ship a playable HTML5 build of the Scrapyard League. All existing systems integrated into a complete game loop. Balance-verified via automated playtesting.
+Fix the dashboard architecture once and for all. Clean up CI conflicts. Healthy process = healthy product.
+
+**Priority: Process quality → Product quality → Speed**
 
 ## Track Assignments
 
-| Track | Agent | Priority | Dependencies |
+| Track | Agent | Priority | Description |
 |---|---|---|---|
-| A: Playable Web Build | Nutts (Dev-01) | 🔴 P0 | None |
-| B: Compliance Fixes | Patch (DevOps) | 🟡 P1 | None |
-| C: Process Gaps | Patch (DevOps) | 🟡 P1 | None (combined with B) |
-| D: Playtest | Optic (Playtest Lead) | 🟠 P1 | Track A complete |
-| E: Audit | Specc (Inspector) | 🟢 P2 | All tracks complete |
+| A: Dashboard Redesign | Patch (DevOps) | 🔴 P0 | Decouple dashboard from STATUS.md. Query git/PR API directly. |
+| B: Squash Merge Attribution | Patch (DevOps) | 🟡 P1 | GitHub API: attribute squash merges to PR author, not bot. |
+| C: STATUS.md Auto-Gen Fix | Patch (DevOps) | 🟡 P1 | PR-based flow (branch protection blocks direct push). Reconcile with dashboard workflow. |
+| D: KB Entries | Specc (Inspector) | 🟢 P2 | Write KB entries for structural decisions. Handled by The Bott. |
+| E: Backlog Cleanup | Rivett (Ops) | 🟢 P2 | Clean stale items, update backlog. |
 
-## Track A: Playable Web Build (Nutts → Boltz review)
-- Integrate all systems: Shop → Loadout → Match → Result → earn Bolts → repair → repeat
-- Scrapyard league: 3 opponents, playable start to finish
-- Godot HTML5 export verified in browser
-- Integration tests for the full loop
+## Track A: Dashboard Architecture Redesign (Patch)
+**This is the THIRD attempt. It must work.**
+- Root cause: status-gen.yml and update-dashboard.yml fight over STATUS.md format
+- Fix: Dashboard workflow queries git log + GitHub PR API directly. No STATUS.md dependency.
+- Add studio-lead-dev[bot] to author map
+- Must pass Eric's checklist:
+  - Current sprint number
+  - Non-empty sprint history
+  - Open PRs visible
+  - Real activity with named actors (no "unknown")
+  - Scrollable full history
+  - Responsive on mobile
 
-## Track B+C: Compliance & Process (Patch → Boltz review)
-- Auto-generate STATUS.md via GitHub Action
-- PLAN.md template for sprint planning
-- Test count CI gate (PRs with .gd must include tests)
-- Fix dashboard auto-gen if broken
-- Cross-repo logging solution
-- Review note enforcement CI check
-- 3+ KB entries for structural decisions
+## Track B: Squash Merge Attribution (Patch)
+- GitHub API call to set `squash_merge_commit_title` and `squash_merge_commit_message` so PR author gets credit
 
-## Track D: Playtest (Optic) — after Track A merges
-- 1000+ headless combat simulations
-- Chassis balance (45-55% win rates)
-- Weapon distribution (no weapon >60% wins)
-- Economy flow (1 new item every 2-3 matches)
-- TTK analysis per league tier
-- First playtest report
+## Track C: STATUS.md Auto-Gen Fix (Patch)
+- status-gen.yml can't push to main (branch protection)
+- Options: PR-based flow OR merge into dashboard workflow
+- Recommend: merge into dashboard workflow to eliminate the conflict entirely
 
-## Track E: Audit (Specc) — after all tracks
-- Full sprint audit (spawned by The Bott)
+## Track D: KB Entries (Specc — via The Bott)
+- Structural decision entries needed in game-dev-studio KB
+
+## Track E: Backlog Cleanup (Rivett)
+- Remove completed items from tasks/backlog.md
+- Add Sprint 7/8 findings
