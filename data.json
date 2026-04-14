@@ -1,39 +1,39 @@
 {
   "sprint": {
-    "number": 8,
-    "goal": "Operations Health Sprint",
+    "number": 9,
+    "goal": "Dashboard Polish",
     "status": "active"
   },
   "tasks": [
     {
-      "id": "S8-001",
-      "title": "Dashboard Architecture Redesign",
-      "assignee": "devops",
-      "status": "in-progress"
-    },
-    {
-      "id": "S8-002",
-      "title": "Squash Merge Attribution",
-      "assignee": "devops",
-      "status": "todo"
-    },
-    {
-      "id": "S8-003",
-      "title": "STATUS.md Auto-Gen Fix",
-      "assignee": "devops",
-      "status": "todo"
-    },
-    {
-      "id": "S8-004",
-      "title": "KB Entries",
-      "assignee": "inspector",
-      "status": "todo"
-    },
-    {
-      "id": "S8-005",
-      "title": "Backlog Cleanup",
+      "id": "S9-001",
+      "title": "Update sprint-config.json for Sprint 9",
       "assignee": "pm",
       "status": "done"
+    },
+    {
+      "id": "S9-002",
+      "title": "Dashboard Attribution Fix",
+      "assignee": "devops",
+      "status": "todo"
+    },
+    {
+      "id": "S9-003",
+      "title": "Scrollable PR/Build Sections",
+      "assignee": "devops",
+      "status": "todo"
+    },
+    {
+      "id": "S9-004",
+      "title": "Verify Dashboard Live",
+      "assignee": "pm",
+      "status": "todo"
+    },
+    {
+      "id": "S9-005",
+      "title": "Sprint-End Config Update",
+      "assignee": "pm",
+      "status": "todo"
     }
   ],
   "agents": {
@@ -53,7 +53,7 @@
       "name": "Rivett",
       "title": "\ud83d\udccb Head of Operations",
       "status": "active",
-      "current": "Sprint 8 coordination"
+      "current": "Sprint 9 coordination"
     },
     "game-designer": {
       "name": "Gizmo",
@@ -95,13 +95,37 @@
       "name": "Patch",
       "title": "\ud83d\udd27 DevOps",
       "status": "working",
-      "current": "Dashboard Architecture Redesign"
+      "current": "S8 Dashboard + CI fixes"
     }
   },
   "activity": [
     {
-      "time": "2026-04-14T16:54:43-04:00",
+      "time": "2026-04-14T17:15:50-04:00",
+      "agent": "devops",
+      "action": "fix: dashboard attribution + scrollable PR/Build sections (S9) (#42)",
+      "sha": "c27b501c"
+    },
+    {
+      "time": "2026-04-14T17:13:57-04:00",
+      "agent": "pm",
+      "action": "chore: Sprint 9 kickoff \u2014 S8 complete, S9 active (#41)",
+      "sha": "51ab875c"
+    },
+    {
+      "time": "2026-04-14T17:10:26-04:00",
       "agent": "eric",
+      "action": "[S8-004] KB Entries: Dashboard Postmortem, class_name Fix, Ops Checklist (#40)",
+      "sha": "e63ca096"
+    },
+    {
+      "time": "2026-04-14T16:55:59-04:00",
+      "agent": "devops",
+      "action": "chore: auto-update dashboard data.json",
+      "sha": "5ab91ea5"
+    },
+    {
+      "time": "2026-04-14T16:54:43-04:00",
+      "agent": "devops",
       "action": "fix: dashboard architecture redesign + squash merge attribution + status-gen cleanup (S8)",
       "sha": "4b88fbf0"
     },
@@ -227,25 +251,25 @@
     },
     {
       "time": "2026-04-14T13:48:09-04:00",
-      "agent": "eric",
+      "agent": "dev-01",
       "action": "[S5-003] Economy, Shop & Progression Systems (#19)",
       "sha": "81787919"
     },
     {
       "time": "2026-04-14T13:44:42-04:00",
-      "agent": "eric",
+      "agent": "qa",
       "action": "[S5-002] UI test suites for LoadoutScreen, MatchHUD, ResultScreen (#18)",
       "sha": "fe8917e6"
     },
     {
       "time": "2026-04-14T13:39:05-04:00",
-      "agent": "eric",
+      "agent": "devops",
       "action": "[S5-001] Dashboard auto-generation CI + shell injection fix (#17)",
       "sha": "beac24f7"
     },
     {
       "time": "2026-04-14T13:26:10-04:00",
-      "agent": "eric",
+      "agent": "devops",
       "action": "ci: add agent log attribution check for PRs (#16)",
       "sha": "2e0f0913"
     },
@@ -257,13 +281,13 @@
     },
     {
       "time": "2026-04-14T12:22:08-04:00",
-      "agent": "eric",
+      "agent": "pm",
       "action": "[S4-001] Playable Vertical Slice (#15)",
       "sha": "e0952e07"
     },
     {
       "time": "2026-04-14T12:22:06-04:00",
-      "agent": "eric",
+      "agent": "pm",
       "action": "[S4-002] Dashboard Overhaul (#14)",
       "sha": "c2e94438"
     },
@@ -275,13 +299,13 @@
     },
     {
       "time": "2026-04-14T09:49:07-04:00",
-      "agent": "eric",
+      "agent": "dev-01",
       "action": "[S3-002] feat: MatchManager, projectile system, energy integration + 24 tests",
       "sha": "24a7bbb7"
     },
     {
       "time": "2026-04-14T09:44:33-04:00",
-      "agent": "eric",
+      "agent": "qa",
       "action": "[S3-001] test: comprehensive test suites (142 tests)",
       "sha": "deb24ebd"
     },
@@ -341,19 +365,19 @@
     },
     {
       "time": "2026-04-14T08:37:14-04:00",
-      "agent": "eric",
+      "agent": "dev-01",
       "action": "Merge PR #6: CI/CD Pipeline + Godot Project Structure",
       "sha": "d8546679"
     },
     {
       "time": "2026-04-14T08:37:12-04:00",
-      "agent": "eric",
+      "agent": "lead-dev",
       "action": "Merge PR #8: Architecture Document",
       "sha": "0d31aa73"
     },
     {
       "time": "2026-04-14T08:37:10-04:00",
-      "agent": "eric",
+      "agent": "dev-01",
       "action": "Merge PR #7: Core Combat Simulation",
       "sha": "43817424"
     },
@@ -377,19 +401,19 @@
     },
     {
       "time": "2026-04-13T23:40:29-04:00",
-      "agent": "eric",
+      "agent": "devops",
       "action": "Add B-011: Automate dashboard data.json updates",
       "sha": "da8c729a"
     },
     {
       "time": "2026-04-13T23:28:08-04:00",
-      "agent": "eric",
+      "agent": "pm",
       "action": "PM setup v2: backlog, STATUS.md, message log, task dirs (#3)",
       "sha": "f114fcc6"
     },
     {
       "time": "2026-04-13T23:20:31-04:00",
-      "agent": "eric",
+      "agent": "pm",
       "action": "Move dashboard to repo root for GitHub Pages",
       "sha": "23554257"
     },
@@ -401,6 +425,46 @@
     }
   ],
   "pullRequests": [
+    {
+      "number": 42,
+      "title": "fix: dashboard attribution + scrollable PR/Build sections (S9)",
+      "state": "MERGED",
+      "author": "brotatotes",
+      "mergedAt": "2026-04-14T21:15:50Z",
+      "createdAt": "2026-04-14T21:15:37Z"
+    },
+    {
+      "number": 41,
+      "title": "chore: Sprint 9 kickoff \u2014 S8 complete, S9 active",
+      "state": "MERGED",
+      "author": "brotatotes",
+      "mergedAt": "2026-04-14T21:13:57Z",
+      "createdAt": "2026-04-14T21:13:43Z"
+    },
+    {
+      "number": 40,
+      "title": "[S8-004] KB Entries: Dashboard Postmortem, class_name Fix, Ops Checklist",
+      "state": "MERGED",
+      "author": "brotatotes",
+      "mergedAt": "2026-04-14T21:10:26Z",
+      "createdAt": "2026-04-14T21:07:56Z"
+    },
+    {
+      "number": 39,
+      "title": "chore: auto-update dashboard data.json",
+      "state": "OPEN",
+      "author": "app/github-actions",
+      "mergedAt": null,
+      "createdAt": "2026-04-14T20:56:09Z"
+    },
+    {
+      "number": 38,
+      "title": "chore: auto-update dashboard data.json",
+      "state": "MERGED",
+      "author": "app/github-actions",
+      "mergedAt": "2026-04-14T20:55:59Z",
+      "createdAt": "2026-04-14T20:54:55Z"
+    },
     {
       "number": 37,
       "title": "fix: dashboard architecture redesign + squash merge attribution + status-gen cleanup (S8)",
@@ -600,49 +664,50 @@
       "author": "brotatotes",
       "mergedAt": "2026-04-14T13:49:07Z",
       "createdAt": "2026-04-14T13:48:51Z"
-    },
-    {
-      "number": 12,
-      "title": "[S3-001] Comprehensive test suites for all existing code",
-      "state": "MERGED",
-      "author": "brotatotes",
-      "mergedAt": "2026-04-14T13:44:33Z",
-      "createdAt": "2026-04-14T13:39:21Z"
-    },
-    {
-      "number": 11,
-      "title": "[S2-005] Dashboard: Show agent names alongside roles",
-      "state": "MERGED",
-      "author": "brotatotes",
-      "mergedAt": "2026-04-14T12:55:30Z",
-      "createdAt": "2026-04-14T12:55:16Z"
-    },
-    {
-      "number": 10,
-      "title": "[Sprint 2] Arena Tile System, LoS, A* Pathfinding, BrottBrain, Stance Behaviors",
-      "state": "MERGED",
-      "author": "brotatotes",
-      "mergedAt": "2026-04-14T12:52:27Z",
-      "createdAt": "2026-04-14T12:52:11Z"
-    },
-    {
-      "number": 9,
-      "title": "[S1-002] CI/CD Workflow Files \u2014 Build/Deploy + Dashboard Automation",
-      "state": "MERGED",
-      "author": "brotatotes",
-      "mergedAt": "2026-04-14T12:47:19Z",
-      "createdAt": "2026-04-14T12:47:03Z"
-    },
-    {
-      "number": 8,
-      "title": "[S1-001] docs: Technical Architecture Document",
-      "state": "MERGED",
-      "author": "brotatotes",
-      "mergedAt": "2026-04-14T12:37:12Z",
-      "createdAt": "2026-04-14T12:35:16Z"
     }
   ],
   "sprintHistory": [
+    {
+      "number": 8,
+      "goal": "Operations Health Sprint",
+      "status": "complete",
+      "summary": "Dashboard architecture redesign (sprint-config.json as source of truth), squash merge attribution, STATUS.md auto-gen removed, KB entries, backlog cleanup.",
+      "tasks": [
+        {
+          "id": "S8-001",
+          "title": "Dashboard Architecture Redesign",
+          "assignee": "devops",
+          "status": "done",
+          "pr": "37"
+        },
+        {
+          "id": "S8-002",
+          "title": "Squash Merge Attribution",
+          "assignee": "devops",
+          "status": "done"
+        },
+        {
+          "id": "S8-003",
+          "title": "STATUS.md Auto-Gen Fix",
+          "assignee": "devops",
+          "status": "done",
+          "pr": "37"
+        },
+        {
+          "id": "S8-004",
+          "title": "KB Entries",
+          "assignee": "inspector",
+          "status": "done",
+          "pr": "40"
+        },
+        {
+          "id": "S8-005",
+          "title": "Backlog Cleanup",
+          "assignee": "pm",
+          "status": "done"
+        }
+      ]
+    },
     {
       "number": 7,
       "goal": "CI/CD & Export Pipeline",
@@ -844,8 +909,8 @@
   "stats": {
     "totalTests": 375,
     "totalPRs": 30,
-    "totalCommits": 50,
+    "totalCommits": 54,
     "gdScripts": 47
   },
-  "updated": "2026-04-14T20:54:53Z"
+  "updated": "2026-04-14T21:15:59Z"
 }
