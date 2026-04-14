@@ -16,6 +16,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Import project (generate .godot cache)
+        run: |
+          cd godot
+          godot --headless --import 2>&1 || true
+
       - name: Run headless test suite
         run: |
           cd godot

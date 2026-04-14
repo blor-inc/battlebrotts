@@ -1,0 +1,152 @@
+name: Post-Deploy Smoke Test
+
+on:
+  workflow_run:
+    workflows: ["Build & Deploy to GitHub Pages"]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Wait for Pages propagation
+        run: sleep 30
+
+      - name: Verify live dashboard
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const baseUrl = 'https://blor-inc.github.io/battlebrotts';
+            const errors = [];
+
+            // ── 1. Check dashboard index.html loads ──
+            console.log('🔍 Checking dashboard...');
+            let dashboardOk = false;
+            try {
+              const resp = await fetch(baseUrl + '/');
+              if (resp.status !== 200) {
+                errors.push(`Dashboard returned HTTP ${resp.status}`);
+              } else {
+                const html = await resp.text();
+                if (!html.includes('BattleBrotts Studio')) {
+                  errors.push('Dashboard HTML missing "BattleBrotts Studio" — may be serving Godot export instead');
+                } else {
+                  console.log('  ✅ Dashboard loads (HTTP 200, correct content)');
+                  dashboardOk = true;
+                }
+              }
+            } catch (e) {
+              errors.push(`Dashboard fetch failed: ${e.message}`);
+            }
+
+            // ── 2. Check data.json exists and is valid ──
+            console.log('🔍 Checking data.json...');
+            let data = null;
+            try {
+              const resp = await fetch(baseUrl + '/data.json');
+              if (resp.status !== 200) {
+                errors.push(`data.json returned HTTP ${resp.status}`);
+              } else {
+                const text = await resp.text();
+                try {
+                  data = JSON.parse(text);
+                  console.log('  ✅ data.json is valid JSON');
+                } catch (e) {
+                  errors.push(`data.json is not valid JSON: ${e.message}`);
+                }
+              }
+            } catch (e) {
+              errors.push(`data.json fetch failed: ${e.message}`);
+            }
+
+            // ── 3. Check data.json freshness ──
+            if (data) {
+              // Check updated timestamp
+              if (data.updated) {
+                const updated = new Date(data.updated);
+                const age = Date.now() - updated.getTime();
+                const ageHours = age / (1000 * 60 * 60);
+                if (ageHours > 24) {
+                  errors.push(`data.json is stale: updated ${ageHours.toFixed(1)}h ago (${data.updated})`);
+                } else {
+                  console.log(`  ✅ data.json updated ${ageHours.toFixed(1)}h ago`);
+                }
+              } else {
+                errors.push('data.json missing "updated" field');
+              }
+
+              // Check sprint number
+              if (data.sprint && data.sprint.number) {
+                console.log(`  ✅ Sprint ${data.sprint.number}: ${data.sprint.goal || 'N/A'}`);
+              } else {
+                errors.push('data.json missing sprint info');
+              }
+
+              // Check it has real data
+              const tasks = data.tasks || [];
+              const agents = Object.keys(data.agents || {});
+              if (tasks.length === 0 && agents.length === 0) {
+                errors.push('data.json has no tasks or agents — likely placeholder/empty');
+              } else {
+                console.log(`  ✅ ${tasks.length} tasks, ${agents.length} agents`);
+              }
+            }
+
+            // ── 4. Check game path exists ──
+            console.log('🔍 Checking game export...');
+            try {
+              const resp = await fetch(baseUrl + '/game/');
+              if (resp.status === 200) {
+                console.log('  ✅ Game export accessible at /game/');
+              } else {
+                console.log(`  ⚠️ Game export returned HTTP ${resp.status} (may not be exported yet)`);
+              }
+            } catch (e) {
+              console.log(`  ⚠️ Game export check failed: ${e.message}`);
+            }
+
+            // ── Report ──
+            if (errors.length > 0) {
+              console.log(`\n🚨 ${errors.length} verification failure(s):\n`);
+              for (const e of errors) {
+                console.log(`  ❌ ${e}`);
+              }
+
+              // Create GitHub Issue
+              const body = [
+                '## 🚨 Dashboard Deployment Verification Failed',
+                '',
+                `**Time:** ${new Date().toISOString()}`,
+                `**Trigger:** ${context.eventName === 'workflow_dispatch' ? 'Manual' : 'Post-deploy'}`,
+                '',
+                '### Failures:',
+                ...errors.map(e => `- ❌ ${e}`),
+                '',
+                '### Checked URLs:',
+                `- Dashboard: ${baseUrl}/`,
+                `- Data: ${baseUrl}/data.json`,
+                `- Game: ${baseUrl}/game/`,
+                '',
+                'cc @blor-inc/devops',
+              ].join('\n');
+
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: '🚨 Dashboard deployment verification failed',
+                body,
+                labels: ['dashboard-broken'],
+              });
+
+              core.setFailed(`Dashboard verification failed: ${errors.join('; ')}`);
+            } else {
+              console.log('\n✅ All dashboard verification checks passed!');
+            }
