@@ -1,42 +1,74 @@
 {
   "current": {
-    "number": 9,
-    "goal": "Dashboard Polish",
-    "status": "complete"
+    "number": 10,
+    "goal": "Final Process Sprint \u2014 Automated Sprint Tracking",
+    "status": "active"
   },
   "tasks": [
     {
-      "id": "S9-001",
-      "title": "Update sprint-config.json for Sprint 9",
-      "assignee": "pm",
-      "status": "done"
-    },
-    {
-      "id": "S9-002",
-      "title": "Dashboard Attribution Fix",
+      "id": "S10-001",
+      "title": "Auto-generate sprint-config task status from merged PRs",
       "assignee": "devops",
-      "status": "done"
+      "status": "todo"
     },
     {
-      "id": "S9-003",
-      "title": "Scrollable PR/Build Sections",
+      "id": "S10-002",
+      "title": "Verify data.json regeneration pipeline end-to-end",
       "assignee": "devops",
-      "status": "done"
+      "status": "todo"
     },
     {
-      "id": "S9-004",
-      "title": "Verify Dashboard Live",
-      "assignee": "pm",
-      "status": "done"
+      "id": "S10-003",
+      "title": "Auto-close sprint when all tasks done",
+      "assignee": "devops",
+      "status": "todo"
     },
     {
-      "id": "S9-005",
-      "title": "Sprint-End Config Update",
+      "id": "S10-004",
+      "title": "Backlog review + Sprint 11 planning",
       "assignee": "pm",
-      "status": "done"
+      "status": "in-progress"
     }
   ],
   "history": [
+    {
+      "number": 9,
+      "goal": "Dashboard Polish",
+      "status": "complete",
+      "summary": "Dashboard attribution fix, scrollable PR/build sections, sprint-config updates.",
+      "tasks": [
+        {
+          "id": "S9-001",
+          "title": "Update sprint-config.json for Sprint 9",
+          "assignee": "pm",
+          "status": "done"
+        },
+        {
+          "id": "S9-002",
+          "title": "Dashboard Attribution Fix",
+          "assignee": "devops",
+          "status": "done"
+        },
+        {
+          "id": "S9-003",
+          "title": "Scrollable PR/Build Sections",
+          "assignee": "devops",
+          "status": "done"
+        },
+        {
+          "id": "S9-004",
+          "title": "Verify Dashboard Live",
+          "assignee": "pm",
+          "status": "done"
+        },
+        {
+          "id": "S9-005",
+          "title": "Sprint-End Config Update",
+          "assignee": "pm",
+          "status": "done"
+        }
+      ]
+    },
     {
       "number": 8,
       "goal": "Operations Health Sprint",
