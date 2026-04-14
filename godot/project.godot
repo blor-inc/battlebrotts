@@ -1,0 +1,17 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; but it can also be manually edited if you know what you're doing.
+
+config_version=5
+
+[application]
+
+config/name="BattleBrotts"
+config/description="AI-powered robot battler"
+run/main_scene="res://main.tscn"
+config/features=PackedStringArray("4.4")
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
