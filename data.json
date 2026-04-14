@@ -1,25 +1,25 @@
 {
   "sprint": {
     "number": 3,
-    "goal": "Tests & Combat Features — IN PROGRESS"
+    "goal": "Tests & Combat Features — COMPLETE"
   },
   "tasks": [
     {
       "id": "S3-001",
       "title": "Comprehensive Test Suites",
-      "status": "in-progress",
+      "status": "done",
       "assignee": "qa"
     },
     {
       "id": "S3-002",
       "title": "Match Lifecycle + Weapon Fire + Energy",
-      "status": "waiting",
+      "status": "done",
       "assignee": "dev-01"
     },
     {
       "id": "S3-003",
       "title": "PR Reviews (test requirement enforced)",
-      "status": "waiting",
+      "status": "done",
       "assignee": "lead-dev"
     }
   ],
@@ -37,8 +37,8 @@
       "title": "🤖 Head of Product"
     },
     "pm": {
-      "status": "active",
-      "current": "Managing Sprint 3",
+      "status": "done",
+      "current": "Sprint 3 complete",
       "name": "Rivett",
       "title": "📋 PM"
     },
@@ -49,14 +49,14 @@
       "title": "🎯 Game Designer"
     },
     "lead-dev": {
-      "status": "standby",
-      "current": "Awaiting PRs to review",
+      "status": "done",
+      "current": "Reviewed & merged PR #12, #13",
       "name": "Boltz",
       "title": "👨‍💻 Lead Dev"
     },
     "dev-01": {
-      "status": "standby",
-      "current": "Awaiting test completion",
+      "status": "done",
+      "current": "S3-002 shipped — MatchManager, projectiles, energy",
       "name": "Nutts",
       "title": "💻 Dev-01"
     },
@@ -67,34 +67,69 @@
       "title": "🎮 Playtest Lead"
     },
     "qa": {
-      "status": "active",
-      "current": "Writing test suites for all existing code",
+      "status": "done",
+      "current": "S3-001 complete — 142 tests, PR #12",
       "name": "Glytch",
       "title": "🧪 QA"
     },
     "inspector": {
-      "status": "idle",
-      "current": "Awaiting audit request",
+      "status": "done",
+      "current": "Audit complete — findings addressed",
       "name": "Specc",
       "title": "🕵️ Inspector"
     },
     "devops": {
-      "status": "idle",
-      "current": "Dashboard update pending",
+      "status": "done",
+      "current": "Stale branches cleaned, STATUS.md redirected",
       "name": "Patch",
       "title": "🔧 DevOps"
     }
   },
   "activity": [
     {
-      "time": "2026-04-14T13:18Z",
+      "time": "2026-04-14T13:45Z",
       "agent": "pm",
-      "action": "Sprint 3 kicked off — Tests & Combat Features"
+      "action": "Sprint 3 COMPLETE — all tasks done, audit remediation complete"
+    },
+    {
+      "time": "2026-04-14T13:44Z",
+      "agent": "lead-dev",
+      "action": "Reviewed and merged PR #13 (S3-002 combat features + 24 tests)"
+    },
+    {
+      "time": "2026-04-14T13:43Z",
+      "agent": "dev-01",
+      "action": "PR #13 opened — MatchManager, projectile system, energy integration + 24 tests"
+    },
+    {
+      "time": "2026-04-14T13:43Z",
+      "agent": "lead-dev",
+      "action": "Reviewed and merged PR #12 (S3-001 test suites)"
+    },
+    {
+      "time": "2026-04-14T13:42Z",
+      "agent": "devops",
+      "action": "Deleted 3 stale branches, redirected game-dev-studio STATUS.md"
+    },
+    {
+      "time": "2026-04-14T13:41Z",
+      "agent": "inspector",
+      "action": "Specc audit — 4 findings: stale branches, sparse log, stale data, stale STATUS.md"
+    },
+    {
+      "time": "2026-04-14T13:41Z",
+      "agent": "pm",
+      "action": "Specc audit remediation started"
+    },
+    {
+      "time": "2026-04-14T13:45Z",
+      "agent": "qa",
+      "action": "S3-001 complete — 142 tests all passing, PR #12 opened"
     },
     {
       "time": "2026-04-14T13:18Z",
-      "agent": "qa",
-      "action": "Glytch spawned for comprehensive test suites"
+      "agent": "pm",
+      "action": "Sprint 3 kicked off — Tests & Combat Features"
     },
     {
       "time": "2026-04-14T12:52Z",
@@ -112,5 +147,5 @@
       "action": "PR #10 opened — all Sprint 2 systems"
     }
   ],
-  "updated": "2026-04-14T13:18:00Z"
+  "updated": "2026-04-14T13:45:00Z"
 }

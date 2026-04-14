@@ -1,33 +1,36 @@
 # 🤖⚔️ BattleBrotts Studio — Status
-*Updated by Rivett (PM) — 2026-04-14T13:18Z*
+*Updated by Rivett (PM) — 2026-04-14T13:45Z*
 
 ## Current Sprint
-**Sprint 3 — Tests & Combat Features** 🔄 IN PROGRESS
+**Sprint 3 — Tests & Combat Features** ✅ COMPLETE
 
 ## Sprint 3 Tasks
 | ID | Title | Assignee | Status |
 |---|---|---|---|
-| S3-001 | Comprehensive Test Suites | Glytch (QA) | 🔄 In Progress |
-| S3-002 | Match Lifecycle + Weapon Fire + Energy | Nutts (Dev-01) | ⏳ Waiting (after tests) |
-| S3-003 | PR Reviews (test requirement enforced) | Boltz (Lead Dev) | ⏳ Waiting |
+| S3-001 | Comprehensive Test Suites | Glytch (QA) | ✅ Done (PR #12) |
+| S3-002 | Match Lifecycle + Weapon Fire + Energy | Nutts (Dev-01) | ✅ Done (PR #13) |
+| S3-003 | PR Reviews (test requirement enforced) | Boltz (Lead Dev) | ✅ Done (PR #12, #13) |
 
-## Sprint 3 Plan
-### Priority 1: Tests (Glytch)
-- Combat tick system tests
-- Damage formula tests (normal, crit, splash, pellets, reactive mesh, min damage)
-- Pathfinding tests (basic pathing, obstacles, hazard costs)
-- BrottBrain evaluation tests (card priority, triggers, actions, defaults)
-- Steering tests (each stance behavior)
-- Arena tests (LoS raycasting, cover, destructible cover)
-- Data validation (all stats match GDD v2)
+## Sprint 3 Deliverables
+### Tests (Glytch — PR #12)
+- 142 tests covering combat, damage, pathfinding, BrottBrain, steering, arena, data validation
 
-### Priority 2: Features (Nutts — after tests land)
-- MatchManager autoload (start/end match, win/loss/draw at 120s)
-- Weapon fire + projectile system (tick phases 5-6)
-- Energy system integration (100 max, 5/sec regen, costs)
+### Features (Nutts — PR #13)
+- MatchManager autoload (match lifecycle: setup → start → pause → end → reset)
+- Win/loss/draw detection with 120s timeout + HP% tiebreaker
+- Projectile system (hitscan instant + missile travel with homing)
+- TickSystem phases 5-6 updated for projectile creation/resolution
+- Energy system verified (100 max, 5/sec regen, cost-gated fire)
+- 24 new tests (16 MatchManager + 8 Projectile)
 
 ### New Rule
 **No code merges without tests.** Every PR with game code must include or reference tests.
+
+## Specc Audit Remediation (2026-04-14)
+- ✅ Merged 3 stale branches in game-dev-studio (patch/agent-logs, patch/agent-names, patch/spawn-protocol)
+- ✅ Message log updated with all inter-agent communications
+- ✅ Dashboard data.json refreshed with current agent/activity data
+- ✅ game-dev-studio STATUS.md redirected to battlebrotts as single source of truth
 
 ## Completed (Sprint 2)
 - ✅ S2-001: Arena Tile System + LoS (Nutts) — PR #10
@@ -42,9 +45,13 @@
 - ✅ S1-004: Dashboard Automation (Patch) — PR #9
 
 ## Codebase Summary
-### game/combat/ (Sprint 1)
-- `tick_system.gd` — 20 tick/sec simulation loop with 7 phases
+### game/autoloads/ (Sprint 3)
+- `match_manager.gd` — Match lifecycle controller (autoload singleton)
+
+### game/combat/ (Sprint 1 + 3)
+- `tick_system.gd` — 20 tick/sec simulation loop with 7 phases + projectile pool
 - `damage_calculator.gd` — damage formula with armor, crits, min damage
+- `projectile.gd` — Hitscan + missile projectile system
 
 ### game/data/ (Sprint 1)
 - `chassis_data.gd`, `weapon_data.gd`, `armor_data.gd`, `module_data.gd`
@@ -61,16 +68,19 @@
 - `brottbrain.gd` — priority card evaluation engine (max 8 cards)
 - `steering.gd` — 4 stance behaviors (Aggressive, Defensive, Kiting, Ambush)
 
+### tests/ (Sprint 3)
+- 166 total tests (142 existing + 24 new)
+
 ## Agent Status
 | Agent | Status | Current |
 |---|---|---|
 | 🎬 Eric | ✅ Active | Creative Director oversight |
 | 🤖 The Bott | ✅ Active | Head of Product |
-| 📋 Rivett | 🔄 Active | Managing Sprint 3 |
+| 📋 Rivett | ✅ Done | Sprint 3 complete |
 | 🎯 Gizmo | ⚪ Idle | Awaiting next design task |
-| 👨‍💻 Boltz | ⏳ Standby | Awaiting PRs to review |
-| 💻 Nutts | ⏳ Standby | Awaiting test completion |
+| 👨‍💻 Boltz | ✅ Done | Reviewed & merged PR #12, #13 |
+| 💻 Nutts | ✅ Done | S3-002 shipped — MatchManager, projectiles, energy |
 | 🎮 Optic | ⚪ Idle | Awaiting builds |
-| 🧪 Glytch | 🔄 Active | Writing test suites |
-| 🕵️ Specc | ⚪ Idle | Awaiting audit request |
-| 🔧 Patch | ⚪ Idle | Dashboard update pending |
+| 🧪 Glytch | ✅ Done | S3-001 shipped — 142 tests |
+| 🕵️ Specc | ✅ Done | Audit complete, findings addressed |
+| 🔧 Patch | ✅ Done | Stale branches cleaned, STATUS.md redirected |
