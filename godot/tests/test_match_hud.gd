@@ -93,7 +93,7 @@ func test_hp_starts_at_max() -> bool:
 	gc._ready()
 	gc.start_match()
 	gc.step_simulation()
-	var p := gc.sim_ticks[0]["player"]
+	var p: Dictionary = gc.sim_ticks[0]["player"]
 	return p["hp"] == p["max_hp"] or p["hp"] <= p["max_hp"]  # may take damage tick 1
 
 func test_hp_ratio_bounded() -> bool:
@@ -186,7 +186,7 @@ func test_status_fighting_when_both_alive() -> bool:
 	gc._ready()
 	gc.start_match()
 	gc.step_simulation()
-	var snap := gc.sim_ticks[0]
+	var snap: Dictionary = gc.sim_ticks[0]
 	# Both should be alive at tick 1
 	return snap["player"]["alive"] and snap["enemy"]["alive"]
 
@@ -195,10 +195,10 @@ func test_match_ends_with_dead_or_timeout() -> bool:
 	gc._ready()
 	gc.start_match()
 	gc.run_full_simulation()
-	var last := gc.sim_ticks[gc.sim_ticks.size() - 1]
+	var last: Dictionary = gc.sim_ticks[gc.sim_ticks.size() - 1]
 	# At least one should be dead, or it timed out
-	var someone_dead := not last["player"]["alive"] or not last["enemy"]["alive"]
-	var timed_out := last["tick"] >= 2400  # MAX_MATCH_TICKS
+	var someone_dead: bool = not last["player"]["alive"] or not last["enemy"]["alive"]
+	var timed_out: bool = last["tick"] >= 2400  # MAX_MATCH_TICKS
 	return someone_dead or timed_out
 
 # ── Playback interval calculation ──
