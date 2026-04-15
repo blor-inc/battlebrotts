@@ -2,7 +2,7 @@
   "current": {
     "number": 13,
     "goal": "Make Battles Visual",
-    "status": "active"
+    "status": "complete"
   },
   "tasks": [
     {
@@ -20,6 +20,27 @@
     }
   ],
   "history": [
+    {
+      "number": 13,
+      "goal": "Make Battles Visual",
+      "status": "complete",
+      "summary": "Real-Time Arena Battle View; Sprint config + dashboard update",
+      "tasks": [
+        {
+          "id": "S13-001",
+          "title": "Real-Time Arena Battle View",
+          "assignee": "lead-dev",
+          "status": "done",
+          "pr": "60"
+        },
+        {
+          "id": "S13-002",
+          "title": "Sprint config + dashboard update",
+          "assignee": "pm",
+          "status": "done"
+        }
+      ]
+    },
     {
       "number": 12,
       "goal": "Ship the Playable Build",
