@@ -45,14 +45,14 @@ func test_can_afford_false() -> bool:
 func test_award_win() -> bool:
 	var e := _make_economy()
 	var earned := e.award_match_result(true, "opp_1")
-	# First win = 150
-	return earned == 150 and e.bolts == 150
+	# First win = 200
+	return earned == 200 and e.bolts == 200
 
 func test_award_win_repeat() -> bool:
 	var e := _make_economy()
-	e.award_match_result(true, "opp_1")  # First win: 150
+	e.award_match_result(true, "opp_1")  # First win: 200
 	var earned := e.award_match_result(true, "opp_1")  # Repeat: 100
-	return earned == 100 and e.bolts == 250
+	return earned == 100 and e.bolts == 300
 
 func test_award_loss() -> bool:
 	var e := _make_economy()
@@ -61,21 +61,21 @@ func test_award_loss() -> bool:
 
 func test_first_win_different_opponents() -> bool:
 	var e := _make_economy()
-	var e1 := e.award_match_result(true, "opp_1")  # 150
-	var e2 := e.award_match_result(true, "opp_2")  # 150
-	return e1 == 150 and e2 == 150 and e.bolts == 300
+	var e1 := e.award_match_result(true, "opp_1")  # 200
+	var e2 := e.award_match_result(true, "opp_2")  # 200
+	return e1 == 200 and e2 == 200 and e.bolts == 400
 
 # ── Repair ───────────────────────────────────────────────
 
 func test_repair_cost_win() -> bool:
 	var e := _make_economy()
 	var cost := e.calc_repair_cost(500, true)
-	return cost == 50  # 10% of 500
+	return cost == 25  # 5% of 500
 
 func test_repair_cost_loss() -> bool:
 	var e := _make_economy()
 	var cost := e.calc_repair_cost(500, false)
-	return cost == 125  # 25% of 500
+	return cost == 75  # 15% of 500
 
 func test_repair_cost_zero_value() -> bool:
 	var e := _make_economy()
@@ -86,15 +86,15 @@ func test_pay_repair_success() -> bool:
 	var e := _make_economy()
 	e.add_bolts(200)
 	var result := e.pay_repair(["shotgun"], "plating", [], true)
-	# shotgun=120, plating=0 → value=120, 10% = 12
-	return result["paid"] and result["cost"] == 12 and e.bolts == 188
+	# shotgun=120, plating=0 → value=120, 5% = 6
+	return result["paid"] and result["cost"] == 6 and e.bolts == 194
 
 func test_pay_repair_insufficient() -> bool:
 	var e := _make_economy()
 	e.add_bolts(5)
 	var result := e.pay_repair(["railgun", "missile_pod"], "ablative_shell", ["emp_charge"], false)
-	# railgun=300, missile_pod=350, ablative=300, emp=250 → value=1200, 25% = 300
-	return not result["paid"] and result["cost"] == 300 and e.bolts == 5
+	# railgun=300, missile_pod=350, ablative=300, emp=250 → value=1200, 15% = 180
+	return not result["paid"] and result["cost"] == 180 and e.bolts == 5
 
 func test_equipment_value_starters_free() -> bool:
 	var e := _make_economy()

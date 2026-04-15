@@ -31,9 +31,9 @@ Average loop iteration: 3–5 minutes.
 
 | Chassis | HP | Speed (px/s) | Weight Cap | Weapon Slots | Module Slots |
 |---|---|---|---|---|---|
-| **Scout** | 80 | 200 | 30 kg | 1 | 3 |
+| **Scout** | 100 | 220 | 30 kg | 1 | 3 |
 | **Brawler** | 150 | 120 | 55 kg | 2 | 2 |
-| **Fortress** | 250 | 70 | 80 kg | 3 | 1 |
+| **Fortress** | 210 | 60 | 80 kg | 3 | 1 |
 
 Base chassis weight is excluded from the weight budget — only equipped items count against capacity.
 
@@ -41,8 +41,8 @@ Base chassis weight is excluded from the weight budget — only equipped items c
 
 | Weapon | Damage | Range (tiles) | Fire Rate (shots/s) | Spread (°) | Energy/Shot | Weight (kg) |
 |---|---|---|---|---|---|---|
-| **Minigun** | 4 | 5 | 10 | 15 | 1 | 10 |
-| **Railgun** | 45 | 12 | 0.5 | 0 | 20 | 15 |
+| **Minigun** | 3 | 5 | 10 | 15 | 2 | 10 |
+| **Railgun** | 45 | 12 | 0.6 | 0 | 16 | 15 |
 | **Shotgun** | 6×5 pellets | 3 | 1.5 | 30 | 8 | 12 |
 | **Missile Pod** | 30 (splash r=1 tile) | 8 | 0.8 | 5 | 12 | 18 |
 | **Plasma Cutter** | 12 | 1.5 | 3 | 0 | 4 | 8 |
@@ -269,7 +269,7 @@ Single currency: **Bolts (🔩)**.
 |---|---|
 | Win | 100 🔩 |
 | Loss | 40 🔩 |
-| Win (first time vs. opponent) | 150 🔩 (bonus) |
+| Win (first time vs. opponent) | 200 🔩 (bonus) |
 
 ### 7.2 Item Costs
 
@@ -313,12 +313,12 @@ All purchases are permanent. No consumables.
 ### 7.3 Repair Costs
 
 After each match, the Brott takes wear damage regardless of outcome:
-- **Win**: Repair cost = 10% of Brott's total equipment value
-- **Loss**: Repair cost = 25% of Brott's total equipment value
+- **Win**: Repair cost = 5% of Brott's total equipment value
+- **Loss**: Repair cost = 15% of Brott's total equipment value
 - Repair is mandatory before next match
 - This creates an economic pressure that prevents players from hoarding Bolts
 
-Example: Brott with 500 🔩 of equipment → 50 🔩 repair on win, 125 🔩 on loss.
+Example: Brott with 500 🔩 of equipment → 25 🔩 repair on win, 75 🔩 on loss.
 
 ---
 
@@ -447,3 +447,23 @@ The core feelings we're targeting:
 ---
 
 *This document is the source of truth for BattleBrotts' design. All implementation should reference this. Changes require Game Designer approval and updated version number.*
+
+---
+
+## Balance Changes v1
+
+*Applied in Sprint 14 ([S14-001]) based on Optic's 1,500 combat simulation report (Sprint 12).*
+
+| Change | Before | After | Rationale |
+|---|---|---|---|
+| Fortress HP | 250 | 210 | 80.3% WR — too tanky |
+| Fortress Speed | 70 | 60 | Reduce dominance, increase kiting windows |
+| Scout HP | 80 | 100 | 15.7% WR — died too fast |
+| Scout Speed | 200 | 220 | Improve survivability through mobility |
+| Minigun Damage | 4 | 3 | 47% shot share — too dominant |
+| Minigun Energy Cost | 1 | 2 | Increase energy pressure |
+| Railgun Fire Rate | 0.5 | 0.6 | Buff to compete with Minigun |
+| Railgun Energy Cost | 20 | 16 | Reduce energy barrier |
+| Repair Rate (Win) | 10% | 5% | Economy death spiral fix |
+| Repair Rate (Loss) | 25% | 15% | Economy death spiral fix |
+| First-Win Bonus | 150 🔩 | 200 🔩 | Reward exploration, offset repair costs |

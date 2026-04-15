@@ -13,10 +13,10 @@ signal repair_paid(cost: int)
 # ── Constants ────────────────────────────────────────────
 const BOLTS_WIN: int = 100
 const BOLTS_LOSS: int = 40
-const BOLTS_FIRST_WIN: int = 150
+const BOLTS_FIRST_WIN: int = 200
 
-const REPAIR_RATE_WIN: float = 0.10
-const REPAIR_RATE_LOSS: float = 0.25
+const REPAIR_RATE_WIN: float = 0.05
+const REPAIR_RATE_LOSS: float = 0.15
 
 const STARTER_ITEMS := {
 	"chassis": ["scout"],
