@@ -17,6 +17,12 @@
       "title": "Sprint config + dashboard update",
       "assignee": "pm",
       "status": "done"
+    },
+    {
+      "id": "S13-003",
+      "title": "Fix dashboard staleness \u2014 direct push + trigger on all pushes",
+      "assignee": "devops",
+      "status": "done"
     }
   ],
   "history": [

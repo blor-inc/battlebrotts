@@ -1,37 +1,22 @@
 {
   "sprint": {
-    "number": 10,
-    "goal": "Final Process Sprint \u2014 Automated Sprint Tracking",
-    "status": "complete"
+    "number": 13,
+    "goal": "Make Battles Visual",
+    "status": "active"
   },
   "tasks": [
     {
-      "id": "S10-001",
-      "title": "Auto-generate sprint-config task status from merged PRs",
-      "assignee": "devops",
+      "id": "S13-001",
+      "title": "Real-Time Arena Battle View",
+      "assignee": "lead-dev",
       "status": "done",
-      "pr": "47"
+      "pr": "60"
     },
     {
-      "id": "S10-002",
-      "title": "Verify data.json regeneration pipeline end-to-end",
-      "assignee": "devops",
-      "status": "done",
-      "pr": "48"
-    },
-    {
-      "id": "S10-003",
-      "title": "Auto-close sprint when all tasks done",
-      "assignee": "devops",
-      "status": "done",
-      "pr": "47"
-    },
-    {
-      "id": "S10-004",
-      "title": "Backlog review + Sprint 11 planning",
+      "id": "S13-002",
+      "title": "Sprint config + dashboard update",
       "assignee": "pm",
-      "status": "done",
-      "pr": "53"
+      "status": "done"
     }
   ],
   "agents": {
@@ -51,7 +36,7 @@
       "name": "Rivett",
       "title": "\ud83d\udccb Head of Operations",
       "status": "active",
-      "current": "Sprint 10 coordination"
+      "current": "Sprint 13 coordination"
     },
     "game-designer": {
       "name": "Gizmo",
@@ -61,15 +46,15 @@
     },
     "lead-dev": {
       "name": "Boltz",
-      "title": "\ud83d\udc68\u200d\ud83d\udcbb Lead Dev",
-      "status": "idle",
-      "current": "Awaiting PR reviews"
+      "title": "\ud83d\udc68\ud83d\udcbb Lead Dev",
+      "status": "active",
+      "current": "PR reviews"
     },
     "dev-01": {
       "name": "Nutts",
       "title": "\ud83d\udcbb Dev-01",
-      "status": "idle",
-      "current": "Awaiting next task"
+      "status": "active",
+      "current": "S13-001 Arena Battle View"
     },
     "playtest-lead": {
       "name": "Optic",
@@ -92,11 +77,59 @@
     "devops": {
       "name": "Patch",
       "title": "\ud83d\udd27 DevOps",
-      "status": "active",
-      "current": "S8 Dashboard + CI fixes"
+      "status": "working",
+      "current": "S13-003 Fix dashboard staleness"
     }
   },
   "activity": [
+    {
+      "time": "2026-04-14T20:23:47-04:00",
+      "agent": "eric",
+      "action": "[S13] Sprint status update (#61)",
+      "sha": "898aabc8"
+    },
+    {
+      "time": "2026-04-14T20:23:20-04:00",
+      "agent": "eric",
+      "action": "[S13-001] Real-Time Arena Battle View (#60)",
+      "sha": "20ca8472"
+    },
+    {
+      "time": "2026-04-15T00:19:04+00:00",
+      "agent": "lead-dev",
+      "action": "[S13-002] Open Sprint 13 \u2014 Make Battles Visual",
+      "sha": "4f6b4076"
+    },
+    {
+      "time": "2026-04-14T23:07:29+00:00",
+      "agent": "dev-01",
+      "action": "[S12-002] Headless playtest report \u2014 1500 simulations, balance analysis",
+      "sha": "ae773a8d"
+    },
+    {
+      "time": "2026-04-14T23:02:35+00:00",
+      "agent": "dev-01",
+      "action": "[S12-003] Open Sprint 12 \u2014 Ship the Playable Build",
+      "sha": "b0724d19"
+    },
+    {
+      "time": "2026-04-14T18:31:43-04:00",
+      "agent": "eric",
+      "action": "[S11-001] Playable Web Build \u2014 Full Campaign UI Flow (#57)",
+      "sha": "2220c53c"
+    },
+    {
+      "time": "2026-04-14T22:14:20+00:00",
+      "agent": "pm",
+      "action": "chore: open Sprint 11 \u2014 Back to Features [S11]",
+      "sha": "da02f7bd"
+    },
+    {
+      "time": "2026-04-14T18:02:42-04:00",
+      "agent": "devops",
+      "action": "chore: auto-update dashboard data.json (#55)",
+      "sha": "972e0af7"
+    },
     {
       "time": "2026-04-14T18:01:57-04:00",
       "agent": "devops",
@@ -105,7 +138,7 @@
     },
     {
       "time": "2026-04-14T18:00:57-04:00",
-      "agent": "pm",
+      "agent": "eric",
       "action": "[S10-004] Backlog review + Sprint 11 planning",
       "sha": "9a956598"
     },
@@ -129,55 +162,55 @@
     },
     {
       "time": "2026-04-14T17:56:09-04:00",
-      "agent": "devops",
+      "agent": "eric",
       "action": "[S10-002] Fix sprint-status workflow: use PR instead of direct push (#48)",
       "sha": "95d6a681"
     },
     {
       "time": "2026-04-14T17:51:51-04:00",
-      "agent": "devops",
+      "agent": "eric",
       "action": "[S10-001][S10-003] Auto-update sprint status + auto-close from merged PRs",
       "sha": "6f058282"
     },
     {
-      "time": "2026-04-14T21:49:59Z",
+      "time": "2026-04-14T21:49:59+00:00",
       "agent": "pm",
       "action": "chore: open Sprint 10 \u2014 Final Process Sprint [S10-004]",
       "sha": "450afcbd"
     },
     {
-      "time": "2026-04-14T21:21:15Z",
+      "time": "2026-04-14T21:21:15+00:00",
       "agent": "the-bott",
       "action": "fix: mark Sprint 9 tasks complete in sprint-config.json",
       "sha": "12162961"
     },
     {
-      "time": "2026-04-14T21:20:07Z",
+      "time": "2026-04-14T21:20:07+00:00",
       "agent": "devops",
       "action": "chore: Sprint 9 complete \u2014 all tasks done (5/5) (#44)",
       "sha": "9d93ee69"
     },
     {
-      "time": "2026-04-14T21:18:19Z",
+      "time": "2026-04-14T21:18:19+00:00",
       "agent": "devops",
       "action": "chore: auto-update dashboard data.json (#43)",
       "sha": "3bb94db5"
     },
     {
-      "time": "2026-04-14T21:16:42Z",
+      "time": "2026-04-14T21:16:42+00:00",
       "agent": "devops",
       "action": "chore: auto-update dashboard data.json (#39)",
       "sha": "c303b840"
     },
     {
       "time": "2026-04-14T17:15:50-04:00",
-      "agent": "devops",
+      "agent": "eric",
       "action": "fix: dashboard attribution + scrollable PR/Build sections (S9) (#42)",
       "sha": "c27b501c"
     },
     {
       "time": "2026-04-14T17:13:57-04:00",
-      "agent": "pm",
+      "agent": "eric",
       "action": "chore: Sprint 9 kickoff \u2014 S8 complete, S9 active (#41)",
       "sha": "51ab875c"
     },
@@ -195,548 +228,269 @@
     },
     {
       "time": "2026-04-14T16:54:43-04:00",
-      "agent": "devops",
+      "agent": "eric",
       "action": "fix: dashboard architecture redesign + squash merge attribution + status-gen cleanup (S8)",
       "sha": "4b88fbf0"
     },
     {
-      "time": "2026-04-14T20:15:30Z",
+      "time": "2026-04-14T20:15:30+00:00",
       "agent": "lead-dev",
       "action": "ci: disable PWA in export preset (S7)",
       "sha": "5eb2bdca"
     },
     {
-      "time": "2026-04-14T20:10:32Z",
+      "time": "2026-04-14T20:10:32+00:00",
       "agent": "lead-dev",
       "action": "ci: fix export template path for GitHub Actions container (S7)",
       "sha": "98beb937"
     },
     {
-      "time": "2026-04-14T20:02:18Z",
+      "time": "2026-04-14T20:02:18+00:00",
       "agent": "lead-dev",
       "action": "fix: rewrite test files for export compilation + fix Variant types (S7)",
       "sha": "2f5425e1"
     },
     {
-      "time": "2026-04-14T19:52:37Z",
+      "time": "2026-04-14T19:52:37+00:00",
       "agent": "lead-dev",
       "action": "fix: explicit types for Variant inference in test_match_hud.gd (S7)",
       "sha": "acbdc896"
     },
     {
-      "time": "2026-04-14T19:46:17Z",
+      "time": "2026-04-14T19:46:17+00:00",
       "agent": "lead-dev",
       "action": "fix: correct weight calculation in test_exactly_at_cap_valid (S7)",
       "sha": "41dcd06b"
     },
     {
-      "time": "2026-04-14T19:42:13Z",
+      "time": "2026-04-14T19:42:13+00:00",
       "agent": "lead-dev",
       "action": "ci: fix CI test failures + add post-deploy verification (S7-011)",
       "sha": "7530d1f7"
     },
     {
-      "time": "2026-04-14T19:42:10Z",
+      "time": "2026-04-14T19:42:10+00:00",
       "agent": "devops",
       "action": "chore: auto-update dashboard data.json",
       "sha": "bbaad1a5"
     },
     {
-      "time": "2026-04-14T19:36:40Z",
+      "time": "2026-04-14T19:36:40+00:00",
       "agent": "lead-dev",
       "action": "playtest: sprint 7 balance report \u2014 1804 matches, 3 P0 issues (S7)",
       "sha": "68e843e6"
     },
     {
-      "time": "2026-04-14T19:36:37Z",
+      "time": "2026-04-14T19:36:37+00:00",
       "agent": "devops",
       "action": "chore: auto-update dashboard data.json",
       "sha": "124115ff"
     },
     {
-      "time": "2026-04-14T19:29:24Z",
+      "time": "2026-04-14T19:29:24+00:00",
       "agent": "lead-dev",
       "action": "ci: agent role boundary enforcement + export verification + test gate (S7)",
       "sha": "7f878901"
     },
     {
-      "time": "2026-04-14T19:29:21Z",
+      "time": "2026-04-14T19:29:21+00:00",
       "agent": "lead-dev",
       "action": "test: add 41 integration tests for cross-system verification (S7-QA)",
       "sha": "4167e5ed"
     },
     {
-      "time": "2026-04-14T19:17:53Z",
+      "time": "2026-04-14T19:17:53+00:00",
       "agent": "lead-dev",
       "action": "ci: fix dashboard deployment, add branch cleanup & PR checklist (S7)",
       "sha": "7629235a"
     },
     {
-      "time": "2026-04-14T19:17:50Z",
+      "time": "2026-04-14T19:17:50+00:00",
       "agent": "lead-dev",
       "action": "fix: resolve class_name cascade failure in headless tests (S7-P0)",
       "sha": "5d32b942"
     },
     {
-      "time": "2026-04-14T18:36:16Z",
+      "time": "2026-04-14T18:36:16+00:00",
       "agent": "pm",
       "action": "[OPS] Sprint 6 tracks A-D complete \u2014 playtest report, message log, PLAN.md",
       "sha": "8378e9cd"
     },
     {
-      "time": "2026-04-14T18:34:21Z",
+      "time": "2026-04-14T18:34:21+00:00",
       "agent": "lead-dev",
       "action": "Merge pull request #22 from blor-inc/dev-01/S6-001-fixes",
       "sha": "8d2e52b5"
     },
     {
-      "time": "2026-04-14T18:33:47Z",
+      "time": "2026-04-14T18:33:47+00:00",
       "agent": "dev-01",
       "action": "[S6-001] fix: headless compatibility for campaign controller and tests",
       "sha": "f0e1dbbf"
     },
     {
-      "time": "2026-04-14T18:21:20Z",
+      "time": "2026-04-14T18:21:20+00:00",
       "agent": "lead-dev",
       "action": "Merge pull request #21 from blor-inc/devops/S6-002-compliance-process",
       "sha": "ec7f4be2"
     },
     {
-      "time": "2026-04-14T18:21:04Z",
+      "time": "2026-04-14T18:21:04+00:00",
       "agent": "lead-dev",
       "action": "Merge pull request #20 from blor-inc/dev-01/S6-001-playable-web-build",
       "sha": "4d5face2"
     },
     {
-      "time": "2026-04-14T18:16:17Z",
+      "time": "2026-04-14T18:16:17+00:00",
       "agent": "dev-01",
       "action": "[S6-001] feat: campaign controller, shop screen, opponent select, integration tests",
       "sha": "68005b60"
     },
     {
-      "time": "2026-04-14T18:18:36Z",
+      "time": "2026-04-14T18:18:36+00:00",
       "agent": "devops",
       "action": "[S6-002] feat: compliance CI + process gaps \u2014 status-gen, test-gate, review-check",
       "sha": "f88aa268"
     },
     {
       "time": "2026-04-14T13:48:09-04:00",
-      "agent": "dev-01",
+      "agent": "eric",
       "action": "[S5-003] Economy, Shop & Progression Systems (#19)",
       "sha": "81787919"
     },
     {
       "time": "2026-04-14T13:44:42-04:00",
-      "agent": "qa",
+      "agent": "eric",
       "action": "[S5-002] UI test suites for LoadoutScreen, MatchHUD, ResultScreen (#18)",
       "sha": "fe8917e6"
     },
     {
       "time": "2026-04-14T13:39:05-04:00",
-      "agent": "devops",
+      "agent": "eric",
       "action": "[S5-001] Dashboard auto-generation CI + shell injection fix (#17)",
       "sha": "beac24f7"
     },
     {
       "time": "2026-04-14T13:26:10-04:00",
-      "agent": "devops",
+      "agent": "eric",
       "action": "ci: add agent log attribution check for PRs (#16)",
       "sha": "2e0f0913"
     },
     {
-      "time": "2026-04-14T16:23:19Z",
+      "time": "2026-04-14T16:23:19+00:00",
       "agent": "pm",
       "action": "[OPS] Sprint 4 complete \u2014 status, dashboard data, message log updated",
       "sha": "1bebdb8a"
-    },
-    {
-      "time": "2026-04-14T12:22:08-04:00",
-      "agent": "pm",
-      "action": "[S4-001] Playable Vertical Slice (#15)",
-      "sha": "e0952e07"
-    },
-    {
-      "time": "2026-04-14T12:22:06-04:00",
-      "agent": "pm",
-      "action": "[S4-002] Dashboard Overhaul (#14)",
-      "sha": "c2e94438"
-    },
-    {
-      "time": "2026-04-14T13:50:45Z",
-      "agent": "pm",
-      "action": "[OPS] Sprint 3 complete \u2014 status, dashboard, message log updated",
-      "sha": "ca8e7742"
-    },
-    {
-      "time": "2026-04-14T09:49:07-04:00",
-      "agent": "dev-01",
-      "action": "[S3-002] feat: MatchManager, projectile system, energy integration + 24 tests",
-      "sha": "24a7bbb7"
-    },
-    {
-      "time": "2026-04-14T09:44:33-04:00",
-      "agent": "qa",
-      "action": "[S3-001] test: comprehensive test suites (142 tests)",
-      "sha": "deb24ebd"
-    },
-    {
-      "time": "2026-04-14T12:55:30Z",
-      "agent": "lead-dev",
-      "action": "Merge PR #11: Dashboard agent names",
-      "sha": "5329a648"
-    },
-    {
-      "time": "2026-04-14T12:54:56Z",
-      "agent": "devops",
-      "action": "[S2-005] feat: show agent names alongside roles in dashboard",
-      "sha": "2e1829b2"
-    },
-    {
-      "time": "2026-04-14T12:53:10Z",
-      "agent": "pm",
-      "action": "Sprint 2 complete \u2014 STATUS.md and data.json updated",
-      "sha": "705c637e"
-    },
-    {
-      "time": "2026-04-14T12:52:27Z",
-      "agent": "lead-dev",
-      "action": "Merge PR #10: Sprint 2 \u2014 Arena, LoS, Pathfinding, BrottBrain, Stances",
-      "sha": "606b4e36"
-    },
-    {
-      "time": "2026-04-14T12:51:49Z",
-      "agent": "dev-01",
-      "action": "[S2-001/002/003/004] feat: arena tile system, LoS raycasting, A* pathfinding, BrottBrain engine, stance behaviors",
-      "sha": "a723f672"
-    },
-    {
-      "time": "2026-04-14T12:49:09Z",
-      "agent": "pm",
-      "action": "Sprint 2 kickoff: 4 tasks planned, STATUS.md and data.json updated",
-      "sha": "a048e948"
-    },
-    {
-      "time": "2026-04-14T12:47:19Z",
-      "agent": "lead-dev",
-      "action": "Merge PR #9: CI/CD Workflow Files",
-      "sha": "283aa60a"
-    },
-    {
-      "time": "2026-04-14T12:46:51Z",
-      "agent": "devops",
-      "action": "[S1-002] feat: add CI/CD workflow files for build/deploy and dashboard automation",
-      "sha": "8061bfde"
-    },
-    {
-      "time": "2026-04-14T12:37:52Z",
-      "agent": "pm",
-      "action": "Sprint 1 complete \u2014 STATUS.md and data.json updated",
-      "sha": "b145608c"
-    },
-    {
-      "time": "2026-04-14T08:37:14-04:00",
-      "agent": "dev-01",
-      "action": "Merge PR #6: CI/CD Pipeline + Godot Project Structure",
-      "sha": "d8546679"
-    },
-    {
-      "time": "2026-04-14T08:37:12-04:00",
-      "agent": "lead-dev",
-      "action": "Merge PR #8: Architecture Document",
-      "sha": "0d31aa73"
-    },
-    {
-      "time": "2026-04-14T08:37:10-04:00",
-      "agent": "dev-01",
-      "action": "Merge PR #7: Core Combat Simulation",
-      "sha": "43817424"
-    },
-    {
-      "time": "2026-04-14T12:36:41Z",
-      "agent": "pm",
-      "action": "Update STATUS.md and data.json \u2014 all Sprint 1 PRs submitted",
-      "sha": "01f0308f"
-    },
-    {
-      "time": "2026-04-14T12:21:48Z",
-      "agent": "pm",
-      "action": "Sprint 1 kickoff: tasks, status, dashboard update",
-      "sha": "115e7d4e"
-    },
-    {
-      "time": "2026-04-14T07:52:28-04:00",
-      "agent": "eric",
-      "action": "feat: GDD v2 (#5)",
-      "sha": "3d5daf09"
-    },
-    {
-      "time": "2026-04-13T23:40:29-04:00",
-      "agent": "devops",
-      "action": "Add B-011: Automate dashboard data.json updates",
-      "sha": "da8c729a"
-    },
-    {
-      "time": "2026-04-13T23:28:08-04:00",
-      "agent": "pm",
-      "action": "PM setup v2: backlog, STATUS.md, message log, task dirs (#3)",
-      "sha": "f114fcc6"
-    },
-    {
-      "time": "2026-04-13T23:20:31-04:00",
-      "agent": "pm",
-      "action": "Move dashboard to repo root for GitHub Pages",
-      "sha": "23554257"
-    },
-    {
-      "time": "2026-04-14T03:11:05Z",
-      "agent": "the-bott",
-      "action": "Initial commit: README, GDD v1, dashboard",
-      "sha": "1861ab64"
     }
   ],
-  "pullRequests": [
-    {
-      "number": 54,
-      "title": "chore: auto-update sprint task statuses",
-      "state": "MERGED",
-      "author": "app/github-actions",
-      "mergedAt": "2026-04-14T22:01:57Z",
-      "createdAt": "2026-04-14T22:01:07Z"
-    },
-    {
-      "number": 53,
-      "title": "[S10-004] Backlog review + Sprint 11 planning",
-      "state": "MERGED",
-      "author": "brotatotes",
-      "mergedAt": "2026-04-14T22:00:57Z",
-      "createdAt": "2026-04-14T22:00:45Z"
-    },
-    {
-      "number": 52,
-      "title": "chore: auto-update dashboard data.json",
-      "state": "CLOSED",
-      "author": "app/github-actions",
-      "mergedAt": null,
-      "createdAt": "2026-04-14T21:59:18Z"
-    },
-    {
-      "number": 51,
-      "title": "chore: auto-update dashboard data.json",
-      "state": "MERGED",
-      "author": "app/github-actions",
-      "mergedAt": "2026-04-14T21:59:08Z",
-      "createdAt": "2026-04-14T21:58:33Z"
-    },
-    {
-      "number": 50,
-      "title": "chore: auto-update dashboard data.json",
-      "state": "CLOSED",
-      "author": "app/github-actions",
-      "mergedAt": null,
-      "createdAt": "2026-04-14T21:57:12Z"
-    },
-    {
-      "number": 49,
-      "title": "chore: auto-update sprint task statuses",
-      "state": "MERGED",
-      "author": "app/github-actions",
-      "mergedAt": "2026-04-14T21:57:02Z",
-      "createdAt": "2026-04-14T21:56:20Z"
-    },
-    {
-      "number": 48,
-      "title": "[S10-002] Fix sprint-status workflow: use PR instead of direct push",
-      "state": "MERGED",
-      "author": "brotatotes",
-      "mergedAt": "2026-04-14T21:56:09Z",
-      "createdAt": "2026-04-14T21:55:57Z"
-    },
-    {
-      "number": 47,
-      "title": "[S10-001][S10-003] Auto-update sprint status + auto-close from merged PRs",
-      "state": "MERGED",
-      "author": "brotatotes",
-      "mergedAt": "2026-04-14T21:51:51Z",
-      "createdAt": "2026-04-14T21:51:39Z"
-    },
-    {
-      "number": 46,
-      "title": "chore: auto-update dashboard data.json",
-      "state": "MERGED",
-      "author": "app/github-actions",
-      "mergedAt": "2026-04-14T21:57:04Z",
-      "createdAt": "2026-04-14T21:20:17Z"
-    },
-    {
-      "number": 45,
-      "title": "chore: Sprint 9 complete \u2014 all tasks done (5/5)",
-      "state": "CLOSED",
-      "author": "brotatotes",
-      "mergedAt": null,
-      "createdAt": "2026-04-14T21:20:04Z"
-    },
-    {
-      "number": 44,
-      "title": "chore: auto-update dashboard data.json",
-      "state": "MERGED",
-      "author": "app/github-actions",
-      "mergedAt": "2026-04-14T21:20:07Z",
-      "createdAt": "2026-04-14T21:18:30Z"
-    },
-    {
-      "number": 43,
-      "title": "chore: auto-update dashboard data.json",
-      "state": "MERGED",
-      "author": "app/github-actions",
-      "mergedAt": "2026-04-14T21:18:20Z",
-      "createdAt": "2026-04-14T21:16:55Z"
-    },
-    {
-      "number": 42,
-      "title": "fix: dashboard attribution + scrollable PR/Build sections (S9)",
-      "state": "MERGED",
-      "author": "brotatotes",
-      "mergedAt": "2026-04-14T21:15:50Z",
-      "createdAt": "2026-04-14T21:15:37Z"
-    },
-    {
-      "number": 41,
-      "title": "chore: Sprint 9 kickoff \u2014 S8 complete, S9 active",
-      "state": "MERGED",
-      "author": "brotatotes",
-      "mergedAt": "2026-04-14T21:13:57Z",
-      "createdAt": "2026-04-14T21:13:43Z"
-    },
-    {
-      "number": 40,
-      "title": "[S8-004] KB Entries: Dashboard Postmortem, class_name Fix, Ops Checklist",
-      "state": "MERGED",
-      "author": "brotatotes",
-      "mergedAt": "2026-04-14T21:10:26Z",
-      "createdAt": "2026-04-14T21:07:56Z"
-    },
-    {
-      "number": 39,
-      "title": "chore: auto-update dashboard data.json",
-      "state": "MERGED",
-      "author": "app/github-actions",
-      "mergedAt": "2026-04-14T21:16:43Z",
-      "createdAt": "2026-04-14T20:56:09Z"
-    },
-    {
-      "number": 38,
-      "title": "chore: auto-update dashboard data.json",
-      "state": "MERGED",
-      "author": "app/github-actions",
-      "mergedAt": "2026-04-14T20:55:59Z",
-      "createdAt": "2026-04-14T20:54:55Z"
-    },
-    {
-      "number": 37,
-      "title": "fix: dashboard architecture redesign + squash merge attribution + status-gen cleanup (S8)",
-      "state": "MERGED",
-      "author": "brotatotes",
-      "mergedAt": "2026-04-14T20:54:43Z",
-      "createdAt": "2026-04-14T20:54:05Z"
-    },
-    {
-      "number": 36,
-      "title": "ci: disable PWA in export preset \u2014 no offline.html exists (S7)",
-      "state": "MERGED",
-      "author": "app/studio-lead-dev",
-      "mergedAt": "2026-04-14T20:15:30Z",
-      "createdAt": "2026-04-14T20:14:50Z"
-    },
-    {
-      "number": 35,
-      "title": "ci: fix export template path for GitHub Actions container (S7)",
-      "state": "MERGED",
-      "author": "app/studio-lead-dev",
-      "mergedAt": "2026-04-14T20:10:33Z",
-      "createdAt": "2026-04-14T20:09:51Z"
-    },
-    {
-      "number": 34,
-      "title": "fix: rewrite test files for export compilation + fix Variant types (S7)",
-      "state": "MERGED",
-      "author": "app/studio-lead-dev",
-      "mergedAt": "2026-04-14T20:02:18Z",
-      "createdAt": "2026-04-14T20:01:28Z"
-    },
-    {
-      "number": 33,
-      "title": "fix: explicit types for Variant inference in test_match_hud.gd (S7)",
-      "state": "MERGED",
-      "author": "app/studio-lead-dev",
-      "mergedAt": "2026-04-14T19:52:37Z",
-      "createdAt": "2026-04-14T19:51:54Z"
-    },
-    {
-      "number": 32,
-      "title": "fix: correct weight calculation in test_exactly_at_cap_valid (S7)",
-      "state": "MERGED",
-      "author": "app/studio-lead-dev",
-      "mergedAt": "2026-04-14T19:46:17Z",
-      "createdAt": "2026-04-14T19:45:34Z"
-    },
-    {
-      "number": 31,
-      "title": "chore: auto-update dashboard data.json",
-      "state": "CLOSED",
-      "author": "app/github-actions",
-      "mergedAt": null,
-      "createdAt": "2026-04-14T19:42:23Z"
-    },
-    {
-      "number": 30,
-      "title": "ci: fix CI test failures + add post-deploy verification (S7-011)",
-      "state": "MERGED",
-      "author": "app/studio-lead-dev",
-      "mergedAt": "2026-04-14T19:42:13Z",
-      "createdAt": "2026-04-14T19:41:00Z"
-    },
-    {
-      "number": 29,
-      "title": "chore: auto-update dashboard data.json",
-      "state": "MERGED",
-      "author": "app/github-actions",
-      "mergedAt": "2026-04-14T19:42:10Z",
-      "createdAt": "2026-04-14T19:36:53Z"
-    },
-    {
-      "number": 28,
-      "title": "playtest: sprint 7 balance report \u2014 1804 matches, 3 P0 issues (S7)",
-      "state": "MERGED",
-      "author": "app/studio-lead-dev",
-      "mergedAt": "2026-04-14T19:36:40Z",
-      "createdAt": "2026-04-14T19:35:15Z"
-    },
-    {
-      "number": 27,
-      "title": "ci: agent role boundary enforcement + export verification + test gate (S7)",
-      "state": "MERGED",
-      "author": "app/studio-lead-dev",
-      "mergedAt": "2026-04-14T19:29:24Z",
-      "createdAt": "2026-04-14T19:27:39Z"
-    },
-    {
-      "number": 26,
-      "title": "test: add 41 integration tests for cross-system verification (S7-QA)",
-      "state": "MERGED",
-      "author": "app/studio-lead-dev",
-      "mergedAt": "2026-04-14T19:29:21Z",
-      "createdAt": "2026-04-14T19:25:03Z"
-    },
-    {
-      "number": 25,
-      "title": "chore: auto-update dashboard data.json",
-      "state": "MERGED",
-      "author": "app/github-actions",
-      "mergedAt": "2026-04-14T19:36:37Z",
-      "createdAt": "2026-04-14T19:18:04Z"
-    }
-  ],
+  "pullRequests": [],
   "sprintHistory": [
+    {
+      "number": 12,
+      "goal": "Ship the Playable Build",
+      "status": "complete",
+      "summary": "CI game build, 1500-match headless playtest with balance report.",
+      "tasks": [
+        {
+          "id": "S12-001",
+          "title": "CI Game Build + Deploy to GitHub Pages",
+          "assignee": "devops",
+          "status": "todo"
+        },
+        {
+          "id": "S12-002",
+          "title": "Headless playtest \u2014 1000+ simulations + balance report",
+          "assignee": "playtest-lead",
+          "status": "todo"
+        },
+        {
+          "id": "S12-003",
+          "title": "Sprint config + dashboard update",
+          "assignee": "pm",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "goal": "Back to Features \u2014 Playable Web Build",
+      "status": "complete",
+      "summary": "Playable web build with full campaign UI flow merged.",
+      "tasks": [
+        {
+          "id": "S11-001",
+          "title": "Verify & fix web build export",
+          "assignee": "devops",
+          "status": "todo"
+        },
+        {
+          "id": "S11-002",
+          "title": "Fix Projectile class_name chain for headless sim",
+          "assignee": "dev-01",
+          "status": "todo"
+        },
+        {
+          "id": "S11-003",
+          "title": "Fix dashboard PR list and Build Status display",
+          "assignee": "devops",
+          "status": "todo"
+        },
+        {
+          "id": "S11-004",
+          "title": "Fix README dashboard link",
+          "assignee": "devops",
+          "status": "todo"
+        },
+        {
+          "id": "S11-005",
+          "title": "Headless playtest sim runner",
+          "assignee": "devops",
+          "status": "todo"
+        },
+        {
+          "id": "S11-006",
+          "title": "Run 1000-match playtest + balance report",
+          "assignee": "playtest-lead",
+          "status": "todo"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "goal": "Final Process Sprint \u2014 Automated Sprint Tracking",
+      "status": "complete",
+      "summary": "Auto-generate sprint task status from merged PRs, auto-close sprints, data.json pipeline verification, Sprint 11 planning.",
+      "tasks": [
+        {
+          "id": "S10-001",
+          "title": "Auto-generate sprint-config task status from merged PRs",
+          "assignee": "devops",
+          "status": "done",
+          "pr": "47"
+        },
+        {
+          "id": "S10-002",
+          "title": "Verify data.json regeneration pipeline end-to-end",
+          "assignee": "devops",
+          "status": "done",
+          "pr": "48"
+        },
+        {
+          "id": "S10-003",
+          "title": "Auto-close sprint when all tasks done",
+          "assignee": "devops",
+          "status": "done",
+          "pr": "47"
+        },
+        {
+          "id": "S10-004",
+          "title": "Backlog review + Sprint 11 planning",
+          "assignee": "pm",
+          "status": "done",
+          "pr": "53"
+        }
+      ]
+    },
     {
       "number": 10,
       "goal": "Final Process Sprint \u2014 Automated Sprint Tracking",
@@ -1051,10 +805,10 @@
     }
   ],
   "stats": {
-    "totalTests": 375,
-    "totalPRs": 30,
-    "totalCommits": 66,
-    "gdScripts": 47
+    "totalTests": 387,
+    "totalPRs": 61,
+    "totalCommits": 74,
+    "gdScripts": 52
   },
-  "updated": "2026-04-14T22:02:05Z"
+  "updated": "2026-04-15T00:25:23Z"
 }

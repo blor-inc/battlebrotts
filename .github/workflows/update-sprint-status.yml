@@ -1,6 +1,10 @@
 name: Auto-Update Sprint Status
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'sprint-config.json'
   pull_request:
     types: [closed]
     branches: [main]
@@ -89,27 +93,11 @@ jobs:
         run: |
           git diff --quiet sprint-config.json && echo "changed=false" >> "$GITHUB_OUTPUT" || echo "changed=true" >> "$GITHUB_OUTPUT"
 
-      - name: Create PR with updated sprint config
+      - name: Push updated sprint config
         if: steps.diff.outputs.changed == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: |
-          BRANCH="auto/update-sprint-status"
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
-
-          git checkout -B "$BRANCH"
           git add sprint-config.json
           git commit -m "chore: auto-update sprint task statuses"
-          git push -f origin "$BRANCH"
-
-          EXISTING=$(gh pr list --head "$BRANCH" --state open --json number -q '.[0].number')
-          if [ -n "$EXISTING" ]; then
-            echo "PR #$EXISTING already open, updated branch"
-          else
-            gh pr create \
-              --head "$BRANCH" \
-              --base main \
-              --title "chore: auto-update sprint task statuses" \
-              --body "Auto-generated sprint status update from merged PRs. Created by update-sprint-status workflow."
-          fi
+          git push origin main
