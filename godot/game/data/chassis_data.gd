@@ -5,8 +5,8 @@ class_name ChassisData
 const CHASSIS := {
 	"scout": {
 		"name": "Scout",
-		"hp": 80,
-		"speed": 200,
+		"hp": 100,
+		"speed": 220,
 		"weight_cap": 30,
 		"weapon_slots": 1,
 		"module_slots": 3,
@@ -21,8 +21,8 @@ const CHASSIS := {
 	},
 	"fortress": {
 		"name": "Fortress",
-		"hp": 250,
-		"speed": 70,
+		"hp": 210,
+		"speed": 60,
 		"weight_cap": 80,
 		"weapon_slots": 3,
 		"module_slots": 1,
