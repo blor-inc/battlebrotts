@@ -8,7 +8,7 @@ const CHASSIS := {
 		"hp": 100,
 		"speed": 220,
 		"weight_cap": 30,
-		"weapon_slots": 1,
+		"weapon_slots": 2,
 		"module_slots": 3,
 		"dodge_chance": 0.15,
 	},
@@ -22,7 +22,7 @@ const CHASSIS := {
 	},
 	"fortress": {
 		"name": "Fortress",
-		"hp": 210,
+		"hp": 180,
 		"speed": 60,
 		"weight_cap": 80,
 		"weapon_slots": 2,

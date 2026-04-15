@@ -99,20 +99,19 @@ func test_pay_repair_insufficient() -> bool:
 func test_equipment_value_starters_free() -> bool:
 	var e := _make_economy()
 	var value := e.calc_equipment_value(["minigun", "plasma_cutter"], "plating", [])
-	return value == 0  # All starters are free (cost 0)
+	return value == 50  # minigun=50, plasma_cutter=0, plating=0
 
 func test_equipment_value_mixed() -> bool:
 	var e := _make_economy()
 	var value := e.calc_equipment_value(["shotgun", "minigun"], "reactive_mesh", ["overclock"])
-	# shotgun=120, minigun=0, reactive=150, overclock=100 → 370
-	return value == 370
+	# shotgun=120, minigun=50, reactive=150, overclock=100 → 420
+	return value == 420
 
 # ── Ownership ────────────────────────────────────────────
 
 func test_starter_items_owned() -> bool:
 	var e := _make_economy()
-	return e.owns_item("chassis", "scout") and e.owns_item("weapon", "minigun") \
-		and e.owns_item("weapon", "plasma_cutter") and e.owns_item("armor", "plating")
+	return e.owns_item("chassis", "scout") and e.owns_item("weapon", "plasma_cutter") and e.owns_item("armor", "plating")
 
 func test_non_starter_not_owned() -> bool:
 	var e := _make_economy()
@@ -127,7 +126,7 @@ func test_purchase_item_success() -> bool:
 func test_purchase_item_already_owned() -> bool:
 	var e := _make_economy()
 	e.add_bolts(500)
-	var result := e.purchase_item("weapon", "minigun")
+	var result := e.purchase_item("weapon", "plasma_cutter")
 	return not result["success"] and result["reason"] == "already_owned"
 
 func test_purchase_item_insufficient_bolts() -> bool:

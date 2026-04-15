@@ -53,7 +53,7 @@ const WEAPONS := {
 	},
 	"plasma_cutter": {
 		"name": "Plasma Cutter",
-		"damage": 12,
+		"damage": 14,
 		"pellets": 1,
 		"range": 1.5,
 		"fire_rate": 3.0,

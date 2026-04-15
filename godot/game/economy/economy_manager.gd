@@ -20,7 +20,7 @@ const REPAIR_COST_LOSS: int = 50
 
 const STARTER_ITEMS := {
 	"chassis": ["scout"],
-	"weapon": ["minigun", "plasma_cutter"],
+	"weapon": ["plasma_cutter"],
 	"armor": ["plating"],
 	"module": [],
 }
@@ -32,7 +32,7 @@ const ITEM_COSTS := {
 		"fortress": 400,
 	},
 	"weapon": {
-		"minigun": 0,
+		"minigun": 50,
 		"plasma_cutter": 0,
 		"shotgun": 120,
 		"arc_emitter": 150,

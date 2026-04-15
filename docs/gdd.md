@@ -31,9 +31,9 @@ Average loop iteration: 3–5 minutes.
 
 | Chassis | HP | Speed (px/s) | Weight Cap | Weapon Slots | Module Slots | Passive |
 |---|---|---|---|---|---|---|
-| **Scout** | 100 | 220 | 30 kg | 1 | 3 | 15% dodge chance |
+| **Scout** | 100 | 220 | 30 kg | 2 | 3 | 15% dodge chance |
 | **Brawler** | 150 | 120 | 55 kg | 2 | 2 | — |
-| **Fortress** | 210 | 60 | 80 kg | 2 | 1 | — |
+| **Fortress** | 180 | 60 | 80 kg | 2 | 1 | — |
 
 Base chassis weight is excluded from the weight budget — only equipped items count against capacity.
 
@@ -45,7 +45,7 @@ Base chassis weight is excluded from the weight budget — only equipped items c
 | **Railgun** | 45 | 12 | 0.6 | 0 | 16 | 15 |
 | **Shotgun** | 6×5 pellets | 3 | 1.5 | 30 | 8 | 12 |
 | **Missile Pod** | 30 (splash r=1 tile) | 8 | 0.8 | 5 | 12 | 18 |
-| **Plasma Cutter** | 12 | 1.5 | 3 | 0 | 4 | 8 |
+| **Plasma Cutter** | 14 | 1.5 | 3 | 0 | 4 | 8 |
 | **Arc Emitter** | 8 (chains to 1 extra target within 2 tiles) | 4 | 2 | 10 | 6 | 11 |
 | **Flak Cannon** | 15 | 6 | 1.2 | 20 | 7 | 13 |
 
@@ -237,7 +237,7 @@ Each pellet/bullet has a random angle offset within ±(spread/2). If the offset 
 
 | League | Opponents | Unlock Requirement | New Content Unlocked |
 |---|---|---|---|
-| **Scrapyard** (Tutorial) | 3 | Start of game | Scout chassis, Minigun, Plasma Cutter, Plating |
+| **Scrapyard** (Tutorial) | 3 | Start of game | Scout chassis, Plasma Cutter, Plating |
 | **Bronze** | 5 | Beat Scrapyard | Brawler chassis, Shotgun, Arc Emitter, Reactive Mesh, Overclock, Repair Nanites. **BrottBrain editor unlocks.** |
 | **Silver** | 5 | Beat 3/5 Bronze | Fortress chassis, Railgun, Flak Cannon, Shield Projector, Sensor Array |
 | **Gold** | 5 | Beat 3/5 Silver | Missile Pod, Ablative Shell, Afterburner, EMP Charge. **2v2 team battles introduced.** |
@@ -283,7 +283,7 @@ Single currency: **Bolts (🔩)**.
 **Weapons:**
 | Item | Cost |
 |---|---|
-| Minigun | Free (starter) |
+| Minigun | 50 🔩 |
 | Plasma Cutter | Free (starter) |
 | Shotgun | 120 🔩 |
 | Arc Emitter | 150 🔩 |
@@ -481,3 +481,14 @@ The core feelings we're targeting:
 | Minigun Fire Rate | 10 shots/s | 6 shots/s | Fire rate is what makes Minigun dominant (constant DPS uptime). DPS drops from 30 to 18. |
 | Repair Cost (Win) | 5% of equipment | 20 🔩 flat | Eliminates death spiral — flat costs don't scale with equipment value |
 | Repair Cost (Loss) | 15% of equipment | 50 🔩 flat | Eliminates death spiral — flat costs don't scale with equipment value |
+
+## Balance Changes v3
+
+*Applied in Sprint 16 ([S16-001]) based on Optic's 2,000 combat simulation report (Sprint 15). V2 brought Fortress from 78.6% → 72.9% WR and Scout stayed at 20.4% — structural weapon slot deficit is the root cause.*
+
+| Stat | Old | New | Rationale |
+|------|-----|-----|-----------|
+| Scout Weapon Slots | 1 | 2 | 20.4% WR — 1 weapon slot is THE structural problem. Scout can't compete in DPS with a single weapon. |
+| Fortress HP | 210 | 180 | 72.9% WR — further nerf to survivability to bring Fortress in line with target 45-55%. |
+| Minigun Cost | Free (starter) | 50 🔩 | Price-gate Minigun so it's not the default weapon for every build. Creates meaningful early-game choice. |
+| Plasma Cutter Damage | 12 | 14 | Make Plasma Cutter a more viable starter alternative now that Minigun costs bolts. |
