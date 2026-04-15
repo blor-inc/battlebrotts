@@ -29,7 +29,7 @@ var game: GameController = null
 
 # Playback speed (ticks per frame)
 var playback_speed: int = 1
-const SPEED_OPTIONS := [1, 5, 20, 100]
+const SPEED_OPTIONS := [1, 2, 5]
 var speed_index: int = 0
 
 # Auto-play timer

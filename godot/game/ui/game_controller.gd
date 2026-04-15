@@ -80,6 +80,11 @@ func _show_screen(screen: Screen) -> void:
 	if screen == Screen.MATCH:
 		arena_view.setup(arena, player_brott, enemy_brott)
 		match_hud.setup(self)
+		# Wire arena view to tick/finish signals for visual effects
+		if not match_tick.is_connected(arena_view.on_tick):
+			match_tick.connect(arena_view.on_tick)
+		if not match_finished.is_connected(arena_view.on_match_finished):
+			match_finished.connect(arena_view.on_match_finished)
 	elif screen == Screen.RESULT:
 		result_screen.show_result(match_result)
 
@@ -122,6 +127,15 @@ func step_simulation() -> bool:
 
 	var continues: bool = match_manager.step()
 
+	# Capture projectile snapshot data
+	var proj_data: Array = []
+	for proj in match_manager.tick_system.projectiles:
+		proj_data.append({
+			"position": proj.position,
+			"weapon_id": proj.weapon_id,
+			"direction": proj.direction,
+		})
+
 	# Capture snapshot for this tick
 	var snapshot := {
 		"tick": match_manager.get_tick(),
@@ -144,6 +158,8 @@ func step_simulation() -> bool:
 			"position": enemy_brott.position,
 			"shield_hp": enemy_brott.shield_hp,
 		},
+		"projectiles": proj_data,
+		"events": match_manager.tick_system.tick_events.duplicate(),
 	}
 	sim_ticks.append(snapshot)
 	match_tick.emit(snapshot)
