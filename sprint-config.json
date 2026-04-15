@@ -1,31 +1,57 @@
 {
   "current": {
-    "number": 13,
-    "goal": "Make Battles Visual",
+    "number": 14,
+    "goal": "Balance + Infrastructure",
     "status": "active"
   },
   "tasks": [
     {
-      "id": "S13-001",
-      "title": "Real-Time Arena Battle View",
-      "assignee": "lead-dev",
-      "status": "done",
-      "pr": "60"
+      "id": "S14-001",
+      "title": "Balance Tuning — Fortress/Scout/Minigun/Economy",
+      "assignee": "dev-01",
+      "status": "todo"
     },
     {
-      "id": "S13-002",
-      "title": "Sprint config + dashboard update",
-      "assignee": "pm",
-      "status": "done"
-    },
-    {
-      "id": "S13-003",
-      "title": "Fix dashboard staleness \u2014 direct push + trigger on all pushes",
+      "id": "S14-002",
+      "title": "Dashboard Consistency CI — data.json vs sprint-config sync check",
       "assignee": "devops",
+      "status": "todo"
+    },
+    {
+      "id": "S14-003",
+      "title": "Sprint config setup for Sprint 14",
+      "assignee": "pm",
       "status": "done"
     }
   ],
   "history": [
+    {
+      "number": 13,
+      "goal": "Make Battles Visual",
+      "status": "complete",
+      "summary": "Real-time arena battle view, dashboard staleness fix, sprint config updates.",
+      "tasks": [
+        {
+          "id": "S13-001",
+          "title": "Real-Time Arena Battle View",
+          "assignee": "lead-dev",
+          "status": "done",
+          "pr": "60"
+        },
+        {
+          "id": "S13-002",
+          "title": "Sprint config + dashboard update",
+          "assignee": "pm",
+          "status": "done"
+        },
+        {
+          "id": "S13-003",
+          "title": "Fix dashboard staleness — direct push + trigger on all pushes",
+          "assignee": "devops",
+          "status": "done"
+        }
+      ]
+    },
     {
       "number": 12,
       "goal": "Ship the Playable Build",
@@ -40,7 +66,7 @@
         },
         {
           "id": "S12-002",
-          "title": "Headless playtest \u2014 1000+ simulations + balance report",
+          "title": "Headless playtest — 1000+ simulations + balance report",
           "assignee": "playtest-lead",
           "status": "todo"
         },
@@ -54,7 +80,7 @@
     },
     {
       "number": 11,
-      "goal": "Back to Features \u2014 Playable Web Build",
+      "goal": "Back to Features — Playable Web Build",
       "status": "complete",
       "summary": "Playable web build with full campaign UI flow merged.",
       "tasks": [
@@ -98,45 +124,9 @@
     },
     {
       "number": 10,
-      "goal": "Final Process Sprint \u2014 Automated Sprint Tracking",
+      "goal": "Final Process Sprint — Automated Sprint Tracking",
       "status": "complete",
       "summary": "Auto-generate sprint task status from merged PRs, auto-close sprints, data.json pipeline verification, Sprint 11 planning.",
-      "tasks": [
-        {
-          "id": "S10-001",
-          "title": "Auto-generate sprint-config task status from merged PRs",
-          "assignee": "devops",
-          "status": "done",
-          "pr": "47"
-        },
-        {
-          "id": "S10-002",
-          "title": "Verify data.json regeneration pipeline end-to-end",
-          "assignee": "devops",
-          "status": "done",
-          "pr": "48"
-        },
-        {
-          "id": "S10-003",
-          "title": "Auto-close sprint when all tasks done",
-          "assignee": "devops",
-          "status": "done",
-          "pr": "47"
-        },
-        {
-          "id": "S10-004",
-          "title": "Backlog review + Sprint 11 planning",
-          "assignee": "pm",
-          "status": "done",
-          "pr": "53"
-        }
-      ]
-    },
-    {
-      "number": 10,
-      "goal": "Final Process Sprint \u2014 Automated Sprint Tracking",
-      "status": "complete",
-      "summary": "Auto-generate sprint-config task status from merged PRs; Verify data.json regeneration pipeline end-to-end; Auto-close sprint when all tasks done; Backlog review + Sprint 11 planning",
       "tasks": [
         {
           "id": "S10-001",
@@ -291,7 +281,7 @@
     },
     {
       "number": 6,
-      "goal": "The Big One \u2014 Playable Web Build",
+      "goal": "The Big One — Playable Web Build",
       "status": "complete",
       "summary": "Campaign mode, shop, opponent select, compliance CI, 3 KB entries.",
       "tasks": [
