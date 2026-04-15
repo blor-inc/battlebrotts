@@ -8,7 +8,7 @@ const ModuleData = preload("res://game/data/module_data.gd")
 
 func test_chassis_scout() -> bool:
 	var c = ChassisData.get_chassis("scout")
-	return c["hp"] == 100 and c["speed"] == 220 and c["weight_cap"] == 30 and c["weapon_slots"] == 1 and c["module_slots"] == 3 and c["dodge_chance"] == 0.15
+	return c["hp"] == 100 and c["speed"] == 220 and c["weight_cap"] == 30 and c["weapon_slots"] == 2 and c["module_slots"] == 3 and c["dodge_chance"] == 0.15
 
 func test_chassis_brawler() -> bool:
 	var c = ChassisData.get_chassis("brawler")
@@ -16,7 +16,7 @@ func test_chassis_brawler() -> bool:
 
 func test_chassis_fortress() -> bool:
 	var c = ChassisData.get_chassis("fortress")
-	return c["hp"] == 210 and c["speed"] == 60 and c["weight_cap"] == 80 and c["weapon_slots"] == 2 and c["module_slots"] == 1
+	return c["hp"] == 180 and c["speed"] == 60 and c["weight_cap"] == 80 and c["weapon_slots"] == 2 and c["module_slots"] == 1
 
 func test_chassis_count() -> bool:
 	return ChassisData.list_ids().size() == 3
@@ -39,7 +39,7 @@ func test_weapon_missile_pod() -> bool:
 
 func test_weapon_plasma_cutter() -> bool:
 	var w = WeaponData.get_weapon("plasma_cutter")
-	return w["damage"] == 12 and w["range"] == 1.5 and w["fire_rate"] == 3.0 and w["spread"] == 0.0 and w["energy_cost"] == 4 and w["weight"] == 8
+	return w["damage"] == 14 and w["range"] == 1.5 and w["fire_rate"] == 3.0 and w["spread"] == 0.0 and w["energy_cost"] == 4 and w["weight"] == 8
 
 func test_weapon_arc_emitter() -> bool:
 	var w = WeaponData.get_weapon("arc_emitter")
