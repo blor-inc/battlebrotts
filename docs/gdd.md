@@ -29,11 +29,11 @@ Average loop iteration: 3–5 minutes.
 
 ### 3.1 Chassis Types
 
-| Chassis | HP | Speed (px/s) | Weight Cap | Weapon Slots | Module Slots |
-|---|---|---|---|---|---|
-| **Scout** | 100 | 220 | 30 kg | 1 | 3 |
-| **Brawler** | 150 | 120 | 55 kg | 2 | 2 |
-| **Fortress** | 210 | 60 | 80 kg | 3 | 1 |
+| Chassis | HP | Speed (px/s) | Weight Cap | Weapon Slots | Module Slots | Passive |
+|---|---|---|---|---|---|---|
+| **Scout** | 100 | 220 | 30 kg | 1 | 3 | 15% dodge chance |
+| **Brawler** | 150 | 120 | 55 kg | 2 | 2 | — |
+| **Fortress** | 210 | 60 | 80 kg | 2 | 1 | — |
 
 Base chassis weight is excluded from the weight budget — only equipped items count against capacity.
 
@@ -41,7 +41,7 @@ Base chassis weight is excluded from the weight budget — only equipped items c
 
 | Weapon | Damage | Range (tiles) | Fire Rate (shots/s) | Spread (°) | Energy/Shot | Weight (kg) |
 |---|---|---|---|---|---|---|
-| **Minigun** | 3 | 5 | 10 | 15 | 2 | 10 |
+| **Minigun** | 3 | 5 | 6 | 15 | 2 | 10 |
 | **Railgun** | 45 | 12 | 0.6 | 0 | 16 | 15 |
 | **Shotgun** | 6×5 pellets | 3 | 1.5 | 30 | 8 | 12 |
 | **Missile Pod** | 30 (splash r=1 tile) | 8 | 0.8 | 5 | 12 | 18 |
@@ -313,12 +313,12 @@ All purchases are permanent. No consumables.
 ### 7.3 Repair Costs
 
 After each match, the Brott takes wear damage regardless of outcome:
-- **Win**: Repair cost = 5% of Brott's total equipment value
-- **Loss**: Repair cost = 15% of Brott's total equipment value
+- **Win**: Repair cost = 20 🔩 flat
+- **Loss**: Repair cost = 50 🔩 flat
 - Repair is mandatory before next match
-- This creates an economic pressure that prevents players from hoarding Bolts
+- Flat costs prevent the death spiral where expensive builds become unsustainable
 
-Example: Brott with 500 🔩 of equipment → 25 🔩 repair on win, 75 🔩 on loss.
+Example: Any Brott → 20 🔩 repair on win, 50 🔩 on loss, regardless of equipment value.
 
 ---
 
@@ -467,3 +467,17 @@ The core feelings we're targeting:
 | Repair Rate (Win) | 10% | 5% | Economy death spiral fix |
 | Repair Rate (Loss) | 25% | 15% | Economy death spiral fix |
 | First-Win Bonus | 150 🔩 | 200 🔩 | Reward exploration, offset repair costs |
+
+---
+
+## Balance Changes v2
+
+*Applied in Sprint 15 ([S15-001]) based on Optic's 1,530 combat simulation report (Sprint 14). V1 changes were too conservative — Fortress still at 78.6% WR, Scout at 20.1%.*
+
+| Change | Before | After | Rationale |
+|---|---|---|---|
+| Fortress Weapon Slots | 3 | 2 | 78.6% WR — 3 weapons + 210 HP is too much firepower. Biggest single lever. |
+| Scout Dodge Chance | 0% | 15% | New passive evasion mechanic. Represents speed advantage defensively. |
+| Minigun Fire Rate | 10 shots/s | 6 shots/s | Fire rate is what makes Minigun dominant (constant DPS uptime). DPS drops from 30 to 18. |
+| Repair Cost (Win) | 5% of equipment | 20 🔩 flat | Eliminates death spiral — flat costs don't scale with equipment value |
+| Repair Cost (Loss) | 15% of equipment | 50 🔩 flat | Eliminates death spiral — flat costs don't scale with equipment value |

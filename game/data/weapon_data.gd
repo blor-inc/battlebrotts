@@ -8,7 +8,7 @@ const WEAPONS := {
 		"damage": 3,
 		"pellets": 1,
 		"range": 5,
-		"fire_rate": 10.0,
+		"fire_rate": 6.0,
 		"spread": 15.0,
 		"energy_cost": 2,
 		"weight": 10,
