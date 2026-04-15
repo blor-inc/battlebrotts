@@ -12,11 +12,11 @@ from typing import List, Dict, Tuple
 CHASSIS = {
     "scout":    {"hp": 100, "speed": 220, "weight_cap": 30, "weapon_slots": 1, "module_slots": 3},
     "brawler":  {"hp": 150, "speed": 120, "weight_cap": 55, "weapon_slots": 2, "module_slots": 2},
-    "fortress": {"hp": 210, "speed": 60,  "weight_cap": 80, "weapon_slots": 3, "module_slots": 1},
+    "fortress": {"hp": 210, "speed": 60,  "weight_cap": 80, "weapon_slots": 2, "module_slots": 1},
 }
 
 WEAPONS = {
-    "minigun":       {"damage": 3,  "pellets": 1, "range": 5,   "fire_rate": 10.0, "spread": 15.0, "energy": 2,  "weight": 10},
+    "minigun":       {"damage": 3,  "pellets": 1, "range": 5,   "fire_rate": 6.0,  "spread": 15.0, "energy": 2,  "weight": 10},
     "railgun":       {"damage": 45, "pellets": 1, "range": 12,  "fire_rate": 0.6,  "spread": 0.0,  "energy": 16, "weight": 15},
     "shotgun":       {"damage": 6,  "pellets": 5, "range": 3,   "fire_rate": 1.5,  "spread": 30.0, "energy": 8,  "weight": 12},
     "missile_pod":   {"damage": 30, "pellets": 1, "range": 8,   "fire_rate": 0.8,  "spread": 5.0,  "energy": 12, "weight": 18},
@@ -172,6 +172,9 @@ def simulate_match(b1: Brott, b2: Brott, rng: random.Random) -> Tuple[int, int, 
                         miss_dist = dist * math.tan(math.radians(abs(offset_angle)))
                         if miss_dist > 0.375:
                             continue
+                    # Scout dodge passive (15%)
+                    if defender.chassis == "scout" and rng.random() < 0.15:
+                        continue
                     # Damage
                     base_dmg = w["damage"]
                     dr = defender.armor_dr()
@@ -309,9 +312,8 @@ def economy_sim(n_matches=200, win_rate=0.5, seed=99):
             earn = 200  # first-win bonus replaces normal win
             first_wins.add(opponent)
 
-        # Repair: 5% on win, 15% on loss (S14 rates)
-        repair_rate = 0.05 if won else 0.15
-        repair = int(equip_value * repair_rate)
+        # Repair: flat 20🔩 on win, 50🔩 on loss (S15 flat repair)
+        repair = 20 if won else 50
         net = earn - repair
         bolts += net
 
