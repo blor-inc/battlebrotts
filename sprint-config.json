@@ -9,7 +9,8 @@
       "id": "S13-001",
       "title": "Real-Time Arena Battle View",
       "assignee": "lead-dev",
-      "status": "todo"
+      "status": "done",
+      "pr": "60"
     },
     {
       "id": "S13-002",
