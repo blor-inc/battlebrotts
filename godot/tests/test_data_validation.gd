@@ -8,7 +8,7 @@ const ModuleData = preload("res://game/data/module_data.gd")
 
 func test_chassis_scout() -> bool:
 	var c = ChassisData.get_chassis("scout")
-	return c["hp"] == 100 and c["speed"] == 220 and c["weight_cap"] == 30 and c["weapon_slots"] == 1 and c["module_slots"] == 3
+	return c["hp"] == 100 and c["speed"] == 220 and c["weight_cap"] == 30 and c["weapon_slots"] == 1 and c["module_slots"] == 3 and c["dodge_chance"] == 0.15
 
 func test_chassis_brawler() -> bool:
 	var c = ChassisData.get_chassis("brawler")
@@ -16,14 +16,14 @@ func test_chassis_brawler() -> bool:
 
 func test_chassis_fortress() -> bool:
 	var c = ChassisData.get_chassis("fortress")
-	return c["hp"] == 210 and c["speed"] == 60 and c["weight_cap"] == 80 and c["weapon_slots"] == 3 and c["module_slots"] == 1
+	return c["hp"] == 210 and c["speed"] == 60 and c["weight_cap"] == 80 and c["weapon_slots"] == 2 and c["module_slots"] == 1
 
 func test_chassis_count() -> bool:
 	return ChassisData.list_ids().size() == 3
 
 func test_weapon_minigun() -> bool:
 	var w = WeaponData.get_weapon("minigun")
-	return w["damage"] == 3 and w["range"] == 5 and w["fire_rate"] == 10.0 and w["spread"] == 15.0 and w["energy_cost"] == 2 and w["weight"] == 10
+	return w["damage"] == 3 and w["range"] == 5 and w["fire_rate"] == 6.0 and w["spread"] == 15.0 and w["energy_cost"] == 2 and w["weight"] == 10
 
 func test_weapon_railgun() -> bool:
 	var w = WeaponData.get_weapon("railgun")
@@ -107,7 +107,7 @@ func test_module_count() -> bool:
 	return ModuleData.list_ids().size() == 6
 
 func test_minigun_fire_interval() -> bool:
-	return WeaponData.fire_interval_ticks("minigun") == 2
+	return WeaponData.fire_interval_ticks("minigun") == 4
 
 func test_railgun_fire_interval() -> bool:
 	return WeaponData.fire_interval_ticks("railgun") == 34

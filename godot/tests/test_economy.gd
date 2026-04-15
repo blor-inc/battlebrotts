@@ -70,31 +70,31 @@ func test_first_win_different_opponents() -> bool:
 func test_repair_cost_win() -> bool:
 	var e := _make_economy()
 	var cost := e.calc_repair_cost(500, true)
-	return cost == 25  # 5% of 500
+	return cost == 20  # Flat 20 bolts
 
 func test_repair_cost_loss() -> bool:
 	var e := _make_economy()
 	var cost := e.calc_repair_cost(500, false)
-	return cost == 75  # 15% of 500
+	return cost == 50  # Flat 50 bolts
 
 func test_repair_cost_zero_value() -> bool:
 	var e := _make_economy()
 	var cost := e.calc_repair_cost(0, true)
-	return cost == 0
+	return cost == 20  # Flat rate regardless of equipment value
 
 func test_pay_repair_success() -> bool:
 	var e := _make_economy()
 	e.add_bolts(200)
 	var result := e.pay_repair(["shotgun"], "plating", [], true)
-	# shotgun=120, plating=0 → value=120, 5% = 6
-	return result["paid"] and result["cost"] == 6 and e.bolts == 194
+	# Flat repair cost: 20 bolts on win
+	return result["paid"] and result["cost"] == 20 and e.bolts == 180
 
 func test_pay_repair_insufficient() -> bool:
 	var e := _make_economy()
 	e.add_bolts(5)
 	var result := e.pay_repair(["railgun", "missile_pod"], "ablative_shell", ["emp_charge"], false)
-	# railgun=300, missile_pod=350, ablative=300, emp=250 → value=1200, 15% = 180
-	return not result["paid"] and result["cost"] == 180 and e.bolts == 5
+	# Flat repair cost: 50 bolts on loss
+	return not result["paid"] and result["cost"] == 50 and e.bolts == 5
 
 func test_equipment_value_starters_free() -> bool:
 	var e := _make_economy()

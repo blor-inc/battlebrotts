@@ -44,14 +44,25 @@ static func calc_splash(base_damage: float, armor_id: String,
 		target_hp_ratio: float, rng: RandomNumberGenerator) -> Dictionary:
 	return calc_hit(base_damage * SPLASH_FALLOFF, armor_id, target_hp_ratio, rng)
 
-## Fire a full weapon shot (handles pellets). Returns Array of hit results.
+## Fire a full weapon shot (handles pellets + dodge). Returns Array of hit results.
 ## For single-projectile weapons, returns array of 1.
+## If target_chassis_id is provided and chassis has dodge_chance, each hit may miss.
 static func calc_weapon_shot(weapon_id: String, armor_id: String,
-		target_hp_ratio: float, rng: RandomNumberGenerator) -> Array:
+		target_hp_ratio: float, rng: RandomNumberGenerator,
+		target_chassis_id: String = "") -> Array:
 	var w := WeaponData.get_weapon(weapon_id)
 	var pellets: int = w.get("pellets", 1)
 	var base_dmg: float = float(w["damage"])
+	var dodge_chance: float = 0.0
+	if target_chassis_id != "":
+		var chassis := ChassisData.get_chassis(target_chassis_id)
+		dodge_chance = chassis.get("dodge_chance", 0.0)
 	var results := []
 	for i in pellets:
-		results.append(calc_hit(base_dmg, armor_id, target_hp_ratio, rng))
+		if dodge_chance > 0.0 and rng.randf() < dodge_chance:
+			results.append({"damage": 0.0, "is_crit": false, "reflect_damage": 0.0, "dodged": true})
+		else:
+			var hit := calc_hit(base_dmg, armor_id, target_hp_ratio, rng)
+			hit["dodged"] = false
+			results.append(hit)
 	return results

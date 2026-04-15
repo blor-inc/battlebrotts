@@ -15,8 +15,8 @@ const BOLTS_WIN: int = 100
 const BOLTS_LOSS: int = 40
 const BOLTS_FIRST_WIN: int = 200
 
-const REPAIR_RATE_WIN: float = 0.05
-const REPAIR_RATE_LOSS: float = 0.15
+const REPAIR_COST_WIN: int = 20
+const REPAIR_COST_LOSS: int = 50
 
 const STARTER_ITEMS := {
 	"chassis": ["scout"],
@@ -115,9 +115,8 @@ func award_match_result(won: bool, opponent_id: String) -> int:
 # ─────────────────────────────────────────────────────────
 # Repair
 # ─────────────────────────────────────────────────────────
-func calc_repair_cost(equipment_value: int, won: bool) -> int:
-	var rate := REPAIR_RATE_WIN if won else REPAIR_RATE_LOSS
-	return int(ceil(float(equipment_value) * rate))
+func calc_repair_cost(_equipment_value: int, won: bool) -> int:
+	return REPAIR_COST_WIN if won else REPAIR_COST_LOSS
 
 
 func calc_equipment_value(weapons: Array, armor_id: String, modules: Array) -> int:

@@ -10,6 +10,7 @@ const CHASSIS := {
 		"weight_cap": 30,
 		"weapon_slots": 1,
 		"module_slots": 3,
+		"dodge_chance": 0.15,
 	},
 	"brawler": {
 		"name": "Brawler",
@@ -24,7 +25,7 @@ const CHASSIS := {
 		"hp": 210,
 		"speed": 60,
 		"weight_cap": 80,
-		"weapon_slots": 3,
+		"weapon_slots": 2,
 		"module_slots": 1,
 	},
 }

@@ -4,6 +4,7 @@ extends RefCounted
 const DamageCalculator = preload("res://game/combat/damage_calculator.gd")
 const ArmorData = preload("res://game/data/armor_data.gd")
 const WeaponData = preload("res://game/data/weapon_data.gd")
+const ChassisData = preload("res://game/data/chassis_data.gd")
 
 func _make_rng(seed_val: int = 42) -> RandomNumberGenerator:
 	var r := RandomNumberGenerator.new()
@@ -80,3 +81,34 @@ func test_deterministic_with_same_seed() -> bool:
 	var res1 = DamageCalculator.calc_hit(10.0, "plating", 1.0, r1)
 	var res2 = DamageCalculator.calc_hit(10.0, "plating", 1.0, r2)
 	return res1["damage"] == res2["damage"] and res1["is_crit"] == res2["is_crit"]
+
+func test_dodge_chance_scout() -> bool:
+	# With enough rolls, Scout's 15% dodge should produce some dodged hits
+	var rng := _make_rng(42)
+	var dodged_count := 0
+	for i in 100:
+		var results = DamageCalculator.calc_weapon_shot("minigun", "", 1.0, rng, "scout")
+		for r in results:
+			if r.get("dodged", false):
+				dodged_count += 1
+	return dodged_count > 0 and dodged_count < 100
+
+func test_no_dodge_without_chassis() -> bool:
+	# Without chassis id, no dodge should occur
+	var rng := _make_rng(42)
+	var results = DamageCalculator.calc_weapon_shot("minigun", "", 1.0, rng)
+	for r in results:
+		if r.has("dodged") and r["dodged"]:
+			return false
+	return true
+
+func test_no_dodge_fortress() -> bool:
+	# Fortress has no dodge_chance, so no dodges
+	var rng := _make_rng(42)
+	var dodged_count := 0
+	for i in 100:
+		var results = DamageCalculator.calc_weapon_shot("minigun", "", 1.0, rng, "fortress")
+		for r in results:
+			if r.get("dodged", false):
+				dodged_count += 1
+	return dodged_count == 0
