@@ -35,6 +35,10 @@ var _damage_queue: Array = []
 # Active projectiles in flight
 var projectiles: Array = []
 
+# Visual events emitted each tick for rendering (cleared each tick)
+# Each entry: { "type": String, "position": Vector2, ... }
+var tick_events: Array = []
+
 # ─────────────────────────────────────────────────────────
 # Init
 # ─────────────────────────────────────────────────────────
@@ -57,6 +61,7 @@ func run_tick() -> bool:
 		return false
 
 	_damage_queue.clear()
+	tick_events.clear()
 
 	# 1. BrottBrain evaluation (stub — future S1-004)
 	_step_brottbrain()
@@ -291,6 +296,28 @@ func _step_damage_application() -> void:
 		if target.is_dead():
 			continue
 		target.apply_damage(event["damage"])
+
+		# Emit visual event for damage number
+		tick_events.append({
+			"type": "damage",
+			"position": target.position,
+			"amount": event["damage"],
+			"is_crit": event["is_crit"],
+		})
+
+		# Emit hit flash event
+		tick_events.append({
+			"type": "hit",
+			"target_id": target.id,
+		})
+
+		# Check if target just died
+		if target.is_dead():
+			tick_events.append({
+				"type": "death",
+				"position": target.position,
+				"target_id": target.id,
+			})
 
 		# Reactive Mesh reflect (flat damage, ignores attacker armor)
 		if event["reflect_damage"] > 0.0 and attacker.alive:
