@@ -1,0 +1,34 @@
+name: Dashboard Consistency Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate data.json vs sprint-config.json
+        run: |
+          python3 -c "
+          import json, sys
+          data = json.load(open('data.json'))
+          config = json.load(open('sprint-config.json'))
+          errors = []
+          ds = data['sprint']['number']
+          cs = config['current']['number']
+          if ds != cs:
+              errors.append(f'Sprint mismatch: data.json has sprint {ds}, sprint-config.json has sprint {cs}')
+          dt = len(data['tasks'])
+          ct = len(config['tasks'])
+          if dt != ct:
+              errors.append(f'Task count mismatch: data.json has {dt} tasks, sprint-config.json has {ct} tasks')
+          if errors:
+              print('❌ Dashboard consistency check failed:')
+              for e in errors: print(f'  - {e}')
+              sys.exit(1)
+          print('✅ Dashboard data is consistent')
+          "
