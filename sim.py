@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""BattleBrotts headless combat simulator — Sprint 14 balance verification.
-Deterministic tick-based simulation matching GDD v2 + Balance Changes v1."""
+"""BattleBrotts headless combat simulator — Sprint 16 balance verification.
+Deterministic tick-based simulation matching GDD v2 + Balance Changes v3."""
 
 import random, json, sys
 from collections import defaultdict
@@ -10,9 +10,9 @@ from typing import List, Dict, Tuple
 # --- DATA (from weapon_data.gd / chassis_data.gd, post-S14) ---
 
 CHASSIS = {
-    "scout":    {"hp": 100, "speed": 220, "weight_cap": 30, "weapon_slots": 1, "module_slots": 3},
-    "brawler":  {"hp": 150, "speed": 120, "weight_cap": 55, "weapon_slots": 2, "module_slots": 2},
-    "fortress": {"hp": 210, "speed": 60,  "weight_cap": 80, "weapon_slots": 2, "module_slots": 1},
+    "scout":    {"hp": 100, "speed": 220, "weight_cap": 30, "weapon_slots": 2, "module_slots": 3, "dodge": 0.15},
+    "brawler":  {"hp": 150, "speed": 120, "weight_cap": 55, "weapon_slots": 2, "module_slots": 2, "dodge": 0.0},
+    "fortress": {"hp": 180, "speed": 60,  "weight_cap": 80, "weapon_slots": 2, "module_slots": 1, "dodge": 0.0},
 }
 
 WEAPONS = {
@@ -20,12 +20,12 @@ WEAPONS = {
     "railgun":       {"damage": 45, "pellets": 1, "range": 12,  "fire_rate": 0.6,  "spread": 0.0,  "energy": 16, "weight": 15},
     "shotgun":       {"damage": 6,  "pellets": 5, "range": 3,   "fire_rate": 1.5,  "spread": 30.0, "energy": 8,  "weight": 12},
     "missile_pod":   {"damage": 30, "pellets": 1, "range": 8,   "fire_rate": 0.8,  "spread": 5.0,  "energy": 12, "weight": 18},
-    "plasma_cutter": {"damage": 12, "pellets": 1, "range": 1.5, "fire_rate": 3.0,  "spread": 0.0,  "energy": 4,  "weight": 8},
+    "plasma_cutter": {"damage": 14, "pellets": 1, "range": 1.5, "fire_rate": 3.0,  "spread": 0.0,  "energy": 4,  "weight": 8},
     "arc_emitter":   {"damage": 8,  "pellets": 1, "range": 4,   "fire_rate": 2.0,  "spread": 10.0, "energy": 6,  "weight": 11},
     "flak_cannon":   {"damage": 15, "pellets": 1, "range": 6,   "fire_rate": 1.2,  "spread": 20.0, "energy": 7,  "weight": 13},
 }
 
-WEAPON_COSTS = {"minigun": 0, "plasma_cutter": 0, "shotgun": 120, "arc_emitter": 150,
+WEAPON_COSTS = {"minigun": 50, "plasma_cutter": 0, "shotgun": 120, "arc_emitter": 150,
                 "flak_cannon": 200, "railgun": 300, "missile_pod": 350}
 
 ARMOR = {
@@ -164,7 +164,11 @@ def simulate_match(b1: Brott, b2: Brott, rng: random.Random) -> Tuple[int, int, 
 
                 # Hit calc
                 pellets = w["pellets"]
+                dodge_chance = CHASSIS[defender.chassis].get("dodge", 0.0)
                 for _ in range(pellets):
+                    # Dodge check
+                    if dodge_chance > 0 and rng.random() < dodge_chance:
+                        continue
                     # Spread hit check: angle offset
                     if w["spread"] > 0 and dist > 0.5:
                         offset_angle = rng.uniform(-w["spread"]/2, w["spread"]/2)
@@ -172,9 +176,6 @@ def simulate_match(b1: Brott, b2: Brott, rng: random.Random) -> Tuple[int, int, 
                         miss_dist = dist * math.tan(math.radians(abs(offset_angle)))
                         if miss_dist > 0.375:
                             continue
-                    # Scout dodge passive (15%)
-                    if defender.chassis == "scout" and rng.random() < 0.15:
-                        continue
                     # Damage
                     base_dmg = w["damage"]
                     dr = defender.armor_dr()
@@ -290,7 +291,7 @@ def economy_sim(n_matches=200, win_rate=0.5, seed=99):
     purchases = []
     # Item unlock order (rough progression)
     shop = [
-        ("Overclock", 100), ("Shotgun", 120), ("Repair Nanites", 120),
+        ("Minigun", 50), ("Overclock", 100), ("Shotgun", 120), ("Repair Nanites", 120),
         ("Arc Emitter", 150), ("Reactive Mesh", 150), ("Sensor Array", 150),
         ("Afterburner", 180), ("Brawler", 200), ("Flak Cannon", 200),
         ("Shield Projector", 200), ("EMP Charge", 250), ("Railgun", 300),
@@ -312,7 +313,7 @@ def economy_sim(n_matches=200, win_rate=0.5, seed=99):
             earn = 200  # first-win bonus replaces normal win
             first_wins.add(opponent)
 
-        # Repair: flat 20🔩 on win, 50🔩 on loss (S15 flat repair)
+        # Flat repair costs (S16)
         repair = 20 if won else 50
         net = earn - repair
         bolts += net
